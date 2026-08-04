@@ -4,11 +4,11 @@ Course
 
 
 
-\## CPE106L - Software Design Laboratory
+## CPE106L - Software Design Laboratory
 
 
 
-\## Description
+## Description
 
 
 
@@ -16,7 +16,7 @@ This project demonstrates the use of Python development tools, an Anaconda envir
 
 
 
-\## Environment and Tools
+## Environment and Tools
 
 Python 3.11.7
 
@@ -46,7 +46,7 @@ ajon\_john\_david\_labactivity1/
 
 
 
-\## Steps to run
+## Steps to run
 
 Activate the Anaconda environment:
 
@@ -68,3 +68,4 @@ Author
 
 John David Ajon
 
+>>>>>>> b5f362b (Updated README documentation)
