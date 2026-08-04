@@ -7,7 +7,6 @@ Course
 ## CPE106L - Software Design Laboratory
 
 
-sakljdjopajpoqw
 ## Description
 
 
@@ -58,13 +57,7 @@ python src/main.py
 
 
 
-
-
-
-
-Author
-
-
+## Author
 
 John David Ajon
 
