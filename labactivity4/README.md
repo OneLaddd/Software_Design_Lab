@@ -19,20 +19,20 @@ possible combination.
 ## Folder structure
 
 labactivity4/
-- README.md
-- screenshots/
-- src/
------ main.py         
-- testcase/
------ testcases.py  
+  README.md
+  screenshots/
+  src/
+     main.py         
+  testcase/
+     testcases.py  
 
 
 ## How to run
 
 Run the program (from `src/`):
 
-*cd src*
-*python3 main.py*
+-*cd src*
+-*python3 main.py*
 
 Run the tests (from the `labactivity4` root):
 
