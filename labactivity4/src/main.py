@@ -22,14 +22,18 @@ def main():
 
     messy = (
         BurgerBuilder()
-        .add_patty()
+        .add_bun()
         .add_ketchup()
         .add_patty()
+        .add_patty()
+        .add_patty()
+        .add_patty()
         .add_cheese()
+        .add_bun()
         .build()
     )
 
-    print("\n=== Bunless Stack ===")
+    print("\n=== Burrrrger ===")
     messy.display()
 
 class Burger:
