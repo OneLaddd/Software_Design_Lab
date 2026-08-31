@@ -16,16 +16,16 @@ A small relational database built with SQL and queried via terminal and Python p
 
 ## Schema
 
-- organizations -> characters -> darknesses → expeditions → participants 
+- organizations -> characters -> darknesses -> expeditions -> participants 
 (links characters to expeditions, with survival status)
 
 ## Terms
 
-organizations - groups/factions characters belong to (e.g., Daydream Inc.)
-characters - the people in the story (name, alias, whether they're supernatural, etc.)
-darknesses - the anomalies/dungeons from the novel (title, rank, sometimes hosted by a character)
-expeditions - attempts made against a specific darkness (date, outcome, points earned)
-participants - record of which characters joined which expedition, and whether they survived
+- organizations - groups/factions characters belong to (e.g., Daydream Inc.)
+- characters - the people in the story (name, alias, whether they're supernatural, etc.)
+- darknesses - the anomalies/dungeons from the novel (title, rank, sometimes hosted by a character)
+- expeditions - attempts made against a specific darkness (date, outcome, points earned)
+- participants - record of which characters joined which expedition, and whether they survived
 
 ## How to Run
 
