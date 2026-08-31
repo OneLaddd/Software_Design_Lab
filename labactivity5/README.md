@@ -8,11 +8,11 @@ by John David C. Ajon
 A small relational database built with SQL and queried via terminal and Python print outs. The theme is based on "Got Dropped Into a Ghost Story, Still Got to Work" (GSGW) by Baek Dook-su.
 ## Files
 
-- `schema.sql`: table creation
-- `seed.sql`: insert data
-- `main.py` — runs the test queries
-- `database.db` — generated SQLite database
-- `README.md` — this file
+- schema.sql: table creation
+- seed.sql: insert data
+- main.py: runs the test queries
+- database.db: generated SQLite database
+- README.md: this file
 
 ## Schema
 
