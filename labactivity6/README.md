@@ -1,4 +1,4 @@
-# Lab Activity 6: openGauss — Beyonder Registry (LOTM Edition)
+# Lab Activity 6: openGauss
 
 A small openGauss database exercise themed on Lord of the Mysteries: tracks
 Beyonders, their organizations, and sealed artifacts.
