@@ -1,0 +1,16 @@
+name,type,hp,attack,defense,special-attack,special-defense,speed
+Snivy,grass,45,45,55,45,55,63
+Tepig,fire,65,63,45,45,45,45
+Oshawott,water,55,55,45,63,45,45
+Chespin,grass,56,61,65,48,45,38
+Fennekin,fire,40,45,40,62,60,60
+Froakie,water,41,56,40,62,44,71
+Rowlet,grass,68,55,55,50,50,42
+Litten,fire,45,65,40,60,40,70
+Popplio,water,50,54,54,66,56,40
+Grookey,grass,50,65,50,40,40,65
+Scorbunny,fire,50,71,40,40,40,69
+Sobble,water,50,40,40,70,40,70
+Sprigatito,grass,40,61,54,45,45,65
+Fuecoco,fire,67,45,59,63,40,36
+Quaxly,water,55,65,45,50,45,50
