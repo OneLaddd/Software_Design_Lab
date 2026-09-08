@@ -1,0 +1,39 @@
+Fetching Pokemon data from PokeAPI
+Fetching bulbasaur ...
+Fetching charmander ...
+Fetching squirtle ...
+Fetching chikorita ...
+Fetching cyndaquil ...
+Fetching totodile ...
+Fetching treecko ...
+Fetching torchic ...
+Fetching mudkip ...
+Fetching turtwig ...
+Fetching chimchar ...
+Fetching piplup ...
+
+Saved processed data: /home/david/projects/Software_Design_Lab/labactivity7/data/pokemon_stats.csv
+
+ Data Preview 
+      name  type  hp  attack  defense  special-attack  special-defense  speed
+ Bulbasaur grass  45      49       49              65               65     45
+Charmander  fire  39      52       43              60               50     65
+  Squirtle water  44      48       65              50               64     43
+ Chikorita grass  45      49       65              49               65     45
+ Cyndaquil  fire  39      52       43              60               50     65
+  Totodile water  50      65       64              44               48     43
+   Treecko grass  40      45       35              65               55     70
+   Torchic  fire  45      60       40              70               50     45
+    Mudkip water  50      70       50              50               50     40
+   Turtwig grass  55      68       64              45               55     31
+  Chimchar  fire  44      58       44              58               44     61
+    Piplup water  53      51       53              61               56     40
+
+ Generating charts
+Saved: /home/david/projects/Software_Design_Lab/labactivity7/output/total_stats_bar.png
+Saved: /home/david/projects/Software_Design_Lab/labactivity7/output/radar_comparison.png
+Saved: /home/david/projects/Software_Design_Lab/labactivity7/output/type_average_interactive.html
+
+ Interpretation 
+Highest total base stats among sampled pokemons: Bulbasaur (318)
+See output/ for charts and data/pokemon_stats.csv for the full processed dataset.

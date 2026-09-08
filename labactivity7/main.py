@@ -42,6 +42,23 @@ POKEMON = [ # These pokemons are starters from gen 5-9, edit this if you want ot
 ]
 
 
+"""
+POKEMON = [
+    "mewtwo", "lugia", "rayquaza",
+    "dialga", "palkia", "giratina",
+    "reshiram", "zekrom", "kyurem",
+    "xerneas", "yveltal", "zygarde",
+]
+"""
+"""
+POKEMON = [
+    "bulbasaur", "charmander", "squirtle",
+    "chikorita", "cyndaquil", "totodile",
+    "treecko", "torchic", "mudkip",
+    "turtwig", "chimchar", "piplup",
+]
+"""
+
 def fetch_pokemon(name: str) -> dict | None:
     url = f"{BASE_URL}{name.lower().strip()}"
     try:
@@ -178,7 +195,7 @@ def main():
 
     print("\n Generating charts")
     chart_grouped_bar(df)
-    chart_radar(df, ["Snivy", "Tepig", "Oshawott"])
+    chart_radar(df, POKEMON[:3])
     chart_interactive_type_avg(df)
 
     print("\n Interpretation ")

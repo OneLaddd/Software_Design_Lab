@@ -1,0 +1,39 @@
+Fetching Pokemon data from PokeAPI
+Fetching mewtwo ...
+Fetching lugia ...
+Fetching rayquaza ...
+Fetching dialga ...
+Fetching palkia ...
+Fetching giratina ...
+  [ERROR] 'giratina' not found on PokeAPI (HTTP 404). Skipping.
+Fetching reshiram ...
+Fetching zekrom ...
+Fetching kyurem ...
+Fetching xerneas ...
+Fetching yveltal ...
+Fetching zygarde ...
+  [ERROR] 'zygarde' not found on PokeAPI (HTTP 404). Skipping.
+
+Saved processed data: /home/david/projects/Software_Design_Lab/labactivity7/data/pokemon_stats.csv
+
+ Data Preview 
+    name    type  hp  attack  defense  special-attack  special-defense  speed
+  Mewtwo psychic 106     110       90             154               90    130
+   Lugia psychic 106      90      130              90              154    110
+Rayquaza  dragon 105     150       90             150               90     95
+  Dialga   steel 100     120      120             150              100     90
+  Palkia   water  90     120      100             150              120    100
+Reshiram  dragon 100     120      100             150              120     90
+  Zekrom  dragon 100     150      120             120              100     90
+  Kyurem  dragon 125     130       90             130               90     95
+ Xerneas   fairy 126     131       95             131               98     99
+ Yveltal    dark 126     131       95             131               98     99
+
+ Generating charts
+Saved: /home/david/projects/Software_Design_Lab/labactivity7/output/total_stats_bar.png
+Saved: /home/david/projects/Software_Design_Lab/labactivity7/output/radar_comparison.png
+Saved: /home/david/projects/Software_Design_Lab/labactivity7/output/type_average_interactive.html
+
+ Interpretation 
+Highest total base stats among sampled pokemons: Mewtwo (680)
+See output/ for charts and data/pokemon_stats.csv for the full processed dataset.
