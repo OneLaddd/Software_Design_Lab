@@ -1,8 +1,8 @@
 # Lab Activity 7 - Data Mining APIs and Interactive Data Visualization
 
 
-By John David C. Ajon
-Uses Data Source from (https://pokeapi.co/)
+- By John David C. Ajon
+- Uses Data Source from (https://pokeapi.co/)
 
 ## What this does
 
@@ -10,17 +10,16 @@ main.py fetches base stat data (HP, Attack, Defense, Sp. Atk, Sp. Def, Speed)
 and primary type for a list of Pokemon (by default, the fifteen starters from
 Generations 5–9), then answers:
 
-> **Which Pokemon has the best overall stat total, and how do primary types
-> compare on average?**
+ - "Which Pokemon has the best overall stat total, and how do primary types compare on average?"
 
 Running it saves three charts to output/ and automatically opens each
 one as soon as it's created:
 
-1. `output/total_stats_bar.png` — static, labeled bar chart ranking the
+1. output/total_stats_bar.png - static, labeled bar chart ranking the
    chosen Pokemon by total base stats
-2. `output/radar_comparison.png` — static radar chart comparing Snivy,
+2. output/radar_comparison.png - static radar chart comparing Snivy,
    Tepig, and Oshawott across all six stats
-3. `output/type_average_interactive.html` — interactive Plotly bar
+3. output/type_average_interactive.html - interactive Plotly bar
    chart (hover for exact values, zoom, pan) of average total stats per
    primary type.
 
