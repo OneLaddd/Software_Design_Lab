@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
 import {
+  AppState,
   Image,
   Pressable,
   StyleSheet,
@@ -15,53 +17,92 @@ const verticalVideo = require('@/assets/videos/start-video-vertical.mp4');
 const landscapeVideo = require('@/assets/videos/start-video-landscape.mp4');
 
 export default function StartPageScreen() {
+  const router = useRouter();
   const { width } = useWindowDimensions();
   const isDesktop = width >= 800;
   const videoSource = isDesktop ? landscapeVideo : verticalVideo;
   const [videoReady, setVideoReady] = useState(false);
+  const [videoViewKey, setVideoViewKey] = useState(0);
+  const isFocused = useRef(false);
 
   const player = useVideoPlayer(videoSource, (videoPlayer) => {
     videoPlayer.loop = true;
     videoPlayer.muted = true;
-    videoPlayer.staysActiveInBackground = true;
     videoPlayer.play();
   });
 
   useEffect(() => {
-    let cancelled = false;
     setVideoReady(false);
 
-    const statusSubscription = player.addListener('statusChange', ({ status }) => {
+    const statusSubscription = player.addListener('statusChange', ({ status, error }) => {
       if (status === 'readyToPlay') {
         setVideoReady(true);
+        player.play();
+      } else if (status === 'error') {
+        console.warn('Start Page video error:', error);
       }
     });
 
-    (async () => {
-      try {
-        await player.replaceAsync(videoSource);
-        if (!cancelled) {
-          if (player.status === 'readyToPlay') setVideoReady(true);
-          player.play();
-        }
-      } catch {
+    const playingSubscription = player.addListener('playingChange', ({ isPlaying }) => {
+      if (!isPlaying && isFocused.current) {
+        player.play();
       }
-    })();
+    });
+
+    if (player.status === 'readyToPlay') {
+      setVideoReady(true);
+      player.play();
+    }
 
     return () => {
-      cancelled = true;
       statusSubscription.remove();
+      playingSubscription.remove();
     };
-  }, [player, videoSource]);
+  }, [player]);
+
+  useFocusEffect(
+    useCallback(() => {
+      isFocused.current = true;
+      setVideoViewKey((currentKey) => currentKey + 1);
+
+      try {
+        player.replay();
+        player.play();
+      } catch {
+        // The player may be released while the route is being restored.
+      }
+
+      return () => {
+        isFocused.current = false;
+        try {
+          player.pause();
+        } catch {
+          // Expo may release the shared player before focus cleanup runs.
+        }
+      };
+    }, [player])
+  );
+
+  useEffect(() => {
+    const appStateSubscription = AppState.addEventListener('change', (nextState) => {
+      if (nextState === 'active' && isFocused.current) {
+        player.play();
+      }
+    });
+
+    return () => appStateSubscription.remove();
+  }, [player]);
 
   return (
     <View style={styles.root}>
       <VideoView
+        key={videoViewKey}
         player={player}
         style={StyleSheet.absoluteFill}
         contentFit="cover"
         nativeControls={false}
         allowsPictureInPicture={false}
+        surfaceType="textureView"
       />
       {!videoReady && (
         <Image
@@ -80,10 +121,14 @@ export default function StartPageScreen() {
         <View style={[styles.header, isDesktop && styles.desktopHeader]}>
           <View />
           <View style={styles.headerActions}>
-            <Pressable style={({ pressed }) => pressed && styles.pressedControl}>
+            <Pressable
+              style={({ pressed }) => pressed && styles.pressedControl}
+              onPress={() => router.push('./login')}>
               <Text style={styles.headerLink}>Login</Text>
             </Pressable>
-            <Pressable style={({ pressed }) => pressed && styles.pressedControl}>
+            <Pressable
+              style={({ pressed }) => pressed && styles.pressedControl}
+              onPress={() => router.push('./no-account')}>
               <Text style={styles.headerLink}>Skip</Text>
             </Pressable>
           </View>
@@ -107,12 +152,14 @@ export default function StartPageScreen() {
                 body={'I\'m looking for\ncreators to bring\nmy vision to life.'}
                 icon={require('@/assets/images/client-icon.png')}
                 color="#B8780B"
+                onPress={() => router.push('./no-account')}
               />
               <RoleCard
                 title="Hunter"
                 body={'I have the\nskills to fulfill\nyour work.'}
                 icon={require('@/assets/images/hunter-icon.png')}
                 color="#A85A0D"
+                onPress={() => router.push('./no-account')}
               />
             </View>
           </View>
@@ -134,11 +181,13 @@ function RoleCard({
   body,
   icon,
   color,
+  onPress,
 }: {
   title: string;
   body: string;
   icon: number;
   color: string;
+  onPress: () => void;
 }) {
   return (
     <Pressable
@@ -146,7 +195,10 @@ function RoleCard({
         styles.roleCard,
         { backgroundColor: color },
         pressed && styles.pressedRoleCard,
-      ]}>
+      ]}
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={title}>
       <Text style={styles.roleTitle}>{title}</Text>
       <Text style={styles.roleBody}>{body}</Text>
       <Image source={icon} style={styles.roleIcon} resizeMode="contain" />
@@ -254,7 +306,7 @@ const styles = StyleSheet.create({
     fontSize: 34,
     lineHeight: 42,
     fontWeight: '700',
-    fontFamily: 'League Spartan',
+    fontFamily: 'LeagueSpartanBold',
     marginBottom: 20,
   },
   desktopPrompt: {
@@ -287,7 +339,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     marginBottom: 28,
     fontWeight: '800',
-    fontFamily: 'League Spartan',
+    fontFamily: 'LeagueSpartanExtraBold',
     textAlign: 'center',
   },
   roleBody: {
@@ -296,7 +348,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     marginBottom: 18,
     fontWeight: '800',
-    fontFamily: 'Open Sauce One',
+    fontFamily: 'OpenSauceOneBold',
     textAlign: 'center',
   },
   roleIcon: {
