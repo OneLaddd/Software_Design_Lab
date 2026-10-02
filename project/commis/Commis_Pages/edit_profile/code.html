@@ -1,0 +1,357 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#303032", "inverse-on-surface": "#313030", "on-secondary-container": "#b6b4b7", "on-background": "#e5e2e1", "surface-container-low": "#1c1b1b", "inverse-surface": "#e5e2e1", "primary-fixed": "#fde400", "surface-container": "#201f1f", "secondary-fixed-dim": "#c8c6c8", "on-tertiary": "#303033", "on-error-container": "#ffdad6", "on-secondary-fixed": "#1b1b1d", "on-primary-fixed": "#201c00", "secondary-fixed": "#e4e2e4", "surface-container-highest": "#353534", "on-tertiary-fixed-variant": "#47464a", "background": "#131313", "surface-container-lowest": "#0e0e0e", "secondary": "#c8c6c8", "tertiary-fixed": "#e4e1e5", "on-primary": "#373100", "surface-variant": "#353534", "on-surface-variant": "#cdc7aa", "outline": "#979177", "on-secondary-fixed-variant": "#474649", "tertiary": "#ffffff", "inverse-primary": "#6a5f00", "secondary-container": "#474649", "surface": "#131313", "outline-variant": "#4b4731", "primary-container": "#fde400", "on-primary-container": "#716500", "error": "#ffb4ab", "on-primary-fixed-variant": "#504700", "surface-container-high": "#2a2a2a", "surface-tint": "#dec800", "surface-dim": "#131313", "on-surface": "#e5e2e1", "surface-bright": "#393939", "on-error": "#690005", "tertiary-fixed-dim": "#c8c6c9", "primary": "#ffffff", "primary-fixed-dim": "#dec800", "on-tertiary-container": "#656467", "on-tertiary-fixed": "#1b1b1e", "tertiary-container": "#e4e1e5", "error-container": "#93000a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter": "1rem", "space-md": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, fontFamily: { "display": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "body-sm": ["Inter"], "label-md": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"] }, fontSize: { "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#131313;color:#e5e2e1;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Back" class="w-11 h-11 flex items-center justify-center rounded-full text-secondary hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all -ml-2" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-tertiary tracking-tight">Edit Profile</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Profile" class="w-11 h-11 flex items-center justify-center"></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Header Subtitle / Context Note -->
+
+<div class="flex flex-col gap-space-lg px-margin">
+<!-- Section 1: Profile Photo -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-tertiary">Profile Photo</span>
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded-full text-secondary">Public</span>
+</div>
+<div class="flex items-center gap-space-md">
+<!-- Avatar Preview with Live Indicator -->
+<div class="relative shrink-0">
+<div class="w-20 h-20 rounded-full overflow-hidden bg-surface-container-highest shadow-inner flex items-center justify-center" id="avatar-container">
+<img alt="User Profile Avatar" class="w-full h-full object-cover transition-opacity duration-300" id="avatar-img" src="https://lh3.googleusercontent.com/aida/AEtjO1XNqmAej-9SRKi4pQijy2eEF80V46CmLX5tVOQdY3DsIvET2_kNccFkmbmuaTqyyGByY3mVBZcMdG5N_QpjdO999cv5kDLspcK--zadChsVOLMWHdA4VWY7d7U01YW9l7yPc6mVxEhCXaAhavgfB0BSUyPtCJa_Mr2_oA6y4dKNa8sBhx2MKTOx_Nz9Zg-NQFn1kZT18u8k5rQfvjIQDiFQJ8vqo-LrLsEZn-ZmPZHzgiDcwE5EQ6J-VXM">
+<div class="hidden flex-col items-center justify-center w-full h-full bg-surface-container-high text-secondary" id="avatar-fallback">
+<span class="material-symbols-outlined text-[32px]">person</span>
+</div>
+</div>
+<button aria-label="Upload photo" class="absolute -bottom-1 -right-1 w-7 h-7 bg-primary-container text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform" id="camera-badge-btn">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span>
+</button>
+</div>
+<!-- Photo Actions -->
+<div class="flex flex-col gap-space-xs flex-1 min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-on-primary font-label-md text-label-md rounded-full active:scale-95 transition-transform shadow-[0_2px_10px_rgba(253,228,0,0.25)]" id="change-photo-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">add_a_photo</span>
+<span class="">Change Photo</span>
+</button>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-surface-container text-error font-label-md text-label-md rounded-full active:scale-95 hover:bg-surface-container-high transition-colors" id="remove-photo-btn" type="button">
+<span class="material-symbols-outlined text-[15px]">delete</span>
+<span class="">Remove</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-secondary truncate mt-1">
+            Recommended: 400×400px. JPG, PNG or WEBP.
+          </p>
+</div>
+</div>
+<input accept="image/png, image/jpeg, image/webp" class="hidden" id="photo-input" type="file">
+</div>
+<!-- Section 2: Username -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-headline-sm text-headline-sm text-tertiary" for="username-input">
+          Username <span class="text-primary-container">*</span>
+</label>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-primary-container" id="validation-pill">
+
+
+</span>
+</div>
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-secondary">
+<span class="font-headline-sm text-headline-sm text-secondary select-none">@</span>
+</div>
+<input autocomplete="off" class="w-full bg-surface-container pl-9 pr-10 py-3 rounded-xl text-on-surface font-label-lg text-label-lg placeholder-secondary focus:outline-none focus:bg-surface-container-high transition-all" id="username-input" maxlength="20" spellcheck="false" type="text" value="alex_hunter">
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-primary-container" id="username-status-icon">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-0.5">
+<div class="font-label-md text-label-md text-secondary flex items-center gap-1.5 transition-colors" id="username-feedback">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span id="username-feedback-text" class="">3–20 characters, letters, numbers, and underscores only. No spaces.</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Bio -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<label class="font-headline-sm text-headline-sm text-tertiary" for="bio-input">Bio</label>
+<span class="font-label-sm text-label-sm text-secondary">(Optional)</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-mono" id="bio-counter">132 / 240</span>
+</div>
+<div class="relative w-full">
+<textarea class="w-full bg-surface-container p-3 rounded-xl text-on-surface font-body-md text-body-md placeholder-secondary focus:outline-none focus:bg-surface-container-high resize-none transition-all" id="bio-input" maxlength="240" placeholder="Tell us a little about yourself..." rows="4">Full-stack developer &amp; UI designer crafting web &amp; mobile apps. Open for bespoke design systems, Next.js apps &amp; smart contracts. ⚡</textarea>
+</div>
+<div class="flex items-center justify-between text-secondary pt-0.5">
+<p class="font-body-sm text-body-sm flex items-center gap-1">
+
+
+</p>
+</div>
+</div>
+<!-- Section 4: Active Role -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-tertiary">Active Role</span>
+
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+          Your active role determines which experience you see by default. You can switch roles at any time.
+        </p>
+</div>
+<!-- Selectable Role Cards -->
+<div class="grid grid-cols-1 gap-space-sm mt-1">
+<!-- Option 1: Client Card -->
+<button class="w-full text-left p-space-md rounded-xl transition-all flex items-center gap-space-md relative overflow-hidden group active:scale-[0.99] bg-surface-container" id="role-client-card" onclick="selectRole('client')" type="button">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high shrink-0 p-2 flex items-center justify-center">
+<img alt="Client Role Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWzXmGi2hxKnzOVSxXgunJt8uqu6uRjvDP7XIuSDDyRexdzpVXQEpkCRZzH7vkp_BaQJ1-mbDaAgsdnnUNhf8OLx08JKLj3YZc4NyVdZ5gs1dd83L0ApXAKnIif-_ax4yjnf9TRxN8_YO381I9jfpULzMqfg0NfFGN-wuDzLcW4mASeyFtofOYsPGROolA_7Nr7SThKL9ESWHRATra-LlnjCtWFb1koy1IJDSBQOCGd2WDkY6dAYEeshZFCR91VnQt7Jk">
+</div>
+<div class="flex-1 min-w-0 pr-6">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-tertiary">Client</span>
+
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5 line-clamp-2">
+              I hire creators and post bounty requests.
+            </p>
+</div>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full flex items-center justify-center transition-all bg-surface-container-highest text-transparent" id="check-client">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+</button>
+<!-- Option 2: Hunter Card (Active by Default) -->
+<button class="w-full text-left p-space-md rounded-xl transition-all flex items-center gap-space-md relative overflow-hidden group active:scale-[0.99] bg-surface-container-high shadow-[0_0_16px_rgba(253,228,0,0.15)]" id="role-hunter-card" onclick="selectRole('hunter')" type="button">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest shrink-0 p-2 flex items-center justify-center">
+<img alt="Hunter Role Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBONXI-5fSqDjl4bbh0oLMQXYEdvY7kX4TCZqk1XgN79zV4R5B6eAr6HoLDB3u2LQwjPHLIu0sas1Sf7m4u0STmexxH5-jKwDcLGa83vZ47qrmZTWaA279H75v7FWzLoffnmXarGB6zr4Ae2-6Y7jE2qWHAWTULiyUVv1piHFMYd153vJmPdanp_1x4r8gDVrWFhr9Tr0AYu7pVm_okC_gwDvl2v_fWcs3SzhaGcKRyPRib_JOpzVatkIhCjIh99YgVHcE">
+</div>
+<div class="flex-1 min-w-0 pr-6">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-tertiary">Hunter</span>
+
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5 line-clamp-2">
+              I complete bounties and showcase my work.
+            </p>
+</div>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full flex items-center justify-center font-bold shadow-md transition-all bg-primary-container text-on-primary" id="check-hunter">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Bottom Actions -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full h-12 bg-primary-container text-on-primary font-label-lg text-label-lg font-bold rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-[0_4px_20px_rgba(253,228,0,0.35)]" id="save-changes-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">check</span>
+<span class="">Save Changes</span>
+</button>
+<button class="w-full h-12 bg-surface-container text-on-surface font-label-lg text-label-lg rounded-xl flex items-center justify-center active:scale-[0.98] hover:bg-surface-container-high transition-all" id="cancel-btn" onclick="history.back()" type="button">
+        Cancel
+      </button>
+</div>
+</div>
+</div>
+<script>
+  let activeRole = 'hunter';
+
+  function selectRole(role) {
+    activeRole = role;
+    const clientCard = document.getElementById('role-client-card');
+    const hunterCard = document.getElementById('role-hunter-card');
+    const checkClient = document.getElementById('check-client');
+    const checkHunter = document.getElementById('check-hunter');
+
+    if (role === 'hunter') {
+      // Hunter Active
+      hunterCard.classList.remove('bg-surface-container');
+      hunterCard.classList.add('bg-surface-container-high', 'shadow-[0_0_16px_rgba(253,228,0,0.15)]');
+      checkHunter.classList.remove('bg-surface-container-highest', 'text-transparent');
+      checkHunter.classList.add('bg-primary-container', 'text-on-primary');
+
+      // Client Inactive
+      clientCard.classList.remove('bg-surface-container-high', 'shadow-[0_0_16px_rgba(253,228,0,0.15)]');
+      clientCard.classList.add('bg-surface-container');
+      checkClient.classList.remove('bg-primary-container', 'text-on-primary');
+      checkClient.classList.add('bg-surface-container-highest', 'text-transparent');
+    } else {
+      // Client Active
+      clientCard.classList.remove('bg-surface-container');
+      clientCard.classList.add('bg-surface-container-high', 'shadow-[0_0_16px_rgba(253,228,0,0.15)]');
+      checkClient.classList.remove('bg-surface-container-highest', 'text-transparent');
+      checkClient.classList.add('bg-primary-container', 'text-on-primary');
+
+      // Hunter Inactive
+      hunterCard.classList.remove('bg-surface-container-high', 'shadow-[0_0_16px_rgba(253,228,0,0.15)]');
+      hunterCard.classList.add('bg-surface-container');
+      checkHunter.classList.remove('bg-primary-container', 'text-on-primary');
+      checkHunter.classList.add('bg-surface-container-highest', 'text-transparent');
+    }
+  }
+
+  // Username validation micro-interaction
+  const usernameInput = document.getElementById('username-input');
+  const validationPill = document.getElementById('validation-pill');
+  const validationPillText = document.getElementById('validation-pill-text');
+  const usernameFeedback = document.getElementById('username-feedback');
+  const usernameFeedbackText = document.getElementById('username-feedback-text');
+  const usernameStatusIcon = document.getElementById('username-status-icon');
+
+  usernameInput.addEventListener('input', function(e) {
+    let rawVal = e.target.value;
+    // Strip leading @ if user pasted it
+    if (rawVal.startsWith('@')) {
+      rawVal = rawVal.substring(1);
+      usernameInput.value = rawVal;
+    }
+
+    const regexValid = /^[a-zA-Z0-9_]+$/;
+
+    if (rawVal.length === 0) {
+      validationPill.className = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-secondary";
+      validationPillText.textContent = "Required";
+      usernameFeedback.className = "font-label-md text-label-md text-secondary flex items-center gap-1.5 transition-colors";
+      usernameFeedbackText.textContent = "3–20 characters, letters, numbers, and underscores only. No spaces.";
+      usernameStatusIcon.innerHTML = `<span class="material-symbols-outlined text-[20px] text-secondary">help</span>`;
+    } else if (!regexValid.test(rawVal)) {
+      validationPill.className = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-error-container text-error";
+      validationPillText.textContent = "Invalid format";
+      usernameFeedback.className = "font-label-md text-label-md text-error flex items-center gap-1.5 transition-colors";
+      usernameFeedbackText.textContent = "Usernames can only contain letters, numbers, and underscores.";
+      usernameStatusIcon.innerHTML = `<span class="material-symbols-outlined text-[20px] text-error">cancel</span>`;
+    } else if (rawVal.length < 3) {
+      validationPill.className = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-secondary";
+      validationPillText.textContent = "Too short";
+      usernameFeedback.className = "font-label-md text-label-md text-secondary flex items-center gap-1.5 transition-colors";
+      usernameFeedbackText.textContent = "Must be at least 3 characters.";
+      usernameStatusIcon.innerHTML = `<span class="material-symbols-outlined text-[20px] text-secondary">pending</span>`;
+    } else {
+      validationPill.className = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-primary-container";
+      validationPillText.textContent = "Available";
+      usernameFeedback.className = "font-label-md text-label-md text-primary-container flex items-center gap-1.5 transition-colors";
+      usernameFeedbackText.textContent = "✓ @" + rawVal + " is available";
+      usernameStatusIcon.innerHTML = `<span class="material-symbols-outlined text-[20px] text-primary-container">verified</span>`;
+    }
+  });
+
+  // Bio character counter
+  const bioInput = document.getElementById('bio-input');
+  const bioCounter = document.getElementById('bio-counter');
+
+  bioInput.addEventListener('input', function(e) {
+    const len = e.target.value.length;
+    bioCounter.textContent = len + ' / 240';
+    if (len >= 230) {
+      bioCounter.classList.add('text-error');
+      bioCounter.classList.remove('text-secondary');
+    } else {
+      bioCounter.classList.remove('text-error');
+      bioCounter.classList.add('text-secondary');
+    }
+  });
+
+  // Photo actions trigger
+  const changePhotoBtn = document.getElementById('change-photo-btn');
+  const cameraBadgeBtn = document.getElementById('camera-badge-btn');
+  const removePhotoBtn = document.getElementById('remove-photo-btn');
+  const photoInput = document.getElementById('photo-input');
+  const avatarImg = document.getElementById('avatar-img');
+  const avatarFallback = document.getElementById('avatar-fallback');
+
+  function openFilePicker() {
+    photoInput.click();
+  }
+
+  changePhotoBtn.addEventListener('click', openFilePicker);
+  cameraBadgeBtn.addEventListener('click', openFilePicker);
+
+  photoInput.addEventListener('change', function(e) {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        avatarImg.src = evt.target.result;
+        avatarImg.classList.remove('hidden');
+        avatarFallback.classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  removePhotoBtn.addEventListener('click', function() {
+    avatarImg.classList.add('hidden');
+    avatarFallback.classList.remove('hidden');
+    avatarFallback.classList.add('flex');
+    photoInput.value = '';
+  });
+
+  // Save changes toast micro-interaction
+  const saveBtn = document.getElementById('save-changes-btn');
+  saveBtn.addEventListener('click', function() {
+    saveBtn.disabled = true;
+    const originalContent = saveBtn.innerHTML;
+    saveBtn.innerHTML = `
+      <span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span>
+      <span>Saving Profile...</span>
+    `;
+
+    setTimeout(function() {
+      saveBtn.innerHTML = `
+        <span class="material-symbols-outlined text-[20px]">task_alt</span>
+        <span>Saved!</span>
+      `;
+      saveBtn.classList.remove('bg-primary-container', 'text-on-primary');
+      saveBtn.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
+      
+      setTimeout(function() {
+        history.back();
+      }, 700);
+    }, 800);
+  });
+</script></main>
+<script>
+  function switchProfileTab(tabName) {
+    const tabs = ['portfolio', 'posts', 'commissions', 'reviews'];
+
+    tabs.forEach(function(tab) {
+      const pane = document.getElementById('pane-' + tab);
+      const btn = document.getElementById('tab-' + tab + '-btn');
+
+      if (!pane || !btn) return;
+
+      if (tab === tabName) {
+        pane.classList.remove('hidden');
+        pane.classList.add('flex');
+
+        // Active Tab Styling (Electric Yellow background, dark on-primary text)
+        btn.classList.remove('bg-surface-container', 'text-secondary');
+        btn.classList.add('bg-primary-container', 'text-on-primary', 'font-bold', 'shadow-[0_2px_12px_rgba(253,228,0,0.2)]');
+      } else {
+        pane.classList.add('hidden');
+        pane.classList.remove('flex');
+
+        // Inactive Tab Styling (Surface container background, muted secondary text)
+        btn.classList.remove('bg-primary-container', 'text-on-primary', 'font-bold', 'shadow-[0_2px_12px_rgba(253,228,0,0.2)]');
+        btn.classList.add('bg-surface-container', 'text-secondary');
+      }
+    });
+  }
+
+  // Ensure interactive click listeners are initialized cleanly
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = ['portfolio', 'posts', 'commissions', 'reviews'];
+    tabs.forEach(function(tab) {
+      const btn = document.getElementById('tab-' + tab + '-btn');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchProfileTab(tab);
+        });
+      }
+    });
+    // Default to Portfolio tab
+    switchProfileTab('portfolio');
+  });
+</script>
+
+
+</body></html>

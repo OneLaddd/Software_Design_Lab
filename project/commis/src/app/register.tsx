@@ -110,7 +110,7 @@ export default function RegisterScreen() {
   const handleGoogleRegister = async () => {
     setSubmitError('');
     setIsGoogleSubmitting(true);
-    const { error, needsProfileSetup } = await signInWithGoogle();
+    const { error } = await signInWithGoogle();
     setIsGoogleSubmitting(false);
 
     if (error) {
@@ -118,15 +118,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    if (needsProfileSetup) {
-      router.replace('/google-profile');
-      return;
-    }
-
-    router.replace({
-      pathname: '/login',
-      params: { google: '1' },
-    });
+    // The auth callback route completes profile-based navigation after the session is set.
   };
 
   return (

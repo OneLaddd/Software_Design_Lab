@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="w-6 h-6 fill-current" fill="currentColor" viewBox="0 0 24 24">
+<!-- Stepped lines with descending arrow -->
+<path d="M3 5h14v2H3V5zm0 6h10v2H3v-2zm0 6h6v2H3v-2z"></path>
+<path d="M19 10v7.17l2.59-2.58L23 16l-5 5-5-5 1.41-1.41L17 17.17V10h2z"></path>
+</svg>

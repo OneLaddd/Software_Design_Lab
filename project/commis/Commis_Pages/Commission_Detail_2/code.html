@@ -1,0 +1,825 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#690005", "on-secondary-fixed": "#1b1b1d", "on-tertiary": "#303033", "inverse-primary": "#6a5f00", "primary-container": "#fde400", "surface-tint": "#dec800", "on-tertiary-container": "#656467", "secondary-fixed-dim": "#c8c6c8", "outline": "#979177", "surface-container-lowest": "#0e0e0e", "on-background": "#e5e2e1", "on-error-container": "#ffdad6", "surface-variant": "#353534", "secondary-fixed": "#e4e2e4", "on-tertiary-fixed": "#1b1b1e", "outline-variant": "#4b4731", "on-primary-fixed": "#201c00", "secondary-container": "#474649", "on-surface-variant": "#cdc7aa", "tertiary": "#ffffff", "surface-container-low": "#1c1b1b", "on-secondary": "#303032", "on-primary": "#373100", "surface-container-highest": "#353534", "secondary": "#c8c6c8", "on-primary-fixed-variant": "#504700", "primary-fixed-dim": "#dec800", "surface": "#131313", "surface-container": "#201f1f", "primary": "#ffffff", "error-container": "#93000a", "on-secondary-container": "#b6b4b7", "on-tertiary-fixed-variant": "#47464a", "primary-fixed": "#fde400", "background": "#131313", "tertiary-container": "#e4e1e5", "on-primary-container": "#716500", "tertiary-fixed-dim": "#c8c6c9", "surface-dim": "#131313", "on-secondary-fixed-variant": "#474649", "error": "#ffb4ab", "on-surface": "#e5e2e1", "inverse-surface": "#e5e2e1", "inverse-on-surface": "#313030", "surface-bright": "#393939", "surface-container-high": "#2a2a2a", "tertiary-fixed": "#e4e1e5" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-lg": "1.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-md": "1rem", "space-sm": "0.5rem" }, "fontFamily": { "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-lg": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "display": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl border-b border-surface-container-high/40"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high transition-colors active:scale-95 cursor-pointer" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight select-none font-bold">Commission</h1></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface"><div class="flex flex-col w-full pb-safe">
+<!-- Perspective & State Simulator Toolbar -->
+<div class="px-margin pt-space-sm pb-space-sm bg-surface-container-low/95 backdrop-blur-md flex flex-col gap-2.5 sticky top-0 z-30 border-b border-surface-container-high/50">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">PERSPECTIVE</span>
+<div class="flex bg-surface-container-highest p-0.5 rounded-full shadow-inner">
+<button class="cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm transition-all duration-200 bg-[#ffe600] text-black font-bold shadow-sm" id="role-hunter-btn" onclick="setRole('hunter')" type="button">
+          As Hunter
+        </button>
+<button class="cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm text-secondary transition-all duration-200 hover:text-white" id="role-client-btn" onclick="setRole('client')" type="button">
+          As Client
+        </button>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 w-full" id="status-buttons-row">
+<button class="status-btn cursor-pointer px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-secondary hover:text-primary transition-all shrink-0 font-medium" data-state="0" onclick="setState(0)" type="button">Created</button>
+<button class="status-btn cursor-pointer px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-secondary hover:text-primary transition-all shrink-0 font-medium" data-state="1" onclick="setState(1)" type="button">Escrow Locked</button>
+<button class="status-btn cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm bg-[#ffe600] text-black font-bold shadow-sm shrink-0 transition-all" data-state="2" onclick="setState(2)" type="button">In Progress</button>
+<button class="status-btn cursor-pointer px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-secondary hover:text-primary transition-all shrink-0 font-medium" data-state="3" onclick="setState(3)" type="button">Delivered</button>
+<button class="status-btn cursor-pointer px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-secondary hover:text-primary transition-all shrink-0 font-medium" data-state="4" onclick="setState(4)" type="button">Completed</button>
+<button class="status-btn cursor-pointer px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-secondary hover:text-primary transition-all shrink-0 font-medium" data-state="5" onclick="setState(5)" type="button">Disputed</button>
+</div>
+</div>
+</div>
+<div class="px-margin flex flex-col gap-space-lg pt-space-md">
+<!-- Commission Primary Summary Card -->
+<div class="relative bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-md overflow-hidden shadow-sm border border-surface-container-high/40">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">ORIGINAL REQUEST</span>
+<h2 class="font-headline-sm text-headline-sm text-primary tracking-tight truncate mt-0.5 font-bold">3D Low-Poly Character Rig</h2>
+</div>
+</div>
+<!-- Counterpart Profile Strip -->
+<div class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container/70 border border-surface-container-high/30">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full overflow-hidden shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Close up dark cinematic studio avatar portrait of a creative professional with focused expression against subtle monochrome backdrop" id="counterpart-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-primary font-semibold truncate" id="counterpart-name">@Elena_Rostova</span>
+<span class="font-label-sm text-label-sm text-secondary" id="counterpart-role">• Client</span>
+</div>
+</div>
+</div>
+<button aria-label="Quick message" class="cursor-pointer w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-secondary-container transition-all active:scale-95" id="quick-msg-icon-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+<!-- Amount Section -->
+<div class="flex items-baseline justify-between pt-1">
+<span class="font-label-md text-label-md text-secondary">Commission Value</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-extrabold tracking-tight">₱15,000</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold">PHP</span>
+</div>
+</div>
+</div>
+<!-- Commission Progress: Backend State Machine Stepper -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-md shadow-sm border border-surface-container-high/40">
+<div class="flex items-center justify-between">
+<h3 class="font-label-lg text-label-lg text-primary tracking-tight font-bold">Progress Tracker</h3>
+<span class="font-label-sm text-label-sm text-secondary font-medium" id="stepper-state-counter">Step 3 of 5</span>
+</div>
+<!-- Vertical Timeline List -->
+<div class="flex flex-col relative pl-2 py-1" id="stepper-container">
+<!-- Step 0: Created -->
+<div class="step-item flex items-start gap-space-md relative pb-6 group" data-step-index="0">
+<div class="step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-[#ffe600]"></div>
+<div class="step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-[#ffe600] text-black"><span class="material-symbols-outlined text-[15px] font-bold">check</span></div>
+<div class="flex flex-col min-w-0 pt-0.5">
+<span class="step-title font-label-lg text-label-lg text-primary font-semibold">Created</span>
+<span class="step-desc font-body-sm text-body-sm text-secondary">Offer accepted and contract generated</span>
+</div>
+</div>
+<!-- Step 1: Escrow Locked -->
+<div class="step-item flex items-start gap-space-md relative pb-6 group" data-step-index="1">
+<div class="step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-[#ffe600]"></div>
+<div class="step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-[#ffe600] text-black"><span class="material-symbols-outlined text-[15px] font-bold">check</span></div>
+<div class="flex flex-col min-w-0 pt-0.5">
+<span class="step-title font-label-lg text-label-lg text-primary font-semibold">Escrow Locked</span>
+<span class="step-desc font-body-sm text-body-sm text-secondary">Client secured funds in vault</span>
+</div>
+</div>
+<!-- Step 2: In Progress -->
+<div class="step-item flex items-start gap-space-md relative pb-6 group" data-step-index="2">
+<div class="step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-container-highest"></div>
+<div class="step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-low text-[#ffe600] ring-4 ring-[#ffe600]/20"><span class="w-2.5 h-2.5 rounded-full bg-[#ffe600] animate-pulse"></span></div>
+<div class="flex flex-col min-w-0 pt-0.5">
+<span class="step-title font-label-lg text-label-lg text-[#ffe600] font-bold">In Progress</span>
+<span class="step-desc font-body-sm text-body-sm text-on-surface">Hunter actively worked on deliverables</span>
+</div>
+</div>
+<!-- Step 3: Delivered -->
+<div class="step-item flex items-start gap-space-md relative pb-6 group" data-step-index="3">
+<div class="step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-container-highest"></div>
+<div class="step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-highest text-secondary"><span class="w-2 h-2 rounded-full bg-secondary"></span></div>
+<div class="flex flex-col min-w-0 pt-0.5">
+<span class="step-title font-label-lg text-label-lg text-secondary">Delivered</span>
+<span class="step-desc font-body-sm text-body-sm text-secondary">Deliverables handed over for inspection</span>
+</div>
+</div>
+<!-- Step 4: Completed -->
+<div class="step-item flex items-start gap-space-md relative pb-6 group" data-step-index="4">
+<div class="step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-container-highest"></div>
+<div class="step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-highest text-secondary"><span class="w-2 h-2 rounded-full bg-secondary"></span></div>
+<div class="flex flex-col min-w-0 pt-0.5">
+<span class="step-title font-label-lg text-label-lg text-secondary">Completed</span>
+<span class="step-desc font-body-sm text-body-sm text-secondary">Signed off and finalized</span>
+</div>
+</div>
+<!-- Step 5: Disputed -->
+<div class="step-item flex items-start gap-space-md relative group" data-step-index="5">
+<div class="step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-highest text-secondary"><span class="w-2 h-2 rounded-full bg-secondary"></span></div>
+<div class="flex flex-col min-w-0 pt-0.5">
+<span class="step-title font-label-lg text-label-lg text-secondary">Disputed</span>
+<span class="step-desc font-body-sm text-body-sm text-secondary">Actions frozen pending resolution</span>
+</div>
+</div>
+</div>
+<!-- Disputed Banner -->
+<div class="p-space-sm bg-error-container/30 border border-error/40 rounded-xl flex items-center gap-space-sm hidden" id="dispute-alert">
+<span class="material-symbols-outlined text-error text-[22px]">warning</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold text-error uppercase tracking-wider">Commission Disputed</span>
+<span class="font-body-sm text-body-sm text-on-error-container">Actions are frozen pending mutual resolution.</span>
+</div>
+</div>
+</div>
+<!-- Commission Details Section -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm shadow-sm border border-surface-container-high/40">
+<h3 class="font-label-lg text-label-lg text-primary tracking-tight font-bold pb-1">Commission Details</h3>
+<div class="flex items-center justify-between py-2.5 bg-surface-container/60 px-space-sm rounded-xl">
+<span class="font-body-md text-body-md text-secondary">Client</span>
+<div class="flex flex-col items-end"><span class="font-label-md text-label-md text-primary font-semibold">@Elena_Rostova</span></div>
+</div>
+<div class="flex items-center justify-between py-2.5 bg-surface-container/60 px-space-sm rounded-xl">
+<span class="font-body-md text-body-md text-secondary">Hunter</span>
+<div class="flex flex-col items-end"><span class="font-label-md text-label-md text-primary font-semibold">@Kai_Chen</span></div>
+</div>
+<div class="flex items-center justify-between py-2.5 bg-surface-container/60 px-space-sm rounded-xl">
+<span class="font-body-md text-body-md text-secondary">Amount</span>
+<span class="font-label-md text-label-md text-primary font-bold">₱15,000</span>
+</div>
+<div class="flex items-center justify-between py-2.5 bg-surface-container/60 px-space-sm rounded-xl">
+<span class="font-body-md text-body-md text-secondary">Created</span>
+<span class="font-label-md text-label-md text-primary">Oct 02, 2026</span>
+</div>
+</div>
+<!-- Action Center (Dynamic Role & State Sensitive) -->
+<div class="flex flex-col gap-space-sm pt-space-xs pb-space-lg">
+<!-- Dynamic Primary Transition Button Container -->
+<div class="w-full" id="dynamic-action-slot">
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Deliver Work</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600] animate-spin">progress_activity</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Active</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Upload project files or hand over assets to the client for inspection.</p>
+
+              <!-- Upload Deliverables Dropzone Area -->
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Upload Deliverables</span>
+                  <span class="font-body-sm text-[11px] text-secondary">ZIP, OBJ, FBX, PNG up to 100MB</span>
+                </div>
+                
+                <label class="group relative cursor-pointer flex flex-col items-center justify-center gap-2 p-5 rounded-xl border-2 border-dashed border-surface-container-highest hover:border-[#ffe600]/60 bg-surface-container/50 hover:bg-surface-container-high/50 transition-all text-center">
+                  <input type="file" multiple="" class="hidden">
+                  <div class="w-11 h-11 rounded-full bg-[#ffe600]/10 text-[#ffe600] group-hover:bg-[#ffe600]/20 flex items-center justify-center transition-colors">
+                    <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+                  </div>
+                  <div class="flex flex-col gap-0.5">
+                    <span class="font-label-md text-label-md text-primary font-semibold group-hover:text-[#ffe600] transition-colors">Tap to upload deliverables or drag files here</span>
+                    <span class="font-body-sm text-body-sm text-secondary">Supports multiple files (ZIP, OBJ, FBX, PNG up to 100MB)</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Attached Deliverables List -->
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Attached Deliverables (1)</span>
+                  
+                </div>
+
+                <!-- Attached File Row with Status & Remove Button -->
+                <div id="file-item-rig" class="w-full p-3 rounded-xl bg-surface-container border border-surface-container-high flex items-center justify-between gap-2.5 transition-all">
+                  <div class="flex items-center gap-3 min-w-0 flex-1">
+                    <div class="w-10 h-10 rounded-lg bg-[#ffe600]/10 text-[#ffe600] flex items-center justify-center shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">folder_zip</span>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md text-primary font-semibold truncate">character_rig_final_v1.zip</span>
+                      <div class="flex items-center gap-2 pt-0.5">
+                        <span class="font-body-sm text-body-sm text-secondary">24.8 MB</span>
+                        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-label-sm text-[10px] font-bold">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                          Uploaded
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <button type="button" onclick="removeDeliverableFile('file-item-rig')" aria-label="Remove attached file" class="cursor-pointer p-2 rounded-lg bg-surface-container-high hover:bg-error/20 hover:text-error text-secondary transition-all active:scale-95 shrink-0 flex items-center justify-center group/del" title="Remove file">
+                    <span class="material-symbols-outlined text-[19px] group-hover/del:text-error transition-colors">delete</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Action Submit CTA -->
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" onclick="setState(3)" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">send</span>
+                  Submit &amp; Mark as Delivered
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Submitting deliverables starts the client's 3-day review timer. Escrow funds will auto-release if no dispute is opened within 72 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+<!-- Secondary Standard Navigation Actions -->
+<div class="grid grid-cols-2 gap-space-sm mt-1">
+<button class="cursor-pointer w-full py-3 px-space-sm rounded-full bg-surface-container-high text-primary hover:bg-surface-container-highest transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span class="font-label-md text-label-md">View Request</span>
+</button>
+<button class="cursor-pointer w-full py-3 px-space-sm rounded-full bg-surface-container-high text-primary hover:bg-surface-container-highest transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm font-semibold" id="message-action-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span class="font-label-md text-label-md" id="message-action-label">Message Client</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentRole = 'client'; // 'hunter' | 'client'
+  let currentState = 3; // 0: Created, 1: Escrow Locked, 2: In Progress, 3: Delivered, 4: Completed, 5: Disputed
+
+  const stateData = [
+    { title: "Created", label: "Created", counter: "Step 1 of 5" },
+    { title: "Escrow Locked", label: "Escrow Locked", counter: "Step 2 of 5" },
+    { title: "In Progress", label: "In Progress", counter: "Step 3 of 5" },
+    { title: "Delivered", label: "Delivered", counter: "Step 4 of 5" },
+    { title: "Completed", label: "Completed", counter: "Step 5 of 5" },
+    { title: "Disputed", label: "Disputed", counter: "Under Review" }
+  ];
+
+  function setRole(role) {
+    currentRole = role;
+    const hunterBtn = document.getElementById('role-hunter-btn');
+    const clientBtn = document.getElementById('role-client-btn');
+    const counterpartRole = document.getElementById('counterpart-role');
+    const counterpartName = document.getElementById('counterpart-name');
+    const counterpartAvatar = document.getElementById('counterpart-avatar');
+    const msgLabel = document.getElementById('message-action-label');
+
+    if (role === 'hunter') {
+      hunterBtn.className = "cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm transition-all duration-200 bg-[#ffe600] text-black font-bold shadow-sm";
+      clientBtn.className = "cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm text-secondary transition-all duration-200 hover:text-white";
+      counterpartRole.textContent = "• Client";
+      counterpartName.textContent = "@Elena_Rostova";
+      msgLabel.textContent = "Message Client";
+      counterpartAvatar.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80";
+    } else {
+      clientBtn.className = "cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm transition-all duration-200 bg-[#ffe600] text-black font-bold shadow-sm";
+      hunterBtn.className = "cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm text-secondary transition-all duration-200 hover:text-white";
+      counterpartRole.textContent = "• Hunter";
+      counterpartName.textContent = "@Kai_Chen";
+      msgLabel.textContent = "Message Hunter";
+      counterpartAvatar.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuAnFGrkCcYYGuD6-TpMjGvuwBtPZPNwVQd2xCaw32u2ItINy_mSy0vkWJY-pxzJdttAIr3VYJ4gCy8WaOirq5fwSDNvWRwxRtxgL7LW8zjkIqP2ZGKlwVIPXbloIyypDvpYfcvrEZkLWVQdUV_u9FtRjk9fLQ1cxB_XxJwKA4fCwTeLUxYK5TI0_oBWO-lwdraKgw6_Y6LqDecGCa_lze-2y3ljSIARpEsnWcCrhgbbHrPoKNIzynTB5g";
+    }
+    renderActions();
+  }
+
+  function setState(index) {
+    currentState = index;
+
+    // Update status buttons styling
+    const statusButtons = document.querySelectorAll('.status-btn');
+    statusButtons.forEach(btn => {
+      const idx = parseInt(btn.getAttribute('data-state'));
+      if (idx === index) {
+        btn.className = "status-btn cursor-pointer px-3.5 py-1 rounded-full font-label-sm text-label-sm bg-[#ffe600] text-black font-bold shadow-sm shrink-0 transition-all";
+      } else {
+        btn.className = "status-btn cursor-pointer px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-secondary hover:text-primary transition-all shrink-0 font-medium";
+      }
+    });
+
+    // Update Counter text
+    document.getElementById('stepper-state-counter').textContent = stateData[index].counter;
+
+    // Update Stepper Visuals
+    const stepItems = document.querySelectorAll('.step-item');
+    const disputeAlert = document.getElementById('dispute-alert');
+
+    if (index === 5) {
+      disputeAlert.classList.remove('hidden');
+    } else {
+      disputeAlert.classList.add('hidden');
+    }
+
+    stepItems.forEach(item => {
+      const stepIdx = parseInt(item.getAttribute('data-step-index'));
+      const icon = item.querySelector('.step-icon');
+      const title = item.querySelector('.step-title');
+      const desc = item.querySelector('.step-desc');
+      const line = item.querySelector('.step-line');
+
+      if (index === 5) {
+        // Disputed view
+        if (stepIdx < 3) {
+          icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-[#ffe600] text-black";
+          icon.innerHTML = `<span class="material-symbols-outlined text-[15px] font-bold">check</span>`;
+          if (line) line.className = "step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-[#ffe600]";
+          title.className = "step-title font-label-lg text-label-lg text-primary font-semibold";
+          desc.className = "step-desc font-body-sm text-body-sm text-secondary";
+        } else if (stepIdx === 5) {
+          icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-error text-on-error ring-4 ring-error/20";
+          icon.innerHTML = `<span class="material-symbols-outlined text-[15px] font-bold">priority_high</span>`;
+          title.className = "step-title font-label-lg text-label-lg text-error font-bold";
+          desc.className = "step-desc font-body-sm text-body-sm text-error/90";
+        } else {
+          icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-highest text-secondary";
+          icon.innerHTML = `<span class="w-2 h-2 rounded-full bg-secondary"></span>`;
+          if (line) line.className = "step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-container-highest";
+          title.className = "step-title font-label-lg text-label-lg text-secondary";
+          desc.className = "step-desc font-body-sm text-body-sm text-secondary";
+        }
+        return;
+      }
+
+      // Reset disputed step style if not disputed
+      if (stepIdx === 5) {
+        icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-highest text-secondary";
+        icon.innerHTML = `<span class="w-2 h-2 rounded-full bg-secondary"></span>`;
+        title.className = "step-title font-label-lg text-label-lg text-secondary";
+        desc.className = "step-desc font-body-sm text-body-sm text-secondary";
+      }
+
+      if (stepIdx < index) {
+        // Step completed
+        icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-[#ffe600] text-black";
+        icon.innerHTML = `<span class="material-symbols-outlined text-[15px] font-bold">check</span>`;
+        if (line) line.className = "step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-[#ffe600]";
+        title.className = "step-title font-label-lg text-label-lg text-primary font-semibold";
+        desc.className = "step-desc font-body-sm text-body-sm text-secondary";
+      } else if (stepIdx === index) {
+        // Step active
+        if (index === 4) {
+          icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-[#ffe600] text-black ring-4 ring-[#ffe600]/20";
+          icon.innerHTML = `<span class="material-symbols-outlined text-[15px] font-bold">check</span>`;
+        } else {
+          icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-low text-[#ffe600] ring-4 ring-[#ffe600]/20";
+          icon.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-[#ffe600] animate-pulse"></span>`;
+        }
+        if (line) line.className = "step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-container-highest";
+        title.className = "step-title font-label-lg text-label-lg text-[#ffe600] font-bold";
+        desc.className = "step-desc font-body-sm text-body-sm text-on-surface";
+      } else {
+        // Step pending / future
+        icon.className = "step-icon w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 bg-surface-container-highest text-secondary";
+        icon.innerHTML = `<span class="w-2 h-2 rounded-full bg-secondary"></span>`;
+        if (line) line.className = "step-line absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-container-highest";
+        title.className = "step-title font-label-lg text-label-lg text-secondary";
+        desc.className = "step-desc font-body-sm text-body-sm text-secondary";
+      }
+    });
+
+    renderActions();
+  }
+
+  function removeDeliverableFile(elementId) {
+    const el = document.getElementById(elementId);
+    if (el) {
+      el.remove();
+    }
+  }
+
+  function renderActions() {
+    const slot = document.getElementById('dynamic-action-slot');
+    slot.innerHTML = '';
+
+    if (currentRole === 'hunter') {
+      switch(currentState) {
+        case 0: // Created (Hunter perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Offer Accepted</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high border border-surface-container-highest shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-secondary">schedule</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-secondary">Pending Escrow</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Awaiting client to fund escrow deposit before work can begin.</p>
+              <div class="flex flex-col gap-2 pt-1">
+                <button type="button" class="w-full py-3.5 px-space-md rounded-full bg-surface-container-high text-secondary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 cursor-not-allowed opacity-85">
+                  <span class="material-symbols-outlined text-[20px]">hourglass_empty</span>
+                  Waiting for Client Deposit
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">verified_user</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Do not start or deliver work outside of Commis escrow protection. You will be notified instantly when funds are secured.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 1: // Escrow Locked (Hunter perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Funds Secured in Escrow</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">lock</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">₱15,000 Locked</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Client has locked ₱15,000 PHP in vault. You can now safely begin.</p>
+              <div class="flex flex-col gap-2 pt-1">
+                <button type="button" onclick="setState(2)" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">play_arrow</span>
+                  Start Work
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Clicking "Start Work" signals to the client that production has officially commenced.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 2: // In Progress (Hunter perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Deliver Work</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600] animate-spin">progress_activity</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Active</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Upload project files or hand over assets to the client for inspection.</p>
+
+              <!-- Upload Deliverables Dropzone Area -->
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Upload Deliverables</span>
+                  <span class="font-body-sm text-[11px] text-secondary">ZIP, OBJ, FBX, PNG up to 100MB</span>
+                </div>
+                
+                <label class="group relative cursor-pointer flex flex-col items-center justify-center gap-2 p-5 rounded-xl border-2 border-dashed border-surface-container-highest hover:border-[#ffe600]/60 bg-surface-container/50 hover:bg-surface-container-high/50 transition-all text-center">
+                  <input type="file" multiple class="hidden" />
+                  <div class="w-11 h-11 rounded-full bg-[#ffe600]/10 text-[#ffe600] group-hover:bg-[#ffe600]/20 flex items-center justify-center transition-colors">
+                    <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+                  </div>
+                  <div class="flex flex-col gap-0.5">
+                    <span class="font-label-md text-label-md text-primary font-semibold group-hover:text-[#ffe600] transition-colors">Tap to upload deliverables or drag files here</span>
+                    <span class="font-body-sm text-body-sm text-secondary">Supports multiple files (ZIP, OBJ, FBX, PNG up to 100MB)</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Attached Deliverables List -->
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Attached Deliverables (1)</span>
+                  <button type="button" class="cursor-pointer text-xs font-label-sm text-[#ffe600] hover:underline flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[15px]">add</span>
+                    Add another file
+                  </button>
+                </div>
+
+                <!-- Attached File Row with Status & Remove Button -->
+                <div id="file-item-rig" class="w-full p-3 rounded-xl bg-surface-container border border-surface-container-high flex items-center justify-between gap-2.5 transition-all">
+                  <div class="flex items-center gap-3 min-w-0 flex-1">
+                    <div class="w-10 h-10 rounded-lg bg-[#ffe600]/10 text-[#ffe600] flex items-center justify-center shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">folder_zip</span>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md text-primary font-semibold truncate">character_rig_final_v1.zip</span>
+                      <div class="flex items-center gap-2 pt-0.5">
+                        <span class="font-body-sm text-body-sm text-secondary">24.8 MB</span>
+                        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-label-sm text-[10px] font-bold">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                          Uploaded
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <button type="button" onclick="removeDeliverableFile('file-item-rig')" aria-label="Remove attached file" class="cursor-pointer p-2 rounded-lg bg-surface-container-high hover:bg-error/20 hover:text-error text-secondary transition-all active:scale-95 shrink-0 flex items-center justify-center group/del" title="Remove file">
+                    <span class="material-symbols-outlined text-[19px] group-hover/del:text-error transition-colors">delete</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Action Submit CTA -->
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" onclick="setState(3)" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">send</span>
+                  Submit &amp; Mark as Delivered
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Submitting deliverables starts the client's 3-day review timer. Escrow funds will auto-release if no dispute is opened within 72 hours.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 3: // Delivered (Hunter perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Work Delivered</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">schedule</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">3 days remaining</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Deliverables handed over. Client is currently reviewing your submission.</p>
+
+              <!-- Attached Deliverable Container -->
+              <div class="flex flex-col gap-1.5">
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Delivered Package</span>
+                <div class="w-full p-3 rounded-xl bg-surface-container border border-surface-container-high flex items-center justify-between">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-lg bg-[#ffe600]/10 text-[#ffe600] flex items-center justify-center shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">folder_zip</span>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md text-primary font-semibold truncate">character_rig_final_v1.zip</span>
+                      <span class="font-body-sm text-body-sm text-secondary">24.8 MB • Awaiting sign-off</span>
+                    </div>
+                  </div>
+                  <span class="material-symbols-outlined text-[20px] text-[#ffe600]">check_circle</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2 pt-1">
+                <div class="w-full py-3.5 px-space-md rounded-full bg-surface-container-high text-secondary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 border border-surface-container-highest cursor-default">
+                  <span class="material-symbols-outlined text-[20px] text-[#ffe600]">hourglass_top</span>
+                  Waiting for Client Review
+                </div>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  If the client takes no action before the countdown expires, the funds in escrow will automatically release to your wallet.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 4: // Completed (Hunter perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Commission Completed</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">verified</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Completed</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Client accepted work. ₱15,000 PHP has been credited to your balance.</p>
+              <div class="flex flex-col gap-2 pt-1">
+                <button type="button" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">account_balance_wallet</span>
+                  View Earnings in Wallet
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-[#ffe600] shrink-0 mt-0.5">star</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Great work! A review from @Elena_Rostova will be added to your profile reputation.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 5: // Disputed (Hunter perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-error/40 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-error font-bold tracking-tight">Dispute Opened</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container/30 border border-error/40 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-error">priority_high</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-error">Frozen</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">A dispute has been raised on this commission. Funds remain securely locked.</p>
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-surface-container-high text-error hover:bg-surface-container-highest font-label-lg text-label-lg font-bold transition-all active:scale-98 flex items-center justify-center gap-2 border border-error/30">
+                  <span class="material-symbols-outlined text-[20px]">gavel</span>
+                  View Dispute Details &amp; Counter-Claim
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-error shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Our mediation team reviews all chat records, timestamps, and deliverable attachments to resolve fairly.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+      }
+    } else {
+      // Perspective = Client
+      switch(currentState) {
+        case 0: // Created (Client perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Escrow Required</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">account_balance_wallet</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Deposit Ready</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Fund the escrow deposit so the hunter can begin work safely.</p>
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" onclick="setState(1)" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">account_balance_wallet</span>
+                  Fund Escrow (₱15,000)
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">shield</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Funds are protected in vault and only released once you accept and approve deliverables.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 1: // Escrow Locked (Client perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Escrow Locked</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">lock</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Secured</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">₱15,000 is safely held in escrow vault. Awaiting Hunter to initiate work.</p>
+              <div class="flex flex-col gap-2 pt-1">
+                <div class="w-full py-3.5 px-space-md rounded-full bg-surface-container-high text-secondary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 border border-surface-container-highest cursor-default">
+                  <span class="material-symbols-outlined text-[20px] text-[#ffe600]">pending</span>
+                  Hunter Ready to Start
+                </div>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  You can message @Kai_Chen anytime for status updates or questions regarding specifications.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 2: // In Progress (Client perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Work in Progress</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600] animate-spin">progress_activity</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Active</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Hunter is currently crafting the 3D character rig deliverables.</p>
+              <div class="flex items-center gap-3 pt-1">
+                <div class="flex-1 py-3.5 px-space-md rounded-full bg-surface-container-high text-secondary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 border border-surface-container-highest">
+                  <span class="material-symbols-outlined text-[20px] text-[#ffe600]">hourglass_top</span>
+                  In Production
+                </div>
+                <button type="button" onclick="setState(5)" class="cursor-pointer py-3.5 px-5 rounded-full bg-surface-container-high text-secondary hover:text-error hover:bg-surface-container-highest font-label-md text-label-md transition-all active:scale-95 shrink-0 flex items-center gap-1.5 border border-surface-container-highest">
+                  <span class="material-symbols-outlined text-[18px]">report_problem</span>
+                  Dispute
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Once deliverables are submitted, you'll receive a notification to inspect the model and test the rig.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 3: // Delivered (Client perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Review Deliverables</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">schedule</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">3 days remaining</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Please review the delivered work.</p>
+
+              <!-- Attached Deliverable Button / Container -->
+              <div class="flex flex-col gap-1.5">
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Attached Work</span>
+                <button type="button" class="w-full p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high transition-all active:scale-[0.99] flex items-center justify-between group cursor-pointer text-left">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-lg bg-[#ffe600]/10 text-[#ffe600] flex items-center justify-center shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">folder_zip</span>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md text-primary font-semibold truncate group-hover:text-[#ffe600] transition-colors">character_rig_final_v1.zip</span>
+                      <span class="font-body-sm text-body-sm text-secondary">24.8 MB • Ready for inspection</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1 text-secondary group-hover:text-primary transition-colors shrink-0">
+                    <span class="material-symbols-outlined text-[20px]">download</span>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" onclick="setState(4)" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">check_circle</span>
+                  Accept &amp; Complete
+                </button>
+                <button type="button" onclick="setState(5)" class="cursor-pointer w-full py-3 px-space-md rounded-full bg-surface-container-high text-secondary hover:text-error hover:bg-surface-container-highest font-label-md text-label-md transition-all active:scale-98 flex items-center justify-center gap-2 border border-surface-container-highest">
+                  <span class="material-symbols-outlined text-[18px]">report_problem</span>
+                  Dispute
+                </button>
+              </div>
+
+              <!-- Explanatory Notice -->
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-secondary shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  If you take no action before the review period ends, the commission will automatically be completed and the escrowed funds will be released to the Hunter.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 4: // Completed (Client perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Commission Completed</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffe600]/10 border border-[#ffe600]/30 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-[#ffe600]">verified</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-[#ffe600]">Finalized</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">Deliverables approved. Escrow of ₱15,000 has been released to @Kai_Chen.</p>
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-[#ffe600] text-black font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(255,230,0,0.25)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] font-bold">rate_review</span>
+                  Leave Feedback for Hunter
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-[#ffe600] shrink-0 mt-0.5">verified_user</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  Full ownership and commercial IP rights for the assets have been transferred to your account.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+        case 5: // Disputed (Client perspective)
+          slot.innerHTML = `
+            <div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-4 border border-error/40 shadow-sm">
+              <div class="flex items-center justify-between w-full gap-space-sm">
+                <h4 class="font-headline-sm text-headline-sm text-error font-bold tracking-tight">Dispute Opened</h4>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container/30 border border-error/40 shrink-0">
+                  <span class="material-symbols-outlined text-[15px] text-error">priority_high</span>
+                  <span class="font-label-sm text-label-sm font-semibold text-error">In Review</span>
+                </div>
+              </div>
+              <p class="w-full block font-body-sm text-body-sm text-secondary">You requested formal dispute mediation. Escrowed funds are currently frozen.</p>
+              <div class="flex flex-col gap-2.5 pt-1">
+                <button type="button" class="cursor-pointer w-full py-3.5 px-space-md rounded-full bg-surface-container-high text-error hover:bg-surface-container-highest font-label-lg text-label-lg font-bold transition-all active:scale-98 flex items-center justify-center gap-2 border border-error/30">
+                  <span class="material-symbols-outlined text-[20px]">gavel</span>
+                  View Dispute Details &amp; Upload Evidence
+                </button>
+              </div>
+              <div class="flex items-start gap-2 pt-2 border-t border-surface-container-high/40 text-secondary">
+                <span class="material-symbols-outlined text-[17px] text-error shrink-0 mt-0.5">info</span>
+                <p class="font-body-sm text-[12px] leading-relaxed text-secondary/90">
+                  A Commis dispute specialist will intervene within 24 hours to arbitrate the delivery requirements.
+                </p>
+              </div>
+            </div>
+          `;
+          break;
+      }
+    }
+  }
+
+  // Initial render
+  setRole('client');
+  setState(3);
+</script></main>
+
+
+</body></html>

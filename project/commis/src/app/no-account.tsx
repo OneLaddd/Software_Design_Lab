@@ -1,5 +1,7 @@
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { signInWithGoogle } from '../lib/googleAuth';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,6 +12,8 @@ const BACKGROUND = '#302F2D';
 
 export default function NoAccountScreen() {
   const router = useRouter();
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
+  const [googleError, setGoogleError] = useState('');
 
   const handleBack = async () => {
     const { data } = await supabase.auth.getSession();
@@ -17,6 +21,33 @@ export default function NoAccountScreen() {
       router.back();
     } else {
       router.replace('./');
+    }
+  };
+
+  const handleGoogleJoin = async () => {
+    setGoogleError('');
+    setIsGoogleSubmitting(true);
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const currentUser = sessionData.session?.user;
+      const providers = currentUser?.app_metadata?.providers as string[] | undefined;
+
+      if (
+        currentUser &&
+        (currentUser.app_metadata?.provider === 'google' || providers?.includes('google'))
+      ) {
+        router.replace('/google-profile');
+        return;
+      }
+
+      const { error } = await signInWithGoogle();
+      if (error) {
+        setGoogleError(error.message || 'Google sign-in failed. Try again');
+      }
+    } catch (error) {
+      setGoogleError(error instanceof Error ? error.message : 'Google sign-in failed. Try again');
+    } finally {
+      setIsGoogleSubmitting(false);
     }
   };
 
@@ -67,11 +98,16 @@ export default function NoAccountScreen() {
           <View style={styles.actions}>
             <Pressable
               style={({ pressed }) => [styles.googleButton, pressed && styles.lightPressed]}
+              onPress={handleGoogleJoin}
+              disabled={isGoogleSubmitting}
               accessibilityRole="button"
               accessibilityLabel="Join with Google">
               <GoogleMark />
-              <Text style={styles.googleButtonText}>Join with Google</Text>
+              <Text style={styles.googleButtonText}>
+                {isGoogleSubmitting ? 'Opening Google...' : 'Join with Google'}
+              </Text>
             </Pressable>
+            {googleError ? <Text style={styles.googleError}>{googleError}</Text> : null}
 
             <Pressable
               style={({ pressed }) => [styles.accountLinkButton, pressed && styles.pressed]}
@@ -212,6 +248,14 @@ const styles = StyleSheet.create({
     color: '#141414',
     fontFamily: 'Roboto',
     fontSize: 18,
+  },
+  googleError: {
+    color: '#FF7676',
+    fontFamily: 'Roboto',
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginTop: 8,
   },
   accountLink: {
     color: '#FFFFFF',

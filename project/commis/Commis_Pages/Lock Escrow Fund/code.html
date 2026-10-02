@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Commis - Lock Funds in Escrow</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Font Setup: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            obsidian: {
+              950: '#0e0e0e',
+              900: '#131313',
+              850: '#181818',
+              800: '#1c1b1b',
+              700: '#262626',
+              600: '#333333',
+            },
+            electric: {
+              DEFAULT: '#ffe600',
+              hover: '#f5dc00',
+              dim: 'rgba(255, 230, 0, 0.12)',
+            },
+            muted: '#999999',
+            subtle: '#71717a'
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-scroll-and-animations">
+    /* Hide scrollbars for clean native app appearance */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sheet-transition {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-black font-sans antialiased text-white flex justify-center items-center min-h-screen p-0 sm:p-4 select-none">
+<!-- Mobile Viewport Wrapper (iPhone Screen Dimension ~414px) -->
+<div class="relative w-full max-w-[420px] h-[100dvh] max-h-[890px] bg-obsidian-950 overflow-hidden shadow-2xl rounded-none sm:rounded-[42px] border-0 sm:border-[8px] border-obsidian-800 flex flex-col justify-between">
+<!-- BEGIN: BackgroundScreen -->
+<!-- Dimmed underlying Commission Detail screen for realistic layered context -->
+<div class="absolute inset-0 bg-obsidian-900 overflow-y-auto pointer-events-none opacity-40 filter blur-[1.5px]" data-purpose="underlying-screen-mock">
+<!-- Background Top Navigation -->
+<div class="px-5 pt-8 pb-3 flex items-center justify-between border-b border-obsidian-800/80">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-full bg-obsidian-800 flex items-center justify-center text-white">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+</div>
+<span class="text-base font-bold text-white tracking-wide">Commission</span>
+</div>
+<div class="px-2.5 py-1 rounded-full bg-electric text-black text-xs font-bold">As Client</div>
+</div>
+<!-- Main Behind Card -->
+<div class="p-5 space-y-4">
+<div class="p-4 rounded-2xl bg-obsidian-800 border border-obsidian-700">
+<span class="text-[10px] font-bold text-muted uppercase tracking-wider">Original Request</span>
+<h2 class="text-lg font-bold text-white mt-0.5">Food Photography &amp; Styling gig</h2>
+<div class="flex items-center mt-3 space-x-2">
+<img alt="Kai Chen Avatar" class="w-7 h-7 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSd52dAc4aNmEIrhzNg5ByQ1Oc_jDrPsmbTvrtSZmI4YVhiQrRpJ-_KTzG47gUXlBk2_1VegwLP57f8nsoN3MEP4OddbrK0PxBM9kGxeMGV-4d97_c0Gh-J1VWn5O9PM3hf_Vm5k4szG6etu4asbubWjBUeVRhPRZEOQlvKqzEfv7g9wWBzkzdRyhQ3qsmAXEFn_NuwnXDTiOO-jzwtrRJz6tKu6e9W2G2scnnoUWj3kX8lIc9CLizGg">
+<span class="text-xs text-muted font-medium"><span class="text-white font-semibold">@Kai_Chen</span> • Hunter</span>
+</div>
+<div class="mt-4 pt-3 border-t border-obsidian-700 flex justify-between items-baseline">
+<span class="text-xs text-muted font-medium">Commission Value</span>
+<span class="text-xl font-extrabold text-white">₱6,000.00 <span class="text-xs font-normal text-muted">PHP</span></span>
+</div>
+</div>
+<!-- Behind Progress Tracker -->
+<div class="p-4 rounded-2xl bg-obsidian-800 border border-obsidian-700">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-bold text-white">Progress Tracker</span>
+<span class="text-[11px] text-muted">Step 1 of 5</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center space-x-3">
+<div class="w-5 h-5 rounded-full bg-electric flex items-center justify-center text-black text-xs font-black">✓</div>
+<span class="text-xs font-bold text-white">Created</span>
+</div>
+<div class="flex items-center space-x-3 opacity-60">
+<div class="w-5 h-5 rounded-full border-2 border-yellow-400/50 flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+</div>
+<span class="text-xs font-bold text-yellow-300">Escrow Pending</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: BackgroundScreen -->
+<!-- BEGIN: BackdropScrim -->
+<div class="absolute inset-0 bg-black/75 backdrop-blur-[2px] transition-opacity" data-purpose="bottom-sheet-scrim"></div>
+<!-- END: BackdropScrim -->
+<!-- BEGIN: EscrowBottomSheetModal -->
+<section class="relative z-20 w-full mt-auto bg-obsidian-900 border-t border-obsidian-700 rounded-t-[28px] shadow-2xl flex flex-col max-h-[92%] overflow-hidden" data-purpose="escrow-confirmation-sheet">
+<!-- Drag Handle & Interactive State Toggle Bar -->
+<div class="pt-3 pb-2 px-5 flex flex-col items-center border-b border-obsidian-800">
+<!-- iOS Style Drag Bar -->
+<div class="w-11 h-1.2 bg-obsidian-700 rounded-full mb-3.5 opacity-80" data-purpose="sheet-pull-handle"></div>
+<!-- Dev Mode State Switcher for Simulation Testing -->
+<div class="w-full bg-obsidian-950 p-1 rounded-xl flex items-center justify-between border border-obsidian-800/90 text-xs font-medium" data-purpose="interactive-state-toggle">
+<span class="text-[10px] text-muted uppercase font-bold pl-2 tracking-wider">Test State:</span>
+<div class="flex space-x-1">
+<button class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-electric text-black shadow-sm" data-purpose="state-button" id="btn-state-sufficient" onclick="setSimulationState('sufficient')">
+              Sufficient (₱10k)
+            </button>
+<button class="px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all text-subtle hover:text-white" data-purpose="state-button" id="btn-state-insufficient" onclick="setSimulationState('insufficient')">
+              Insufficient (₱4k)
+            </button>
+</div>
+</div>
+</div>
+<!-- Sheet Content (Scrollable if height restricted) -->
+<div class="px-5 py-4 overflow-y-auto space-y-4">
+<!-- Modal Header Section -->
+<div class="flex items-start justify-between">
+<div class="flex items-start space-x-3">
+<div class="w-10 h-10 rounded-xl bg-electric-dim border border-yellow-400/20 flex items-center justify-center shrink-0 mt-0.5">
+<!-- Vault / Escrow Shield Icon -->
+<svg class="w-5 h-5 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-lg font-bold text-white tracking-tight">Lock Funds in Escrow</h1>
+
+</div>
+</div>
+<!-- Close button -->
+
+</div>
+<!-- Commission Summary Card -->
+<!-- BEGIN: CommissionSummaryCard -->
+<div class="p-3.5 rounded-2xl bg-obsidian-800 border border-obsidian-700/80 space-y-2.5" data-purpose="commission-summary-card">
+<div class="flex justify-between items-start">
+<div class="space-y-0.5 pr-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-muted">Gig / Commission</span>
+<p class="text-xs font-semibold text-white leading-snug">Food Photography &amp; Styling gig</p>
+</div>
+<div class="text-right shrink-0">
+<span class="text-[10px] font-bold uppercase tracking-wider text-muted block">Locked Target</span>
+<span class="text-xs font-extrabold text-white">PHP 6,000.00</span>
+</div>
+</div>
+<div class="pt-2 border-t border-obsidian-700/60 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<img alt="Kai Chen Avatar" class="w-6 h-6 rounded-full object-cover border border-obsidian-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRjPHXQ13-TvoXWqXOnnb3f1WvIkLclc8OACTELhwTNCp2MaD6FYRRpuJJgH4oJNU1goyhgTse_FXH6UGE01hfgI4wgmvhpmSQglwU1LvQujGp5fHzs9w5ca306PkW9qzWAIRyHX15Rprzc6ETo2wNQYIqT6DrVXgB5LW2d_0h6h-WtseZY7ZcNHxTuHxPliDKp3BFw-MxqYMp3sguItzN-i1VR0n6PiS-1cpi7aQIrwknFg5fFQBLWg">
+<span class="text-xs text-muted"><span class="text-white font-semibold">@Kai_Chen</span> • Hunter</span>
+</div>
+
+</div>
+</div>
+<!-- END: CommissionSummaryCard -->
+<!-- Dynamic Insufficient Warning Banner (Hidden by default, shown via toggle) -->
+<div class="p-3.5 rounded-xl bg-red-950/40 border border-red-500/30 text-xs hidden" data-purpose="insufficient-funds-banner" id="insufficient-alert">
+<div class="flex items-start space-x-2.5">
+<svg class="w-5 h-5 text-red-400 shrink-0 mt-0.2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<div>
+<p class="font-bold text-red-200">Insufficient Funds</p>
+<p class="text-muted text-[11px] mt-0.5">
+                You need <span class="font-bold text-white">PHP 2,000.00</span> more in Available Funds to lock this escrow amount.
+              </p>
+</div>
+</div>
+</div>
+<!-- BEGIN: FundFlowDiagram -->
+<div class="rounded-2xl bg-obsidian-800/90 border border-obsidian-700 p-3.5 space-y-3" data-purpose="fund-flow-diagram">
+<div class="text-[10px] font-bold uppercase tracking-wider text-muted flex items-center justify-between">
+<span class="">Fund Allocation Flow</span>
+
+</div>
+<!-- Step 1: Available Balance Top Box -->
+<div class="p-3 rounded-xl bg-obsidian-950 border border-obsidian-700/80 flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+<span class="text-xs font-semibold text-muted">Current Available Funds</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-extrabold text-white" id="label-current-funds">PHP 10,000.00</span>
+</div>
+</div>
+<!-- Flow Arrow Pill -->
+<div class="flex justify-center items-center -my-1">
+
+</div>
+<!-- Step 2: Post-Lock Dual Breakdown Grid -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<!-- New Available -->
+<div class="p-2.5 rounded-xl bg-obsidian-950 border border-obsidian-700/70">
+<span class="text-[10px] text-muted font-medium block">Available After</span>
+<span class="text-xs font-bold text-white mt-0.5 block" id="label-after-funds">PHP 4,000.00</span>
+
+</div>
+<!-- New Escrow Vault -->
+<div class="p-2.5 rounded-xl bg-yellow-950/20 border border-yellow-500/30">
+<div class="flex items-center space-x-1">
+<span class="text-[10px] text-yellow-300 font-medium block">In Escrow</span>
+
+</div>
+<span class="text-xs font-bold text-white mt-0.5 block">PHP 6,000.00</span>
+
+</div>
+</div>
+</div>
+<!-- END: FundFlowDiagram -->
+<!-- Confirmation Notice Text Box -->
+<!-- BEGIN: ConfirmationNotice -->
+<div class="p-3 rounded-xl bg-obsidian-950 border border-obsidian-800 text-[11px] leading-relaxed text-muted" data-purpose="escrow-notice">
+<p class="">
+<strong class="text-white font-semibold">PHP 6,000.00 will be locked in escrow.</strong> 
+            Your available funds will decrease by PHP 6,000.00. The funds will remain safely held until the commission is marked as completed or dispute mediation concludes.
+          </p>
+</div>
+<!-- END: ConfirmationNotice -->
+</div>
+<!-- BEGIN: ActionButtonsFooter -->
+<footer class="p-5 pt-3 bg-obsidian-900 border-t border-obsidian-800 space-y-2.5" data-purpose="sheet-actions">
+<!-- Sufficient State Button -->
+<button class="w-full py-3.5 px-4 rounded-xl bg-electric hover:bg-electric-hover active:scale-[0.99] text-black font-extrabold text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-yellow-500/10" data-purpose="primary-lock-action" id="btn-primary-lock" type="button">
+<svg class="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" fill-rule="evenodd"></path>
+</svg>
+<span class="">Lock PHP 6,000.00</span>
+</button>
+<!-- Insufficient State Button (Alternate) -->
+<button class="w-full py-3.5 px-4 rounded-xl bg-electric hover:bg-electric-hover active:scale-[0.99] text-black font-extrabold text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-yellow-500/10 hidden" data-purpose="add-funds-action" id="btn-primary-add-funds" type="button">
+<svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+<span class="">Add Funds (₱2,000.00 Needed)</span>
+</button>
+<!-- Cancel Button -->
+<button class="w-full py-3 px-4 rounded-xl bg-obsidian-800 hover:bg-obsidian-750 active:bg-obsidian-700 text-white font-semibold text-xs transition-colors border border-obsidian-700/80" data-purpose="cancel-action" type="button">
+          Cancel
+        </button>
+</footer>
+<!-- END: ActionButtonsFooter -->
+</section>
+<!-- END: EscrowBottomSheetModal -->
+</div>
+<!-- Interactive State Logic Script -->
+<script data-purpose="simulation-toggle-controller">
+    function setSimulationState(state) {
+      const btnSufficient = document.getElementById('btn-state-sufficient');
+      const btnInsufficient = document.getElementById('btn-state-insufficient');
+      
+      const currentFundsLabel = document.getElementById('label-current-funds');
+      const afterFundsLabel = document.getElementById('label-after-funds');
+      const insufficientAlert = document.getElementById('insufficient-alert');
+      
+      const primaryLockBtn = document.getElementById('btn-primary-lock');
+      const primaryAddFundsBtn = document.getElementById('btn-primary-add-funds');
+
+      if (state === 'sufficient') {
+        // Highlight active toggle tab
+        btnSufficient.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-electric text-black shadow-sm';
+        btnInsufficient.className = 'px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all text-subtle hover:text-white';
+        
+        // Ledger Values
+        currentFundsLabel.textContent = 'PHP 10,000.00';
+        afterFundsLabel.textContent = 'PHP 4,000.00';
+        
+        // Alert Visibility
+        insufficientAlert.classList.add('hidden');
+
+        // Buttons
+        primaryLockBtn.classList.remove('hidden');
+        primaryAddFundsBtn.classList.add('hidden');
+      } else {
+        // Insufficient State
+        btnInsufficient.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-red-500 text-white shadow-sm';
+        btnSufficient.className = 'px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all text-subtle hover:text-white';
+        
+        // Ledger Values
+        currentFundsLabel.textContent = 'PHP 4,000.00';
+        afterFundsLabel.textContent = 'PHP 0.00 (Deficit)';
+        
+        // Alert Visibility
+        insufficientAlert.classList.remove('hidden');
+
+        // Buttons
+        primaryLockBtn.classList.add('hidden');
+        primaryAddFundsBtn.classList.remove('hidden');
+      }
+    }
+  </script>
+
+
+</body></html>

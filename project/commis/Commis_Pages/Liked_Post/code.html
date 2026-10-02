@@ -1,0 +1,192 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary": "#303033", "on-tertiary-container": "#656467", "primary-fixed-dim": "#dec800", "on-secondary-fixed": "#1b1b1d", "surface-container-highest": "#353534", "surface-tint": "#dec800", "on-error-container": "#ffdad6", "on-primary": "#373100", "surface-container-low": "#1c1b1b", "surface-bright": "#393939", "secondary-fixed": "#e4e2e4", "inverse-on-surface": "#313030", "outline-variant": "#4b4731", "surface-container-lowest": "#0e0e0e", "on-error": "#690005", "primary": "#ffffff", "on-primary-container": "#716500", "on-secondary-fixed-variant": "#474649", "on-primary-fixed": "#201c00", "outline": "#979177", "on-tertiary-fixed-variant": "#47464a", "surface-container-high": "#2a2a2a", "secondary": "#c8c6c8", "on-secondary-container": "#b6b4b7", "inverse-surface": "#e5e2e1", "surface-variant": "#353534", "tertiary-fixed": "#e4e1e5", "primary-container": "#fde400", "surface": "#131313", "error": "#ffb4ab", "secondary-fixed-dim": "#c8c6c8", "error-container": "#93000a", "on-primary-fixed-variant": "#504700", "tertiary-container": "#e4e1e5", "on-tertiary-fixed": "#1b1b1e", "secondary-container": "#474649", "surface-container": "#201f1f", "background": "#131313", "on-surface-variant": "#cdc7aa", "tertiary-fixed-dim": "#c8c6c9", "on-background": "#e5e2e1", "on-secondary": "#303032", "surface-dim": "#131313", "primary-fixed": "#fde400", "tertiary": "#ffffff", "inverse-primary": "#6a5f00", "on-surface": "#e5e2e1" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1.25rem", "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "space-md": "1rem" }, fontFamily: { "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "display": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Inter"] }, fontSize: { "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>@layer base { html, body { width: 100vw; margin: 0; padding: 0; background-color: #131313; } body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-fixed"><header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><button aria-label="Go back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:text-primary-container transition-colors active:scale-95" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">chevron_left</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate max-w-[220px] text-center select-none">Liked Posts</h1><div class="flex items-center justify-end w-11 h-11 -mr-space-xs"></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface px-margin pb-safe"><div class="flex flex-col w-full pb-8">
+<!-- Segmented Control Tab Switcher -->
+<div class="w-full bg-surface-container-low p-1.5 rounded-full flex items-center justify-between mb-5 shadow-sm">
+<button class="flex-1 py-2 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-200 bg-primary-container text-on-primary-fixed shadow-md select-none active:scale-[0.98]" id="tab-liked" onclick="switchView('liked')" style="animation-delay: 23ms;">
+
+<span class="font-label-lg text-label-lg font-bold tracking-tight">Liked Posts (3)</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-200 text-secondary hover:text-primary select-none active:scale-[0.98]" id="tab-empty" onclick="switchView('empty')" style="animation-delay: 23ms;">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span class="font-label-lg text-label-lg font-medium">Empty State</span>
+</button>
+</div>
+<!-- Feed Container: Liked Posts View -->
+<div class="flex flex-col gap-3.5 w-full transition-opacity duration-200" id="liked-posts-view">
+<!-- Card 1 -->
+<article class="bg-surface-container rounded-xl p-4 flex flex-col shadow-sm cursor-pointer active:scale-[0.99] transition-transform">
+<!-- Community & Author row -->
+<div class="flex items-center gap-2 mb-2.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-lg text-label-lg text-primary font-bold">c/programming</span>
+<span class="text-on-secondary-container text-xs">•</span>
+<span class="font-body-sm text-body-sm text-secondary">@student_kai</span>
+<span class="text-on-secondary-container text-xs">•</span>
+<span class="font-body-sm text-body-sm text-on-secondary-container">3h ago</span>
+</div>
+<!-- Title & Preview -->
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold leading-snug mb-1.5">
+        How I built my first React Native app
+      </h2>
+<p class="font-body-md text-body-md text-secondary line-clamp-2 mb-3.5 leading-relaxed">
+        I wanted to share what I learned while building my first mobile application with Supabase backend and custom micro-interactions...
+      </p>
+<!-- Action Bar -->
+<div class="flex items-center justify-between pt-1">
+<!-- Vote pill -->
+<div class="flex items-center bg-surface-container-high rounded-full p-0.5">
+<button aria-label="Upvoted" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary-fixed shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">arrow_upward</span>
+<span class="font-label-md text-label-md font-bold">42</span>
+</button>
+<button aria-label="Downvote" class="px-2 py-1 text-secondary hover:text-primary rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<!-- Comments -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="font-label-md text-label-md">18 comments</span>
+</div>
+<!-- Share Action -->
+<button aria-label="Share post" class="w-8 h-8 rounded-full bg-surface-container-high text-secondary hover:text-primary flex items-center justify-center transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container rounded-xl p-4 flex flex-col shadow-sm cursor-pointer active:scale-[0.99] transition-transform">
+<!-- Community & Author row -->
+<div class="flex items-center gap-2 mb-2.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-lg text-label-lg text-primary font-bold">c/programming</span>
+<span class="text-on-secondary-container text-xs">•</span>
+<span class="font-body-sm text-body-sm text-secondary">@dev_linus</span>
+<span class="text-on-secondary-container text-xs">•</span>
+<span class="font-body-sm text-body-sm text-on-secondary-container">4h ago</span>
+</div>
+<!-- Title -->
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold leading-snug mb-3">
+        I am one of the developers that helped solve Navier-Stokes Millennium Problem
+      </h2>
+<!-- Visual Card Banner -->
+<div class="w-full h-44 rounded-lg overflow-hidden mb-3.5 relative bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="A vivid computational fluid dynamics simulation visualization rendered in glowing cyan and neon yellow vector vector fields over an obsidian black background, high resolution 3D scientific rendering, dark moody aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrQHwu1Dqsp6hB9uTj5cpLJ_3IOnYwAozPEcfSV8E8sAHS_9oc9nZit8qsW0jQsy8rfxAZ6cy0U3wAsJH4lDjUCJMEyceFcGS4DbZCzR9McvSG3ubeUVKzF2HqErHxkcNwH5zUL5-HVCYAaSxsE8-EDx62-e2iIooNsJvng4B_Mjy3tUu171IIiRGi8N2h_yJC1lbs3lADPVL0WLssZtM8MD_EkngowDgCA6f4xc-l3VdE8-F-Pdw_fg">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 backdrop-blur-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Simulation Data</span>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center justify-between pt-1">
+<!-- Vote pill -->
+<div class="flex items-center bg-surface-container-high rounded-full p-0.5">
+<button aria-label="Upvoted" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary-fixed shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">arrow_upward</span>
+<span class="font-label-md text-label-md font-bold">30,324</span>
+</button>
+<button aria-label="Downvote" class="px-2 py-1 text-secondary hover:text-primary rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<!-- Comments -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="font-label-md text-label-md">1.2k comments</span>
+</div>
+<!-- Share Action -->
+<button aria-label="Share post" class="w-8 h-8 rounded-full bg-surface-container-high text-secondary hover:text-primary flex items-center justify-center transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container rounded-xl p-4 flex flex-col shadow-sm cursor-pointer active:scale-[0.99] transition-transform">
+<!-- Community & Author row -->
+<div class="flex items-center gap-2 mb-2.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-lg text-label-lg text-primary font-bold">c/design</span>
+<span class="text-on-secondary-container text-xs">•</span>
+<span class="font-body-sm text-body-sm text-secondary">@pixel_craft</span>
+<span class="text-on-secondary-container text-xs">•</span>
+<span class="font-body-sm text-body-sm text-on-secondary-container">1d ago</span>
+</div>
+<!-- Title & Preview -->
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold leading-snug mb-1.5">
+        Obsidian dark mode design systems: tokens and contrast guidelines
+      </h2>
+<p class="font-body-md text-body-md text-secondary line-clamp-2 mb-3.5 leading-relaxed">
+        When designing high-contrast dark interfaces with bright accent highlights, maintain minimum 60% opacity for secondary labels to avoid visual strain...
+      </p>
+<!-- Action Bar -->
+<div class="flex items-center justify-between pt-1">
+<!-- Vote pill -->
+<div class="flex items-center bg-surface-container-high rounded-full p-0.5">
+<button aria-label="Upvoted" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary-fixed shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">arrow_upward</span>
+<span class="font-label-md text-label-md font-bold">856</span>
+</button>
+<button aria-label="Downvote" class="px-2 py-1 text-secondary hover:text-primary rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<!-- Comments -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="font-label-md text-label-md">94 comments</span>
+</div>
+<!-- Share Action -->
+<button aria-label="Share post" class="w-8 h-8 rounded-full bg-surface-container-high text-secondary hover:text-primary flex items-center justify-center transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State View -->
+<div class="hidden flex-col items-center justify-center text-center px-4 py-16 transition-opacity duration-200" id="empty-state-view">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center mb-5 shadow-inner">
+<span class="material-symbols-outlined text-secondary text-[40px]">favorite_border</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary font-bold mb-2">
+      No Liked Posts
+    </h2>
+<p class="font-body-md text-body-md text-secondary max-w-xs mb-8 leading-relaxed">
+      Posts you upvote will appear here. Discover bold creators and tap the upvote arrow to save your favorites.
+    </p>
+<button class="w-full max-w-xs py-3.5 px-6 rounded-xl bg-primary-container text-on-primary-fixed font-label-lg text-label-lg font-bold shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2" onclick="switchView('liked')">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span class="">Explore Posts</span>
+</button>
+</div>
+</div>
+<script>
+  function switchView(mode) {
+    const likedView = document.getElementById('liked-posts-view');
+    const emptyView = document.getElementById('empty-state-view');
+    const tabLiked = document.getElementById('tab-liked');
+    const tabEmpty = document.getElementById('tab-empty');
+
+    if (mode === 'liked') {
+      likedView.classList.remove('hidden');
+      emptyView.classList.add('hidden');
+
+      tabLiked.className = "flex-1 py-2 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-200 bg-primary-container text-on-primary-fixed shadow-md select-none active:scale-[0.98]";
+      tabEmpty.className = "flex-1 py-2 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-200 text-secondary hover:text-primary select-none active:scale-[0.98]";
+    } else {
+      likedView.classList.add('hidden');
+      emptyView.classList.remove('hidden');
+      emptyView.classList.add('flex');
+
+      tabEmpty.className = "flex-1 py-2 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-200 bg-primary-container text-on-primary-fixed shadow-md select-none active:scale-[0.98]";
+      tabLiked.className = "flex-1 py-2 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-200 text-secondary hover:text-primary select-none active:scale-[0.98]";
+    }
+  }
+</script></main>
+
+</body></html>

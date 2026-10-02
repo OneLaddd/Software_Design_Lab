@@ -1,0 +1,298 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-surface": "#e5e2e1", "on-primary-fixed-variant": "#504700", "tertiary-fixed-dim": "#c8c6c9", "secondary": "#c8c6c8", "on-tertiary-container": "#656467", "secondary-fixed": "#e4e2e4", "surface-container-low": "#1c1b1b", "surface-container-highest": "#353534", "on-tertiary-fixed": "#1b1b1e", "on-secondary": "#303032", "surface": "#131313", "secondary-fixed-dim": "#c8c6c8", "outline-variant": "#4b4731", "on-background": "#e5e2e1", "on-surface": "#e5e2e1", "error": "#ffb4ab", "surface-variant": "#353534", "primary-container": "#fde400", "primary": "#ffffff", "tertiary-container": "#e4e1e5", "on-error-container": "#ffdad6", "on-secondary-container": "#b6b4b7", "on-error": "#690005", "primary-fixed-dim": "#dec800", "surface-container": "#201f1f", "surface-dim": "#131313", "primary-fixed": "#fde400", "error-container": "#93000a", "on-primary-fixed": "#201c00", "inverse-primary": "#6a5f00", "on-secondary-fixed-variant": "#474649", "surface-container-lowest": "#0e0e0e", "background": "#131313", "on-tertiary-fixed-variant": "#47464a", "on-primary": "#373100", "surface-bright": "#393939", "secondary-container": "#474649", "on-surface-variant": "#cdc7aa", "on-tertiary": "#303033", "surface-container-high": "#2a2a2a", "on-primary-container": "#716500", "outline": "#979177", "on-secondary-fixed": "#1b1b1d", "surface-tint": "#dec800", "tertiary-fixed": "#e4e1e5", "inverse-on-surface": "#313030", "tertiary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1.25rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "gutter": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-md": ["Inter"], "label-sm": ["Inter"], "body-lg": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "body-md": ["Inter"], "display": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"] }, "fontSize": { "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#131313;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between"><button aria-label="Back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:text-primary-fixed transition-colors active:scale-95" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface text-center truncate px-space-sm">Project Detail</h1><div class="flex items-center gap-space-xs"><button aria-label="Owner actions" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:text-primary-fixed transition-colors active:scale-95" type="button"></button></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface pb-safe min-h-screen"><div class="flex flex-col w-full">
+<!-- Demo Perspective Switcher: Owner vs Visitor -->
+<aside aria-label="Demo role selector" class="px-margin pt-space-md pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-fixed shadow-[0_0_8px_rgba(253,228,0,0.7)] animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Perspective Mode</span>
+</div>
+<div class="inline-flex p-1 rounded-full bg-surface-container-high shadow-inner">
+<button class="px-3 py-1 rounded-full font-label-sm text-label-sm transition-all duration-200 bg-primary-fixed text-on-primary-fixed font-bold shadow-sm" id="roleOwnerBtn" onclick="switchRole('owner')" type="button">
+        Owner</button>
+<button class="px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all duration-200" id="roleVisitorBtn" onclick="switchRole('visitor')" type="button">
+        Visitor / Client
+      </button>
+</div>
+</aside>
+<!-- Contextual Actions Bar (Owner only trigger indicator) -->
+<div class="px-margin flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Editorial close-up portrait of creative technologist Alex Hunter in soft ambient neon obsidian lighting, looking composed and professional against a minimal dark studio backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHX-U1bp0OKXIbPkLXo49nvvrmFfEahNASUhgxmksepfDN2j5qiMhiJp5f_cOObvPt03PP5PTy08osK6xZnajeuJYcU1wrVG6xk_ADoPVPpKkTG8ZE6c8sj0JKy-ZT6aJUWzzQAJ7AgVBPwran9fOdtr-fdDSsywkHnr48hGr0sRcKp_VrJ68Wnb-A6NA7eG7VArrhlsCoCE_IYapLVJtAE82OagAeahp2F9ab7G-Dv6yCV5lRLBD3Qw">
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold tracking-tight">@alex_hunter</span>
+
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Added Oct 14, 2025</span>
+</div>
+</div>
+<!-- More Options Dropdown Anchor (Visible if Owner) -->
+<div class="relative visible opacity-100" id="ownerActionsWrapper">
+<button aria-label="Manage portfolio entry" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary-fixed hover:bg-surface-container-high transition-all active:scale-95 shadow-sm" id="optionsMenuTrigger" onclick="toggleOptionsMenu(event)" type="button">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="absolute right-0 mt-2 w-48 rounded-xl bg-surface-container-high shadow-2xl p-1.5 z-40 transition-all transform origin-top-right backdrop-blur-md hidden" id="optionsDropdown">
+<button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left font-label-md text-label-md text-on-surface hover:bg-surface-container-highest hover:text-primary-fixed transition-colors" onclick="handleEditEntry()" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+<span class="">Edit Entry</span>
+</button>
+<div class="h-px bg-surface-variant my-1"></div>
+<button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left font-label-md text-label-md text-error hover:bg-error-container/20 transition-colors" onclick="openDeleteModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+<span class="">Delete Entry</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Showcase Content Stack -->
+<div class="px-margin flex flex-col gap-space-lg pt-space-xs pb-space-xl">
+<!-- Hero Mockup Display (16:9 Showcase Card) -->
+<section class="relative w-full rounded-2xl overflow-hidden bg-surface-container-low shadow-xl">
+<div class="relative w-full aspect-[16/10] overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpP04lxjojWf1oONK42faV_jbQlVqduqL08LsSQv6WuiXHNJMyF9At8SEidAM-Ca9-DddjPMeydeFH7Njzdg8R5bALgboSdekBtdImtdM7hl_1QrVnlhaGg5tvxVKJcUXSTAKVJ6pvmVfH1pw6t8GZHB6bv59uXII9jaYk5_CaAv-loutR60JAopNk3GDdsYh4aA7wC1UMqSHr0SUzdQH7SjfpEA1Gsvdkj4sel0jByKjRPKS47W3-Ug" alt="Fintech Mobile App &amp; Design System Cover">
+
+<!-- Subtle Top & Bottom Cinematic Gradient Scrims -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-black/20 pointer-events-none"></div>
+
+</div>
+</section>
+<!-- Project Identity & Domain Category -->
+<header class="flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm tracking-widest font-bold uppercase shadow-sm">
+          UI/UX DESIGN
+        </span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-highest"></span>
+
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight font-extrabold mt-0.5">
+        Fintech Mobile App &amp; Design System
+      </h2>
+
+</header>
+<!-- Metric / Signal Callout Mosaic -->
+<div class="grid grid-cols-2 gap-space-sm">
+
+
+</div>
+<!-- Case Study Narrative -->
+<section class="flex flex-col gap-space-sm bg-surface-container p-space-md rounded-xl shadow-sm">
+<div class="flex items-center gap-space-xs text-primary">
+
+<h3 class="font-headline-sm text-headline-sm font-bold">Project Description</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+        Designed an end-to-end mobile financial experience featuring crypto-fiat swaps, automated yield vaulting, and multi-currency debit card controls. Built over 60+ modular atomic components, rigorous dark-mode tokens, micro-interactions for transaction confirmations, and full React Native production design tokens.
+      </p>
+
+</section>
+<!-- Skills & Tech Stack -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed">layers</span>
+<h3 class="font-headline-sm text-headline-sm font-bold">Skills &amp; Tools</h3>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">7 Competencies</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          Figma
+        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          UI Design
+        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          React Native
+        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          Design Systems
+        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          Prototyping
+        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          Mobile Design
+        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md shadow-sm">
+          Financial Tech
+        </span>
+</div>
+</section>
+<!-- Additional Gallery Snapshot (Context Depth) -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+
+
+</div>
+
+</section>
+<!-- Interactive External Link Card -->
+<a class="group p-space-md rounded-2xl bg-surface-container hover:bg-surface-container-high transition-all duration-200 shadow-md flex items-center justify-between active:scale-[0.99]" href="https://github.com/alexhunter/fintech-app" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center gap-space-md min-w-0 pr-2">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary-fixed group-hover:scale-105 transition-transform shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">language</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Repository &amp; Specs</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold truncate">github.com/alexhunter/fintech-app</span>
+
+</div>
+</div>
+<div class="px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-bold flex items-center gap-1 shrink-0 group-hover:bg-primary-container transition-colors shadow-sm">
+<span class="">View</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</a>
+<!-- Footer Attribution Stamp -->
+<footer class="pt-space-xs flex flex-col items-center justify-center text-center gap-1 opacity-70">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="">Independent Creative Work Sample</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+        Commis Verified Hunter Showcase • @alex_hunter
+      </p>
+</footer>
+</div>
+<!-- Delete Confirmation Modal (Native Mobile Backdrop) -->
+<div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-200 opacity-0 pointer-events-none" id="deleteConfirmationModal">
+<div class="w-full max-w-sm rounded-2xl bg-surface-container-high p-space-lg flex flex-col gap-space-md shadow-2xl transform translate-y-8 transition-transform duration-200" id="modalDialog">
+<div class="w-12 h-12 rounded-full bg-error-container/30 text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">warning</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">
+          Delete Portfolio Entry?
+        </h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Are you sure you want to delete <strong class="text-primary font-semibold">“Fintech Mobile App”</strong>? This action cannot be undone.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-3 px-4 rounded-xl bg-surface-container-highest text-primary font-label-lg text-label-lg font-bold hover:bg-surface-variant transition-colors text-center active:scale-95" onclick="closeDeleteModal()" type="button">
+          Cancel
+        </button>
+<button class="flex-1 py-3 px-4 rounded-xl bg-error text-on-error font-label-lg text-label-lg font-bold hover:opacity-90 transition-opacity text-center shadow-lg active:scale-95" onclick="confirmDeleteEntry()" type="button">
+          Delete
+        </button>
+</div>
+</div>
+</div>
+<!-- Toast Notification Feedback -->
+<div class="fixed bottom-6 inset-x-6 z-50 flex items-center justify-between px-4 py-3 rounded-xl bg-surface-container-highest text-primary shadow-2xl transition-all duration-300 transform translate-y-16 opacity-0 pointer-events-none" id="actionToast">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed text-[20px]" id="toastIcon">tune</span>
+<span class="font-body-md text-body-md" id="toastMessage">Switched to Owner view (@alex_hunter). Manage options active.</span>
+</div>
+<button class="text-secondary hover:text-primary" onclick="hideToast()" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<script>
+  let currentRole = 'owner';
+
+  function switchRole(role) {
+    currentRole = role;
+    const ownerBtn = document.getElementById('roleOwnerBtn');
+    const visitorBtn = document.getElementById('roleVisitorBtn');
+    const ownerActions = document.getElementById('ownerActionsWrapper');
+    const optionsMenu = document.getElementById('optionsDropdown');
+
+    if (role === 'owner') {
+      ownerBtn.className = "px-3 py-1 rounded-full font-label-sm text-label-sm transition-all duration-200 bg-primary-fixed text-on-primary-fixed font-bold shadow-sm";
+      visitorBtn.className = "px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all duration-200";
+      ownerActions.classList.remove('invisible', 'opacity-0');
+      ownerActions.classList.add('visible', 'opacity-100');
+      showToast("Switched to Owner view (@alex_hunter). Manage options active.", "tune");
+    } else {
+      visitorBtn.className = "px-3 py-1 rounded-full font-label-sm text-label-sm transition-all duration-200 bg-primary-fixed text-on-primary-fixed font-bold shadow-sm";
+      ownerBtn.className = "px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all duration-200";
+      ownerActions.classList.remove('visible', 'opacity-100');
+      ownerActions.classList.add('invisible', 'opacity-0');
+      optionsMenu.classList.add('hidden');
+      showToast("Switched to Visitor view. Management menu hidden.", "visibility");
+    }
+  }
+
+  function toggleOptionsMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('optionsDropdown');
+    menu.classList.toggle('hidden');
+  }
+
+  function handleEditEntry() {
+    const menu = document.getElementById('optionsDropdown');
+    menu.classList.add('hidden');
+    showToast("Opening portfolio editor for 'Fintech Mobile App'...", "edit");
+  }
+
+  function openDeleteModal() {
+    const menu = document.getElementById('optionsDropdown');
+    menu.classList.add('hidden');
+    
+    const modal = document.getElementById('deleteConfirmationModal');
+    const dialog = document.getElementById('modalDialog');
+    modal.classList.remove('pointer-events-none', 'opacity-0');
+    modal.classList.add('opacity-100');
+    dialog.classList.remove('translate-y-8');
+    dialog.classList.add('translate-y-0');
+  }
+
+  function closeDeleteModal() {
+    const modal = document.getElementById('deleteConfirmationModal');
+    const dialog = document.getElementById('modalDialog');
+    modal.classList.add('pointer-events-none', 'opacity-0');
+    modal.classList.remove('opacity-100');
+    dialog.classList.add('translate-y-8');
+    dialog.classList.remove('translate-y-0');
+  }
+
+  function confirmDeleteEntry() {
+    closeDeleteModal();
+    showToast("Portfolio entry successfully deleted.", "delete_forever");
+    setTimeout(() => {
+      // Simulate navigation back to creator profile
+      if (window.history && window.history.length > 1) {
+        window.history.back();
+      }
+    }, 1400);
+  }
+
+  let toastTimeout;
+  function showToast(msg, icon = 'info') {
+    clearTimeout(toastTimeout);
+    const toast = document.getElementById('actionToast');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastIcon = document.getElementById('toastIcon');
+
+    toastMessage.textContent = msg;
+    toastIcon.textContent = icon;
+
+    toast.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    toastTimeout = setTimeout(() => {
+      hideToast();
+    }, 3200);
+  }
+
+  function hideToast() {
+    const toast = document.getElementById('actionToast');
+    toast.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }
+
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('optionsDropdown');
+    const trigger = document.getElementById('optionsMenuTrigger');
+    if (menu && !menu.classList.contains('hidden') && !menu.contains(e.target) && !trigger.contains(e.target)) {
+      menu.classList.add('hidden');
+    }
+  });
+</script></main>
+
+</body></html>

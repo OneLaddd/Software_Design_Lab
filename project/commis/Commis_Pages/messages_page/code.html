@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Commis - Messages</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans, League Spartan, Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=League+Spartan:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brandYellow: '#FFE600',
+            darkBg: '#131313',
+            cardBg: '#1A1A1A',
+            borderSubtle: '#262626',
+            textMuted: '#9CA3AF'
+          },
+          fontFamily: {
+            spartan: ['"League Spartan"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Strictly sized 416px x 884px mobile frame centered in viewport */
+    body {
+      background-color: #0b0b0b;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    #app-container {
+      width: 416px;
+      height: 884px;
+      max-width: 416px;
+      max-height: 884px;
+      position: relative;
+      background-color: #131313;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      border-radius: 40px;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .pressable:active {
+      transform: scale(0.97);
+      transition: transform 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+<!-- BEGIN: App Viewport (416px x 884px) -->
+<div class="text-white select-none relative" id="app-container">
+<!-- BEGIN: Top App Bar / Header -->
+<header class="px-5 pt-7 pb-3 flex items-center justify-between shrink-0 bg-[#131313] z-20">
+<!-- Commis Branding -->
+<div class="flex items-baseline font-spartan">
+<span class="text-[#FFE600] text-[34px] font-extrabold lowercase leading-none tracking-tight">commis</span>
+<span class="text-white text-[34px] font-black leading-none">.</span>
+</div>
+<!-- Hamburger Menu Button -->
+<button aria-label="Open menu" class="text-white hover:text-[#FFE600] transition-colors p-1.5 focus:outline-none pressable">
+<svg class="w-7 h-7 stroke-current" fill="none" stroke-linecap="round" stroke-width="2.2" viewBox="0 0 24 24">
+<line x1="4" x2="20" y1="7" y2="7"></line>
+<line x1="4" x2="20" y1="12" y2="12"></line>
+<line x1="4" x2="20" y1="17" y2="17"></line>
+</svg>
+</button>
+</header>
+<!-- END: Top App Bar -->
+<!-- BEGIN: Interactive Tabs Bar -->
+<div class="px-6 pt-1 pb-3 shrink-0 bg-[#131313] border-b border-[#222222]">
+<div class="flex items-center space-x-7" role="tablist">
+<!-- Tab 1: Notifications -->
+<button aria-selected="true" class="relative pb-1.5 text-sm transition-colors focus:outline-none cursor-pointer select-none font-medium text-white font-semibold" id="tab-notifications" onclick="switchTab('notifications')" role="tab">
+<span class="">Notifications</span>
+<span class="absolute bottom-0 left-0 w-full h-[2.5px] bg-[#FFE600] rounded-full transition-all opacity-100 scale-x-100" id="indicator-notifications"></span>
+</button>
+<!-- Tab 2: Chats -->
+<button aria-selected="false" class="relative pb-1.5 text-sm font-medium transition-colors focus:outline-none hover:text-neutral-200 cursor-pointer select-none text-neutral-400" id="tab-chats" onclick="switchTab('chats')" role="tab">
+<span class="">Chats</span>
+<span class="absolute bottom-0 left-0 w-full h-[2.5px] bg-[#FFE600] rounded-full transition-all opacity-0 scale-x-50" id="indicator-chats"></span>
+</button>
+</div>
+</div>
+<!-- END: Interactive Tabs Bar -->
+<!-- BEGIN: Main Tab Content -->
+<main class="flex-1 overflow-y-auto no-scrollbar relative">
+<!-- VIEW 1: Notifications Tab Panel (Default Active) -->
+<section aria-labelledby="tab-notifications" class="flex-col w-full px-5 py-4 divide-y divide-[#222222] flex" id="panel-notifications" role="tabpanel">
+<!-- Notification Item 1: System Onboarding -->
+<article class="flex items-start space-x-3.5 pb-4 cursor-pointer hover:bg-neutral-900/40 rounded-xl transition-colors p-2 -mx-2 pressable">
+<!-- Commis Yellow Logo Icon Badge -->
+<div class="relative shrink-0">
+<div class="w-11 h-11 rounded-full overflow-hidden bg-[#FFE600] flex items-center justify-center p-1.5 shadow-[0_2px_10px_rgba(255,230,0,0.18)]">
+<img alt="Commis Emblem" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDea_YrLQ7Sj4RJ--sgIBvgQ9uvx0xT_7RY8P1829E7zTYpxWs6NgcE4yo1H10RNmIRc4XWMvEc6o3HoMS-9S2_uFUsQngvtKmK-bmpTUf_cQP5l_g3MFjBUm971ojqKkTcWa4bdFvJsXL8qp9kOaNCGvhdyTnYw2qa-KChhCG5guK85plUaRAvC_OFQnNJvSsjede9D_ReAI69rskvhxy4wkRa78mv8PqFcqpZEvpLTiInBwHMU49rTm0XLWqyGN3KgQc">
+</div>
+</div>
+<!-- Text details -->
+<div class="flex-1 min-w-0 flex flex-col pt-0.5">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-medium text-white truncate leading-snug">
+              Welcome to Commis, Hunter!
+            </h2>
+</div>
+<p class="text-xs text-neutral-400 truncate mt-0.5 leading-normal">
+            Still new to Commis? Check these reminders and tips on...
+          </p>
+</div>
+</article>
+<!-- Notification Item 2: Bounty Offer from Jeff -->
+<article class="flex items-start space-x-3.5 pt-4 pb-4 cursor-pointer hover:bg-neutral-900/40 rounded-xl transition-colors p-2 -mx-2 pressable">
+<!-- Avatar Photo -->
+<div class="relative shrink-0">
+<img alt="Jeff's portrait" class="w-11 h-11 rounded-full object-cover shadow-md border border-neutral-700/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvKXlpZp8VjPpsEBLUWI-7lpTGSR3WrQeDCjqP03doq-zo_cz_yeO1zzqh7Q95b_7DHRLqF7ASbxC3qwqI2nGe--Bc_lh0UwOnjwgyDlh-mmg3GVTSMSSoHRo2zymAgoZFrbbhOQG_QYI3sFbGVfqv0Af3aKNeikoWuHN_bZ-gzTxdjeq7v0IGdwkCnIBCV22AwxcA_aj6dXp-i7hIKK2s5GN-a7WgNlw_4yMkbw_7s9DCC7XRrKZLYw">
+</div>
+<!-- Text details -->
+<div class="flex-1 min-w-0 flex flex-col pt-0.5">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-medium text-white truncate leading-snug">Commission Offer from @jeff - ₱32,000</h2>
+</div>
+<p class="text-xs text-neutral-400 truncate mt-0.5 leading-normal">
+            Photography Session
+          </p>
+</div>
+</article>
+</section>
+<!-- VIEW 2: Chats Tab Panel (Initially Hidden) -->
+<section aria-labelledby="tab-chats" class="flex-col w-full px-5 py-4 divide-y divide-[#222222] hidden" id="panel-chats" role="tabpanel">
+<!-- Active Chat Thread: Jeff -->
+<article class="flex items-center space-x-3.5 pb-4 cursor-pointer hover:bg-neutral-900/40 rounded-xl transition-colors p-2 -mx-2 pressable" onclick="alert('Opening conversation with Jeff...')">
+<!-- Avatar with Online indicator -->
+<div class="relative shrink-0">
+<img alt="Jeff's portrait" class="w-11 h-11 rounded-full object-cover shadow-md border border-neutral-700/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvKXlpZp8VjPpsEBLUWI-7lpTGSR3WrQeDCjqP03doq-zo_cz_yeO1zzqh7Q95b_7DHRLqF7ASbxC3qwqI2nGe--Bc_lh0UwOnjwgyDlh-mmg3GVTSMSSoHRo2zymAgoZFrbbhOQG_QYI3sFbGVfqv0Af3aKNeikoWuHN_bZ-gzTxdjeq7v0IGdwkCnIBCV22AwxcA_aj6dXp-i7hIKK2s5GN-a7WgNlw_4yMkbw_7s9DCC7XRrKZLYw">
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#FFE600] rounded-full ring-2 ring-[#131313]"></span>
+</div>
+<!-- Details -->
+<div class="flex-1 min-w-0 flex flex-col">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-semibold text-white truncate">@jeff</h2>
+<span class="text-[11px] text-neutral-500 font-medium">Jun 19</span>
+</div>
+<p class="text-xs text-neutral-400 truncate mt-0.5 font-normal">
+            Hey, man. I just want you to know that I like yo...
+          </p>
+</div>
+</article>
+</section>
+</main>
+<!-- END: Main Tab Content -->
+<!-- BEGIN: Floating Bottom Navigation Bar (Matching Marketplace & Posts pages) -->
+<nav class="shrink-0 bg-[#161616]/95 backdrop-blur-md border-t border-neutral-800/90 pt-2 pb-5 px-6 flex flex-col items-center z-40" data-purpose="app-navigation">
+<div class="w-full flex items-center justify-between px-2">
+<!-- 1. Market -->
+<a aria-label="Market" class="flex flex-col items-center gap-1 text-neutral-400 hover:text-white transition-colors pressable focus:outline-none" href="#">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+<path d="M4 4h16l1 5H3L4 4zm-1 7h18v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9zm6 2v4h6v-4H9z"></path>
+</svg>
+<span class="text-[10px] font-medium">Market</span>
+</a>
+<!-- 2. Search -->
+<a aria-label="Search" class="flex flex-col items-center gap-1 text-neutral-400 hover:text-white transition-colors pressable focus:outline-none" href="#">
+<svg class="w-5 h-5 stroke-current stroke-[2.3] fill-none" viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"></circle>
+<line stroke-linecap="round" x1="16.5" x2="21" y1="16.5" y2="21"></line>
+</svg>
+<span class="text-[10px] font-medium">Search</span>
+</a>
+<!-- 3. Home -->
+<a aria-label="Home" class="flex flex-col items-center gap-1 text-neutral-400 hover:text-white transition-colors pressable focus:outline-none" href="#">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+<path d="M12 2.5L2 11h3v10h6v-6h2v6h6V11h3L12 2.5z"></path>
+</svg>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<!-- 4. Ideas -->
+<a aria-label="Ideas" class="flex flex-col items-center gap-1 text-neutral-400 hover:text-white transition-colors pressable focus:outline-none" href="#">
+<svg class="w-5 h-5 stroke-current stroke-[2] fill-none" viewBox="0 0 24 24">
+<path d="M9 18h6"></path>
+<path d="M10 22h4"></path>
+<path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path>
+</svg>
+<span class="text-[10px] font-medium">Ideas</span>
+</a>
+<!-- 5. Messages (Active Highlighted State) -->
+<a aria-label="Messages" class="flex flex-col items-center gap-1 text-[#FFE600] pressable focus:outline-none" href="#">
+<div class="relative flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-[#FFE600] flex items-center justify-center text-black shadow-md shadow-[#FFE600]/25">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+</svg>
+</div>
+</div>
+<span class="text-[10px] font-semibold text-[#FFE600]">Messages</span>
+</a>
+</div>
+</nav>
+<!-- END: Floating Bottom Navigation Bar -->
+</div>
+<!-- END: App Viewport -->
+<!-- BEGIN: Tab Switching Script -->
+<script>
+  function switchTab(target) {
+    const isNotifs = target === 'notifications';
+
+    const panelNotifs = document.getElementById('panel-notifications');
+    const panelChats = document.getElementById('panel-chats');
+
+    const tabNotifs = document.getElementById('tab-notifications');
+    const tabChats = document.getElementById('tab-chats');
+
+    const indNotifs = document.getElementById('indicator-notifications');
+    const indChats = document.getElementById('indicator-chats');
+
+    if (isNotifs) {
+      panelNotifs.classList.remove('hidden');
+      panelNotifs.classList.add('flex');
+      panelChats.classList.add('hidden');
+      panelChats.classList.remove('flex');
+
+      tabNotifs.setAttribute('aria-selected', 'true');
+      tabNotifs.classList.remove('text-neutral-400');
+      tabNotifs.classList.add('text-white', 'font-semibold');
+
+      tabChats.setAttribute('aria-selected', 'false');
+      tabChats.classList.remove('text-white', 'font-semibold');
+      tabChats.classList.add('text-neutral-400', 'font-medium');
+
+      indNotifs.classList.remove('opacity-0', 'scale-x-50');
+      indNotifs.classList.add('opacity-100', 'scale-x-100');
+
+      indChats.classList.remove('opacity-100', 'scale-x-100');
+      indChats.classList.add('opacity-0', 'scale-x-50');
+    } else {
+      panelChats.classList.remove('hidden');
+      panelChats.classList.add('flex');
+      panelNotifs.classList.add('hidden');
+      panelNotifs.classList.remove('flex');
+
+      tabChats.setAttribute('aria-selected', 'true');
+      tabChats.classList.remove('text-neutral-400');
+      tabChats.classList.add('text-white', 'font-semibold');
+
+      tabNotifs.setAttribute('aria-selected', 'false');
+      tabNotifs.classList.remove('text-white', 'font-semibold');
+      tabNotifs.classList.add('text-neutral-400', 'font-medium');
+
+      indChats.classList.remove('opacity-0', 'scale-x-50');
+      indChats.classList.add('opacity-100', 'scale-x-100');
+
+      indNotifs.classList.remove('opacity-100', 'scale-x-100');
+      indNotifs.classList.add('opacity-0', 'scale-x-50');
+    }
+  }
+</script>
+<!-- END: Tab Switching Script -->
+
+
+
+
+</body></html>

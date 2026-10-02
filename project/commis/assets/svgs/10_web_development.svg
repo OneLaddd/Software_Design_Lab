@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="w-6 h-6 stroke-current stroke-[1.8] fill-none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect height="18" rx="3" width="20" x="2" y="3"></rect><line x1="2" x2="22" y1="8" y2="8"></line><circle cx="5" cy="5.5" fill="currentColor" r="0.75"></circle><circle cx="7.5" cy="5.5" fill="currentColor" r="0.75"></circle><circle cx="10" cy="5.5" fill="currentColor" r="0.75"></circle><path d="m7.5 16.5-2.5-2.5 2.5-2.5"></path><path d="m10.5 18 3-8"></path><path d="m16.5 11.5 2.5 2.5-2.5 2.5"></path></svg>

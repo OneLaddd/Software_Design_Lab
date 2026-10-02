@@ -1,0 +1,814 @@
+<!DOCTYPE html><html class="dark" lang="en" style="width: 390px; height: 868px; overflow: hidden; position: relative;"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-variant": "#353534", "surface-container-low": "#1c1b1b", "on-secondary": "#303032", "secondary-fixed": "#e4e2e4", "surface-dim": "#131313", "on-secondary-container": "#b6b4b7", "on-tertiary-fixed": "#1b1b1e", "primary-fixed": "#fde400", "on-tertiary-fixed-variant": "#47464a", "primary": "#ffffff", "tertiary-fixed": "#e4e1e5", "tertiary-container": "#e4e1e5", "primary-container": "#fde400", "on-error-container": "#ffdad6", "on-surface": "#e5e2e1", "primary-fixed-dim": "#dec800", "on-primary-fixed-variant": "#504700", "surface-container-lowest": "#0e0e0e", "inverse-primary": "#6a5f00", "background": "#131313", "surface-bright": "#393939", "on-primary": "#373100", "outline": "#979177", "secondary": "#c8c6c8", "on-primary-container": "#716500", "surface": "#131313", "error": "#ffb4ab", "tertiary": "#ffffff", "on-primary-fixed": "#201c00", "on-surface-variant": "#cdc7aa", "on-background": "#e5e2e1", "on-tertiary-container": "#656467", "secondary-fixed-dim": "#c8c6c8", "tertiary-fixed-dim": "#c8c6c9", "on-secondary-fixed-variant": "#474649", "surface-container-highest": "#353534", "surface-container-high": "#2a2a2a", "surface-container": "#201f1f", "outline-variant": "#4b4731", "inverse-surface": "#e5e2e1", "on-error": "#690005", "secondary-container": "#474649", "error-container": "#93000a", "on-secondary-fixed": "#1b1b1d", "inverse-on-surface": "#313030", "on-tertiary": "#303033", "surface-tint": "#dec800" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter": "1rem", "space-xl": "2rem", "space-lg": "1.5rem", "margin": "1.25rem", "space-md": "1rem" }, "fontFamily": { "label-lg": ["Inter"], "display": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "label-sm": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "body-md": ["Inter"] }, "fontSize": { "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-space-sm flex items-center justify-center text-on-surface hover:text-primary-container active:scale-95 transition-transform" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Search Results</h1></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface pb-safe"><div class="flex flex-col w-full text-on-surface">
+<!-- Query Bar Sticky Subheader -->
+<div class="sticky top-0 z-40 bg-surface/95 backdrop-blur-md px-margin pt-space-xs pb-space-sm flex flex-col gap-space-sm">
+<!-- Search Input Control -->
+<div class="flex items-center gap-space-sm w-full">
+<div class="relative flex-1 flex items-center bg-surface-container-high rounded-full px-space-md py-2 transition-all focus-within:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant shrink-0 mr-2">search</span>
+<input class="w-full bg-transparent text-on-surface font-body-md text-body-md focus:outline-none placeholder:text-on-surface-variant/60" id="global-search-input" placeholder="Search Commis..." type="text" value="programming">
+<button aria-label="Clear query" class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-transform active:scale-90 shrink-0 ml-1" id="clear-search-btn" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+
+</div>
+<!-- Scrollable Tab Navigation -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar -mx-margin px-margin pt-space-xs pb-1">
+<button class="tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-semibold whitespace-nowrap transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:text-on-surface" data-tab="all">
+        All
+      </button>
+<button class="tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-semibold whitespace-nowrap transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:text-on-surface" data-tab="users">
+        Users
+      </button>
+<button class="tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-semibold whitespace-nowrap transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:text-on-surface" data-tab="posts">
+        Posts
+      </button>
+<button class="tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-bold whitespace-nowrap transition-all duration-200 bg-primary-container text-on-primary-container shadow-[0_2px_12px_rgba(253,228,0,0.3)]" data-tab="communities">
+        Communities
+      </button>
+<button class="tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-semibold whitespace-nowrap transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:text-on-surface" data-tab="bounties">
+        Bounties
+      </button>
+<button class="tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-semibold whitespace-nowrap transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:text-on-surface" data-tab="empty">
+        No Results State
+      </button>
+</div>
+</div>
+<!-- MAIN TAB PANELS -->
+<div class="px-margin pt-space-sm pb-space-xl flex flex-col gap-space-lg">
+<!-- 1. TAB: ALL (OVERVIEW) -->
+<div class="tab-panel flex-col gap-space-xl hidden" id="panel-all">
+<!-- Section: Users Preview -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Users</span>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-0.5" onclick="switchTab('users')" type="button">
+            See All <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-xs">
+<!-- User Item 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between gap-space-md hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative shrink-0">
+<img class="w-11 h-11 rounded-full object-cover bg-surface-container-highest" data-alt="Moody dark cyberpunk portrait of a male backend engineer in a neon lit studio wearing headphones with soft amber lighting accents on a charcoal background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzAk-rdAIYtBO_CX0fjWRdfQiqi6oejIasHkkl2pXyaDih6wzBIHdYaRKcxC-wwO8cLe80wkk9czR1M5zue6k0OjeoZjC9v-cItVfJDUUzAitsKrKqMl7phuXIR7VVj7TxVf_p6cu3La0d7n0P24QRFqcL7XODxRezKeQNS8YEehzMYpDqJYE948zV1_Bk55Z5m1ZgLHGEZVqlqPDWDOj-IzxWgjiW9DMjWId07RolZQHBEEkYUw0e2w">
+
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">@programmer_david</span>
+
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Programming &amp; software discussions &amp; backend engineering</p>
+</div>
+</div>
+<button class="follow-btn shrink-0 px-3 py-1 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-semibold text-on-surface transition-all" type="button">Message</button>
+</div>
+<!-- User Item 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between gap-space-md hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="shrink-0">
+<img class="w-11 h-11 rounded-full object-cover bg-surface-container-highest" data-alt="Portrait of an upbeat creative developer with soft studio edge lighting on a matte obsidian backdrop holding a stylus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnKn_jcj0Zt9Musu42zQXvPQ51zX5-AMaPwohwmoJ4Rd8AUFV9OGffjT0phamJqBw079z9tYHd2AraKevkPG_YDUvOOwgZDxQyAr3S38II9oyqJPONUdnVaf9mWsxGzybocCVHo2lfjwwm1qRW54P4knfy7LWOQaQ3ut2aeXPERLWfKxdx2QATS_cA8dqVuf52Z2-UHi6f35rUaDqe1W9k70PJFcB_1Ae-BKxvGuntLlOeeCeIWdh_Q">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">@alexcodes</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Fullstack &amp; React Native Developer crafting mobile systems</p>
+</div>
+</div>
+<button class="follow-btn shrink-0 px-3 py-1 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-semibold text-on-surface transition-all" type="button">Message</button>
+</div>
+</div>
+</section>
+<!-- Section: Communities Preview -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Communities</span>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-0.5" onclick="switchTab('communities')" type="button">
+            See All <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md hover:bg-surface-container transition-colors">
+<div class="flex gap-space-md min-w-0">
+<img src="https://lh3.googleusercontent.com/aida/AEtjO1UTQS2Kdy2YDgRfibO18Bx2kjWTEf5ZFPh01kmv8l8yFdUrmkYPjyb_y4ywNGJtrc3Rm3FKMhU3rPiNVO6VRiNLXa5g-owGfNuu4c8OOddNRo_pgtfb_t5fZZsUgCOmYkN0AU2ZkdWiHiVCkjOnDRHBSCq9N-299rOVhH-qDhh60BgpvsF0rLZIBlGKIeq6F7Dg2ho--weAwaAtg6_9cEhIvkVHNF3wBJRBcmUjlqb0AslMus4WUIX_pSEn" alt="c/programming avatar" class="w-11 h-11 rounded-full object-cover shrink-0 bg-surface-container-highest">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">c/programming</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">12.4K</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-0.5">
+                Programming and software development discussions, architecture, and code reviews.
+              </p>
+<div class="flex items-center gap-3 mt-2 text-on-surface-variant/80 font-label-sm text-[11px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">forum</span> 1.8K posts</span>
+<span class="">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">bolt</span> 42 online</span>
+</div>
+</div>
+</div>
+<button class="join-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">
+            Join
+          </button>
+</div>
+</section>
+<!-- Section: Posts Preview -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Posts</span>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-0.5" onclick="switchTab('posts')" type="button">
+            See All <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Post Card 1 -->
+<article class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-bold text-on-surface">c/programming</span>
+<span class="">•</span>
+<span class="truncate">@dev_linus</span>
+<span class="">•</span>
+<span class="">4h ago</span>
+</div>
+<button aria-label="More options" class="text-on-surface-variant hover:text-on-surface" type="button">
+
+</button>
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">
+              I am one of the developers that helped solve Navier-Stokes Millennium Problem
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Over the last five years, our collaborative team engineered a massively distributed compute pipeline in Rust to evaluate fluid velocity vectors...
+            </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs bg-surface-container-high rounded-full px-2.5 py-1">
+<button class="upvote-btn flex items-center text-on-surface-variant hover:text-primary-container active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-md text-label-md font-bold text-on-surface">30,324</span>
+<button class="downvote-btn flex items-center text-on-surface-variant hover:text-error active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="">1.2k</span>
+</button>
+<button class="flex items-center gap-1 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Post Card 2 -->
+<article class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-bold text-on-surface">c/programming</span>
+<span class="">•</span>
+<span class="truncate">@alexcodes</span>
+<span class="">•</span>
+<span class="">3h ago</span>
+</div>
+<button aria-label="More options" class="text-on-surface-variant hover:text-on-surface" type="button">
+
+</button>
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">
+              How I learned React Native and built production apps in 90 days
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              A comprehensive breakdown on native bridging, turbo modules, gesture responders, and how to avoid early architecture traps.
+            </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs bg-surface-container-high rounded-full px-2.5 py-1">
+<button class="upvote-btn flex items-center text-on-surface-variant hover:text-primary-container active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-md text-label-md font-bold text-on-surface">42</span>
+<button class="downvote-btn flex items-center text-on-surface-variant hover:text-error active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="">18</span>
+</button>
+<button class="flex items-center gap-1 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Section: Bounties Preview -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Bounties</span>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-0.5" onclick="switchTab('bounties')" type="button">
+            See All <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Bounty Card 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+                Build a React Native App with Supabase
+              </h2>
+<div class="font-display text-headline-md font-bold text-primary tracking-tight">
+                PHP 5,000 - PHP 8,000
+              </div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">@marcus_dev</span>
+<span class="">•</span>
+<span class="">12 bids</span>
+</div>
+
+</div>
+</div>
+<!-- Bounty Card 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant">4h ago</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+                Fix Python AsyncIO Memory Leak in Microservice
+              </h2>
+<div class="font-display text-headline-md font-bold text-primary tracking-tight">
+                $150 - $400 USD
+              </div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">@solaris_corp</span>
+<span class="">•</span>
+<span class="">6 bids</span>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- 2. TAB: USERS -->
+<div class="tab-panel flex-col gap-space-sm hidden" id="panel-users">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Matching clients &amp; hunters (4)</span>
+
+</div>
+<!-- User Item 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative shrink-0">
+<img class="w-12 h-12 rounded-full object-cover bg-surface-container-highest" data-alt="Moody dark cyberpunk portrait of a male backend engineer in a neon lit studio wearing headphones with soft amber lighting accents on a charcoal background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy6I5xmAS6MAQYlnvGxKHmzcV4Twb5KTM_lVa9oPSX8-Ta2eEzw2-eWLnx9YjtEbMMfgyKfCc9BcTuR35bcPKnYG49-VZdaoCsJN0XKwXoJhtSmAPHxwtnL9jOPYtvjt5FJgTXkSdjOQzsslt-O-KEFQcOvAZqCVC9uznkYw__5XF689dHgG8ppgBOCsxuZFUsIn2W8P_Y_FFzqsgvG03vhTiKT8GM9VvSR02HFk6smAuYnFnbR2vOFQ">
+
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">@programmer_david</span>
+
+</div>
+
+</div>
+</div>
+<button class="follow-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">Message</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Programming &amp; software development discussions, distributed cloud systems, and high-concurrency Go / Rust microservices.
+        </p>
+<div class="flex items-center gap-2 pt-1 flex-wrap">
+
+
+
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-auto">94 completed bounties</span>
+</div>
+</div>
+<!-- User Item 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<img class="w-12 h-12 rounded-full object-cover shrink-0 bg-surface-container-highest" data-alt="Portrait of an upbeat creative developer with soft studio edge lighting on a matte obsidian backdrop holding a stylus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAltBtuI2xqU1ngxpPR_gr1V4dHqORJgenHdiAFacD0CbOKdhlL6vE_CI_ZLNmBBbilsqdL40I_jK31CcXetm0zuc0M1B2TSOb7hXBDa87cHvkP6_-wA15qhWsk1NX6JhQkiKHFzuO5jZT-PZF6dH4dMBV5yD8vt6mtmONW6JRQ3dSK9lQyMfeWHKwZTfJbOdYtewezftql1f91SK4lT5T8JR-McnYPHrm0xT4_-oXkH0tgByyPetO14Q">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">@alexcodes</span>
+
+</div>
+</div>
+<button class="follow-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">Message</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Fullstack &amp; React Native Developer crafting mobile systems, gesture engines, and cross-platform UI architectures.
+        </p>
+<div class="flex items-center gap-2 pt-1 flex-wrap">
+
+
+
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-auto">38 completed bounties</span>
+</div>
+</div>
+<!-- User Item 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<img class="w-12 h-12 rounded-full object-cover shrink-0 bg-surface-container-highest" data-alt="Graphic avatar of a tech designer with glasses and monochrome minimal streetwear in dark setting with subtle neon aura." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJHf3F9PrrYpizIRjsXY2P-FlaJmusc1OqIIlpsCf2Sx6bkit23IC61jp1g5rch7GqIjlWPVSdPJch42FBz-t3WfhRz9C2ol3yDs3sum1pSLd80BhavmfNBq6ZzjtuERiDI0ywbEFAROY3a5w34D0wIlAfSpXxtoT7ypj2uE_IpVU-wQYR9ejHxh5qylWvgHXrPwzlPMcVVXJIsLmhJQj0la_SPPObTNy4AhNe5fg5Ady73f1kpbektQ">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">@codewithsam</span>
+
+</div>
+</div>
+<button class="follow-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">Message</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Python runtime optimizer, algorithmic challenge creator, and computer science mentor.
+        </p>
+<div class="flex items-center gap-2 pt-1 flex-wrap">
+
+
+
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-auto">12 completed bounties</span>
+</div>
+</div>
+<!-- User Item 4 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<img class="w-12 h-12 rounded-full object-cover shrink-0 bg-surface-container-highest" data-alt="Monochrome portrait of young woman software engineer sitting with laptop in dimly lit creative office space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeWPZCDwNDXq241FsVjdVt_vVOe8_wPlzq8W9FWfCgF-w_pfeeyndf5Fif2mHvbWIoMzkhDhiDe8rZNRJsnJ3057PmoPG3PrnsiFfwaGNDyaVQUMdOtNsUn3NG5_gMmWMUovcJP8gzlircwlb3tIzVrrZkgncqs5PYOtF9n2PoerX-5Vc656dkAvOgC0X0Z1ARvOBniMvTGA_OVICpuHuF-OTRq-wOFXC1a8US2LJ93A1-EktK-NxgRw">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">@student_kai</span>
+
+</div>
+</div>
+<button class="follow-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">Message</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          CS undergrad exploring compiler construction, assembly, and reverse engineering.
+        </p>
+<div class="flex items-center gap-2 pt-1 flex-wrap">
+
+
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-auto">4 completed bounties</span>
+</div>
+</div>
+</div>
+<!-- 3. TAB: POSTS -->
+<div class="tab-panel flex-col gap-space-sm hidden" id="panel-posts">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Found in discussion threads (24)</span>
+
+</div>
+<!-- Extended Post 1 -->
+<article class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="font-bold text-on-surface">c/programming</span>
+<span class="">•</span>
+<span class="">@dev_linus</span>
+<span class="">•</span>
+<span class="">4h ago</span>
+</div>
+<button aria-label="More options" class="text-on-surface-variant hover:text-on-surface" type="button">
+
+</button>
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">
+          I am one of the developers that helped solve Navier-Stokes Millennium Problem
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Over the last five years, our collaborative team engineered a massively distributed compute pipeline in Rust to evaluate fluid velocity vectors under non-linear boundary conditions. Here is what we uncovered regarding finite-time blowup singularities...
+        </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs bg-surface-container-high rounded-full px-2.5 py-1">
+<button class="upvote-btn flex items-center text-on-surface-variant hover:text-primary-container active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-md text-label-md font-bold text-on-surface">30,324</span>
+<button class="downvote-btn flex items-center text-on-surface-variant hover:text-error active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="">1.2k</span>
+</button>
+<button class="flex items-center gap-1 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Extended Post 2 -->
+<article class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="font-bold text-on-surface">c/programming</span>
+<span class="">•</span>
+<span class="">@alexcodes</span>
+<span class="">•</span>
+<span class="">3h ago</span>
+</div>
+<button aria-label="More options" class="text-on-surface-variant hover:text-on-surface" type="button">
+
+</button>
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">
+          How I learned React Native and built production apps in 90 days
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          A comprehensive breakdown on native bridging, turbo modules, gesture responders, and how to avoid early architecture traps when switching from traditional web React.
+        </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs bg-surface-container-high rounded-full px-2.5 py-1">
+<button class="upvote-btn flex items-center text-on-surface-variant hover:text-primary-container active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-md text-label-md font-bold text-on-surface">42</span>
+<button class="downvote-btn flex items-center text-on-surface-variant hover:text-error active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="">18</span>
+</button>
+<button class="flex items-center gap-1 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Extended Post 3 -->
+<article class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="font-bold text-on-surface">c/webdev</span>
+<span class="">•</span>
+<span class="">@codewithsam</span>
+<span class="">•</span>
+<span class="">8h ago</span>
+</div>
+<button aria-label="More options" class="text-on-surface-variant hover:text-on-surface" type="button">
+
+</button>
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">
+          Why functional programming paradigms make state management trivial
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Purity, immutability, and algebraic data structures eliminate 80% of edge case synchronization bugs in large frontend client deployments.
+        </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs bg-surface-container-high rounded-full px-2.5 py-1">
+<button class="upvote-btn flex items-center text-on-surface-variant hover:text-primary-container active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-md text-label-md font-bold text-on-surface">819</span>
+<button class="downvote-btn flex items-center text-on-surface-variant hover:text-error active:scale-125 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="">104</span>
+</button>
+<button class="flex items-center gap-1 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- 4. TAB: COMMUNITIES -->
+<div class="tab-panel flex-col gap-space-sm flex" id="panel-communities">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Active Developer Circles (3)</span>
+</div>
+<!-- Comm 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md hover:bg-surface-container transition-colors">
+<div class="flex gap-space-md min-w-0">
+<img src="https://lh3.googleusercontent.com/aida/AEtjO1UTQS2Kdy2YDgRfibO18Bx2kjWTEf5ZFPh01kmv8l8yFdUrmkYPjyb_y4ywNGJtrc3Rm3FKMhU3rPiNVO6VRiNLXa5g-owGfNuu4c8OOddNRo_pgtfb_t5fZZsUgCOmYkN0AU2ZkdWiHiVCkjOnDRHBSCq9N-299rOVhH-qDhh60BgpvsF0rLZIBlGKIeq6F7Dg2ho--weAwaAtg6_9cEhIvkVHNF3wBJRBcmUjlqb0AslMus4WUIX_pSEn" alt="c/programming avatar" class="w-11 h-11 rounded-full object-cover shrink-0 bg-surface-container-highest">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">c/programming</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold mt-0.5">12.4K members • 1.8K posts</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              General software engineering, computer science fundamentals, architecture, and language benchmarks.
+            </p>
+</div>
+</div>
+<button class="join-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">
+          Join
+        </button>
+</div>
+<!-- Comm 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md hover:bg-surface-container transition-colors">
+<div class="flex gap-space-md min-w-0">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnKn_jcj0Zt9Musu42zQXvPQ51zX5-AMaPwohwmoJ4Rd8AUFV9OGffjT0phamJqBw079z9tYHd2AraKevkPG_YDUvOOwgZDxQyAr3S38II9oyqJPONUdnVaf9mWsxGzybocCVHo2lfjwwm1qRW54P4knfy7LWOQaQ3ut2aeXPERLWfKxdx2QATS_cA8dqVuf52Z2-UHi6f35rUaDqe1W9k70PJFcB_1Ae-BKxvGuntLlOeeCeIWdh_Q" alt="c/webdev avatar" class="w-11 h-11 rounded-full object-cover shrink-0 bg-surface-container-highest">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">c/webdev</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold mt-0.5">8.9K members • 940 posts</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Frontend, backend, serverless runtimes, and fullstack modern web application ecosystems.
+            </p>
+</div>
+</div>
+<button class="join-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">
+          Join
+        </button>
+</div>
+<!-- Comm 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md hover:bg-surface-container transition-colors">
+<div class="flex gap-space-md min-w-0">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJHf3F9PrrYpizIRjsXY2P-FlaJmusc1OqIIlpsCf2Sx6bkit23IC61jp1g5rch7GqIjlWPVSdPJch42FBz-t3WfhRz9C2ol3yDs3sum1pSLd80BhavmfNBq6ZzjtuERiDI0ywbEFAROY3a5w34D0wIlAfSpXxtoT7ypj2uE_IpVU-wQYR9ejHxh5qylWvgHXrPwzlPMcVVXJIsLmhJQj0la_SPPObTNy4AhNe5fg5Ady73f1kpbektQ" alt="c/python_dev avatar" class="w-11 h-11 rounded-full object-cover shrink-0 bg-surface-container-highest">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">c/python_dev</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold mt-0.5">5.1K members • 420 posts</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Data pipelines, fastAPI web services, machine learning backends, and Python optimization tips.
+            </p>
+</div>
+</div>
+<button class="join-btn shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md font-bold text-on-surface transition-all" type="button">
+          Join
+        </button>
+</div>
+</div>
+<!-- 5. TAB: BOUNTIES -->
+<div class="tab-panel flex-col gap-space-sm hidden" id="panel-bounties">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Open Bounties &amp; Commissions (12)</span>
+
+</div>
+<!-- Bounty 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+            Build a React Native App with Supabase
+          </h2>
+<div class="font-display text-headline-md font-bold text-primary tracking-tight">
+            PHP 5,000 - PHP 8,000
+          </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Seeking an experienced mobile developer to implement real-time chat, push notifications via Expo EAS, and auth flows with Supabase backend.
+        </p>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">@marcus_dev</span>
+<span class="">•</span>
+<span class="">12 bids</span>
+</div>
+
+</div>
+</div>
+<!-- Bounty 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant">4h ago</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+            Fix Python AsyncIO Memory Leak in Microservice
+          </h2>
+<div class="font-display text-headline-md font-bold text-primary tracking-tight">
+            $150 - $400 USD
+          </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Our Redis pub/sub listener gradually bloats heap memory after 14 hours uptime under sustained 2,000 msg/sec load. Need profiling and immediate patch.
+        </p>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">@solaris_corp</span>
+<span class="">•</span>
+<span class="">6 bids</span>
+</div>
+
+</div>
+</div>
+<!-- Bounty 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant">1d ago</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+            Smart Contract Security Audit &amp; Gas Optimization
+          </h2>
+<div class="font-display text-headline-md font-bold text-primary tracking-tight">
+            PHP 25,000 - PHP 40,000
+          </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Review ERC-721 staking contracts with custom reward curves. Deliver audit report and assembly-level gas refactors.
+        </p>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">@apex_protocol</span>
+<span class="">•</span>
+<span class="">19 bids</span>
+</div>
+
+</div>
+</div>
+</div>
+<!-- 6. TAB: EMPTY STATE (PREVIEW & REAL-TIME NO RESULTS) -->
+<div class="tab-panel hidden flex-col items-center justify-center text-center py-space-xl px-space-md" id="panel-empty">
+<!-- Glow & Icon Visual Container -->
+<div class="relative w-24 h-24 mb-space-lg flex items-center justify-center">
+<div class="absolute inset-0 rounded-full bg-primary-container/10 blur-xl animate-pulse"></div>
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container shadow-[0_4px_24px_rgba(253,228,0,0.15)] relative">
+<span class="material-symbols-outlined text-[38px]">search_off</span>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
+        No results found
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[270px] mt-2 mb-space-xl">
+        We couldn't find anything matching <span class="font-semibold text-primary" id="empty-query-display">"programming"</span>.
+      </p>
+<div class="flex flex-col gap-space-sm w-full max-w-[240px]">
+<button class="w-full py-2.5 px-space-md rounded-full bg-primary-container text-on-primary-container font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(253,228,0,0.3)] hover:opacity-95 active:scale-95 transition-all" id="empty-clear-btn" type="button">
+          Clear Search
+        </button>
+<button class="w-full py-2 px-space-md rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant active:scale-95 transition-all" onclick="restoreSearchQuery()" type="button">
+          Explore Trending Tags
+        </button>
+</div>
+<div class="mt-space-xl pt-space-lg flex flex-col items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-widest font-bold">Suggestions</span>
+<div class="flex gap-space-xs flex-wrap justify-center mt-1">
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" onclick="setQuery('React Native')" type="button">
+            React Native
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" onclick="setQuery('Design Systems')" type="button">
+            Design Systems
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" onclick="setQuery('Solidity')" type="button">
+            Solidity
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-Interactions Script -->
+<script>
+    const searchInput = document.getElementById('global-search-input');
+    const clearBtn = document.getElementById('clear-search-btn');
+    const emptyClearBtn = document.getElementById('empty-clear-btn');
+    const emptyQueryDisplay = document.getElementById('empty-query-display');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panels = {
+      all: document.getElementById('panel-all'),
+      users: document.getElementById('panel-users'),
+      posts: document.getElementById('panel-posts'),
+      communities: document.getElementById('panel-communities'),
+      bounties: document.getElementById('panel-bounties'),
+      empty: document.getElementById('panel-empty')
+    };
+
+    function switchTab(targetTab) {
+      tabButtons.forEach(btn => {
+        const isSelected = btn.dataset.tab === targetTab;
+        if (isSelected) {
+          btn.className = "tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-bold whitespace-nowrap transition-all duration-200 bg-primary-container text-on-primary-container shadow-[0_2px_12px_rgba(253,228,0,0.3)]";
+        } else {
+          btn.className = "tab-btn px-4 py-1.5 rounded-full font-label-md text-label-md font-semibold whitespace-nowrap transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:text-on-surface";
+        }
+      });
+
+      Object.keys(panels).forEach(key => {
+        if (key === targetTab) {
+          panels[key].classList.remove('hidden');
+          panels[key].classList.add('flex');
+        } else {
+          panels[key].classList.add('hidden');
+          panels[key].classList.remove('flex');
+        }
+      });
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchTab(btn.dataset.tab);
+      });
+    });
+
+    function clearSearch() {
+      searchInput.value = '';
+      searchInput.focus();
+      emptyQueryDisplay.textContent = '""';
+      switchTab('empty');
+    }
+
+    clearBtn.addEventListener('click', clearSearch);
+    if (emptyClearBtn) {
+      emptyClearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchInput.focus();
+      });
+    }
+
+    function setQuery(text) {
+      searchInput.value = text;
+      emptyQueryDisplay.textContent = `"${text}"`;
+      switchTab('all');
+    }
+
+    function restoreSearchQuery() {
+      setQuery('programming');
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      emptyQueryDisplay.textContent = `"${val || 'nothing'}"`;
+      if (val === '') {
+        switchTab('empty');
+      }
+    });
+
+    // Follow/Join/Vote Interactive Toggles
+    document.querySelectorAll('.follow-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isFollowing = btn.textContent.trim() === 'Following';
+        if (isFollowing) {
+          btn.textContent = 'Follow';
+          btn.classList.remove('bg-surface-variant', 'text-on-surface-variant');
+          btn.classList.add('bg-surface-container-highest', 'text-on-surface');
+        } else {
+          btn.textContent = 'Following';
+          btn.classList.add('bg-surface-variant', 'text-on-surface-variant');
+          btn.classList.remove('bg-surface-container-highest', 'text-on-surface');
+        }
+      });
+    });
+
+    document.querySelectorAll('.join-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isJoined = btn.textContent.trim() === 'Joined';
+        if (isJoined) {
+          btn.textContent = 'Join';
+          btn.classList.remove('bg-surface-variant', 'text-on-surface-variant');
+          btn.classList.add('bg-surface-container-highest', 'text-on-surface');
+        } else {
+          btn.textContent = 'Joined';
+          btn.classList.add('bg-surface-variant', 'text-on-surface-variant');
+          btn.classList.remove('bg-surface-container-highest', 'text-on-surface');
+        }
+      });
+    });
+
+    document.querySelectorAll('.upvote-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('text-primary-container');
+        btn.classList.toggle('text-on-surface-variant');
+      });
+    });
+  </script>
+</div></main>
+
+
+
+
+
+</body></html>

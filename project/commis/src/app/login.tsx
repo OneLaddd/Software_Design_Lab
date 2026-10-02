@@ -13,8 +13,9 @@ const BACKGROUND = '#302F2D';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { created, email: createdEmail } = useLocalSearchParams<{
+  const { created, google, email: createdEmail } = useLocalSearchParams<{
     created?: string;
+    google?: string;
     email?: string;
   }>();
   const [email, setEmail] = useState(createdEmail ?? '');
@@ -26,15 +27,18 @@ export default function LoginScreen() {
   const [toastMessage, setToastMessage] = useState(
     created === '1' ? '✔ Account Created' : '✔ Login Successful'
   );
-  const [toastVisible, setToastVisible] = useState(created === '1');
+  const [toastVisible, setToastVisible] = useState(created === '1' || google === '1');
 
   useEffect(() => {
     if (createdEmail) setEmail(createdEmail);
     if (created === '1') {
       setToastMessage('✔ Account Created');
       setToastVisible(true);
+    } else if (google === '1') {
+      setToastMessage('✔ Login Successful');
+      setToastVisible(true);
     }
-  }, [created, createdEmail]);
+  }, [created, createdEmail, google]);
 
   const hideToast = useCallback(() => setToastVisible(false), []);
 
@@ -60,13 +64,15 @@ export default function LoginScreen() {
     setPassword('');
     setToastMessage('✔ Login Successful');
     setToastVisible(true);
-    // TODO: navigate to feed/marketplace once main app screens exist
+    setTimeout(() => {
+      router.replace('/marketplace' as any);
+    }, 400);
   };
 
   const handleGoogleLogin = async () => {
     setPasswordError('');
     setIsGoogleSubmitting(true);
-    const { error, needsProfileSetup } = await signInWithGoogle();
+    const { error } = await signInWithGoogle();
     setIsGoogleSubmitting(false);
 
     if (error) {
@@ -74,14 +80,7 @@ export default function LoginScreen() {
       return;
     }
 
-    if (needsProfileSetup) {
-      router.replace('/google-profile');
-      return;
-    }
-
-    setToastMessage('✔ Login Successful');
-    setToastVisible(true);
-    // TODO: navigate to feed/marketplace once main app screens exist
+    // The auth callback route completes profile-based navigation after the session is set.
   };
 
   return (

@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Service Request Detail - Commis</title>
+<!-- Tailwind CSS CDN with forms and container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#FFE600',
+              yellowHover: '#E5CF00',
+              dark: '#131313',
+              card: '#1c1b1b',
+              cardInner: '#242323',
+              cardBorder: 'rgba(255, 255, 255, 0.08)',
+              textMuted: '#9E9E9E',
+              textSub: '#8E8E93',
+            }
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-scrollbars-and-base">
+    /* Base resets & dark theme scrollbar styling */
+    body {
+      background-color: #131313;
+      color: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #131313;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2a2a;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-[#131313] text-white flex justify-center min-h-screen">
+<!-- Mobile Viewport Wrapper -->
+<div class="w-full max-w-[420px] min-h-screen bg-[#131313] flex flex-col relative border-x border-[#222222]/40 p-4">
+<!-- BEGIN: TopHeader -->
+<header class="sticky top-0 z-40 bg-[#131313]/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-white/[0.05]"><div class="flex items-center gap-3"><button aria-label="Go back" class="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors"><svg class="w-5 h-5 stroke-current stroke-[2.2]" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><h1 class="text-base font-bold font-heading text-white tracking-tight">Request</h1></div><div class="w-10 h-10"></div></header>
+<!-- END: TopHeader -->
+<main class="px-4 pt-3 flex flex-col gap-4">
+<!-- BEGIN: RoleToggleSegment -->
+
+<!-- END: RoleToggleSegment -->
+<!-- BEGIN: HeroRequestDetailsCard -->
+<section class="bg-[#1c1b1b] rounded-2xl p-4 sm:p-5 border border-white/[0.08] flex flex-col gap-3.5 shadow-lg" data-purpose="hero-card"><div class="flex items-center gap-4 text-xs font-medium text-[#8E8E93]"><div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#FFE600] inline-block animate-pulse"></span><span class="text-white font-medium">Active Bounty</span></div><div class="flex items-center gap-1.5 text-neutral-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Posted 11 min ago</span></div></div><h2 class="text-2xl font-bold font-heading text-white tracking-tight leading-snug">A4 Novel Typesetting Project</h2><div class="flex flex-col gap-1"><span class="text-[11px] font-bold uppercase tracking-wider text-neutral-400 font-heading">BOUNTY BUDGET</span><div class="flex items-baseline gap-2 flex-wrap"><span class="text-[#FFE600] text-2xl sm:text-3xl font-extrabold font-heading tracking-tight whitespace-nowrap">$30 – $250</span><span class="text-xs font-bold text-[#FFE600] tracking-wide">USD</span></div></div><div class="flex flex-wrap gap-2 pt-1"><span class="px-3 py-1 bg-[#282727] text-neutral-200 text-xs font-medium rounded-full border border-white/[0.07]">Graphic Design</span><span class="px-3 py-1 bg-[#282727] text-neutral-200 text-xs font-medium rounded-full border border-white/[0.07]">Editing</span><span class="px-3 py-1 bg-[#282727] text-neutral-200 text-xs font-medium rounded-full border border-white/[0.07]">Typesetting</span><span class="px-3 py-1 bg-[#282727] text-neutral-200 text-xs font-medium rounded-full border border-white/[0.07]">Print &amp; Publishing</span></div></section>
+<!-- END: HeroRequestDetailsCard -->
+<!-- BEGIN: RequestDescriptionSection -->
+<section class="bg-[#1c1b1b] rounded-2xl p-4 sm:p-5 border border-white/[0.08] flex flex-col gap-4 shadow-lg" data-purpose="request-description">
+<!-- Section Subtitle & Metric Badge -->
+<div class="flex items-center justify-between">
+<h3 class="text-[11px] font-bold uppercase tracking-wider text-neutral-400 font-heading">
+            REQUEST DESCRIPTION
+          </h3>
+
+</div>
+<!-- Description Paragraphs -->
+<div class="text-[13px] leading-relaxed text-neutral-300 space-y-3 font-normal">
+<p class="">
+            My manuscript is finished and living in a single Word document (~72,000 words, fantasy fiction). Now I need it professionally laid out as an A4-sized, print-ready PDF that a printer can directly run, plus an ePub version for digital distribution.
+          </p>
+<p class="">
+            Needs custom chapter title headings, proper drop caps on the opening paragraphs, running headers with book/author titles, mirrored margins with appropriate gutter width for binding, and a table of contents. Looking for clean typography and high attention to kerning and orphan elimination.
+          </p>
+</div>
+<!-- Two-column Attribute Cards -->
+<div class="grid grid-cols-2 gap-2.5 pt-1">
+<!-- Format Spec Box -->
+
+<!-- Dimension Spec Box -->
+
+</div>
+</section>
+<!-- END: RequestDescriptionSection -->
+<!-- BEGIN: PostedByClientSection -->
+<section data-purpose="client-profile-card"><h3 class="text-[11px] font-bold uppercase tracking-wider text-neutral-400 font-heading mb-2 px-1">CLIENT</h3><div class="bg-[#1c1b1b] rounded-2xl p-3.5 sm:p-4 border border-white/[0.08] flex items-center justify-between shadow-lg"><div class="flex items-center gap-3"><div class="relative w-11 h-11 rounded-full bg-[#272626] border border-white/20 flex items-center justify-center font-bold text-sm text-neutral-200"><span class="">ER</span><span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#1c1b1b] rounded-full"></span></div><div><div class="flex items-center gap-1.5"><a class="font-bold font-heading text-sm text-white hover:underline" href="#">@Elena_Rostova</a></div><p class="text-xs text-neutral-400">Client</p></div></div><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#272626] border border-white/10 text-xs"><span class="text-[#FFE600]">★</span><span class="font-bold font-heading text-white">4.8</span></div></div></section>
+<!-- END: PostedByClientSection -->
+<!-- BEGIN: BidsMetricsSection -->
+<section data-purpose="bids-summary"><div class="flex items-center justify-between mb-2.5 px-1"><div class="flex items-center gap-2"><span class="text-[11px] font-bold uppercase tracking-wider text-neutral-300 font-heading">BIDS</span></div></div><div class="bg-[#1c1b1b] rounded-2xl p-4 border border-white/[0.08] grid grid-cols-2 gap-4 shadow-lg divide-x divide-white/[0.06]"><div class="flex flex-col"><span class="text-3xl font-extrabold font-heading text-white">103</span><span class="text-xs text-neutral-400 mt-1 font-medium">Total Bids Submitted</span></div><div class="flex flex-col pl-4"><div class="flex items-baseline gap-1.5 flex-wrap"><span class="text-3xl font-extrabold font-heading text-[#FFE600] whitespace-nowrap">$111</span><span class="text-xs font-bold text-[#FFE600]">USD</span></div><span class="text-xs text-neutral-400 mt-1 font-medium">Average Hunter Bid</span></div></div></section>
+<!-- END: BidsMetricsSection -->
+<!-- BEGIN: RecentHunterSubmissions -->
+<div class="flex items-center gap-2.5 py-1" data-purpose="inline-actions">
+<!-- Save / Bookmark Action -->
+<button aria-label="Bookmark bounty" class="w-12 h-12 flex-shrink-0 rounded-2xl bg-[#1c1b1b] border border-white/10 flex items-center justify-center text-neutral-300 hover:text-white hover:border-white/20 transition-all active:scale-95">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Primary Action CTA Button -->
+<button class="flex-1 h-12 rounded-2xl bg-[#FFE600] hover:bg-[#ebd300] active:scale-[0.98] transition-all text-[#131313] font-heading font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/10">
+<svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="">Place Bid</span>
+</button>
+</div><section class="flex flex-col gap-3" data-purpose="recent-submissions"><div class="flex items-center justify-between px-1"><h3 class="text-[11px] font-bold uppercase tracking-wider text-neutral-400 font-heading">RECENT HUNTER SUBMISSIONS</h3></div><article class="bg-[#1c1b1b] rounded-2xl p-4 border border-white/[0.08] flex flex-col gap-2.5 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-[#2d2c2c] border border-white/10 flex items-center justify-center text-xs font-bold text-neutral-300">DS</div><div><div class="flex items-center gap-1.5"><span class="font-bold text-xs text-white">@designer01</span><span class="text-[10px] text-neutral-400">• 12 min ago</span></div><div class="flex items-center gap-1 text-[11px] text-neutral-300"><span class="text-[#FFE600]">★</span><span class="text-white font-medium">4.9 (3)</span></div></div></div><div class="text-right flex items-baseline gap-1 whitespace-nowrap"><span class="text-base font-bold font-heading text-white">$95</span><span class="text-[11px] font-medium text-neutral-400">USD</span></div></div><p class="text-xs leading-relaxed text-neutral-300 bg-[#232222] p-3 rounded-xl border border-white/[0.04]">"I can professionally format the entire manuscript in InDesign with custom chapter headers, print margins, and full ePub export in 3 days."</p></article><article class="bg-[#1c1b1b] rounded-2xl p-4 border border-white/[0.08] flex flex-col gap-2.5 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-[#2d2c2c] border border-white/10 flex items-center justify-center text-xs font-bold text-neutral-300">LP</div><div><div class="flex items-center gap-1.5"><span class="font-bold text-xs text-white">@layoutpro</span><span class="text-[10px] text-neutral-400">• 18 min ago</span></div><div class="flex items-center gap-1.5 text-[11px]"><span class="text-[#FFE600]">★</span><span class="text-white font-medium">5.0 (4)</span></div></div></div><div class="text-right flex items-baseline gap-1 whitespace-nowrap"><span class="text-base font-bold font-heading text-white">$120</span><span class="text-[11px] font-medium text-neutral-400">USD</span></div></div><p class="text-xs leading-relaxed text-neutral-300 bg-[#232222] p-3 rounded-xl border border-white/[0.04]">"I have experience with professional book layouts for independent publishers. Will provide sample chapter within 12 hours."</p></article><article class="bg-[#1c1b1b] rounded-2xl p-4 border border-white/[0.08] flex flex-col gap-2.5 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-[#2d2c2c] border border-white/10 flex items-center justify-center text-xs font-bold text-neutral-300">KT</div><div><div class="flex items-center gap-1.5"><span class="font-bold text-xs text-white">@kai_typesets</span><span class="text-[10px] text-neutral-400">• 34 min ago</span></div><div class="flex items-center gap-1 text-[11px] text-neutral-300"><span class="text-[#FFE600]">★</span><span class="text-white font-medium">4.8 (12)</span></div></div></div><div class="text-right flex items-baseline gap-1 whitespace-nowrap"><span class="text-base font-bold font-heading text-white">$140</span><span class="text-[11px] font-medium text-neutral-400">USD</span></div></div><p class="text-xs leading-relaxed text-neutral-300 bg-[#232222] p-3 rounded-xl border border-white/[0.04]">"Specialized in long-form fiction formatting. Includes 3 revision rounds, PDF/X-1a print-ready files, and Kindle-compatible ePUB."</p></article><article class="bg-[#1c1b1b] rounded-2xl p-4 border border-white/[0.08] flex flex-col gap-2.5 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-[#2d2c2c] border border-white/10 flex items-center justify-center text-xs font-bold text-neutral-300">PC</div><div><div class="flex items-center gap-1.5"><span class="font-bold text-xs text-white">@pixel_craft</span><span class="text-[10px] text-neutral-400">• 1 hr ago</span></div><div class="flex items-center gap-1 text-[11px] text-neutral-300"><span class="text-[#FFE600]">★</span><span class="text-white font-medium">5.0 (8)</span></div></div></div><div class="text-right flex items-baseline gap-1 whitespace-nowrap"><span class="text-base font-bold font-heading text-white">$110</span><span class="text-[11px] font-medium text-neutral-400">USD</span></div></div><p class="text-xs leading-relaxed text-neutral-300 bg-[#232222] p-3 rounded-xl border border-white/[0.04]">"Ready to start immediately. Over 40 novels typeset with 5-star reliability rating on Commis."</p></article></section>
+<!-- END: RecentHunterSubmissions -->
+</main>
+<!-- BEGIN: StickyBottomActionContainer -->
+
+<!-- END: StickyBottomActionContainer -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

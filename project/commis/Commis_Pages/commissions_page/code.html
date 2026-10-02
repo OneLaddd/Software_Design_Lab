@@ -1,0 +1,303 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#303032", "inverse-on-surface": "#313030", "on-secondary-container": "#b6b4b7", "on-background": "#e5e2e1", "surface-container-low": "#181818", "inverse-surface": "#e5e2e1", "primary-fixed": "#ffe600", "surface-container": "#201f1f", "secondary-fixed-dim": "#c8c6c8", "on-tertiary": "#303033", "on-error-container": "#ffdad6", "on-secondary-fixed": "#1b1b1d", "on-primary-fixed": "#121212", "secondary-fixed": "#e4e2e4", "surface-container-highest": "#353534", "on-tertiary-fixed-variant": "#47464a", "background": "#121212", "surface-container-lowest": "#0e0e0e", "secondary": "#9c9a9c", "tertiary-fixed": "#e4e1e5", "on-primary": "#121212", "surface-variant": "#2b2a2a", "on-surface-variant": "#cdc7aa", "outline": "#979177", "on-secondary-fixed-variant": "#474649", "tertiary": "#ffffff", "inverse-primary": "#6a5f00", "secondary-container": "#474649", "surface": "#121212", "outline-variant": "#323232", "primary-container": "#ffe600", "on-primary-container": "#121212", "error": "#ff6b6b", "on-primary-fixed-variant": "#504700", "surface-container-high": "#242424", "surface-tint": "#ffe600", "surface-dim": "#121212", "on-surface": "#f2f2f2", "surface-bright": "#393939", "on-error": "#690005", "tertiary-fixed-dim": "#c8c6c9", "primary": "#ffffff", "primary-fixed-dim": "#dec800", "on-tertiary-container": "#656467", "on-tertiary-fixed": "#1b1b1e", "tertiary-container": "#e4e1e5", "error-container": "#3d1215" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter": "1rem", "space-md": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, fontFamily: { "display": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "body-sm": ["Inter"], "label-md": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"] }, fontSize: { "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["17px", { "lineHeight": "22px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "700" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#121212;color:#f2f2f2;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:max(env(safe-area-inset-bottom,0px),1rem);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-container selection:text-on-primary-container max-w-[420px] mx-auto shadow-2xl">
+<!-- Top Clean Mobile Header -->
+<header class="sticky top-0 w-full z-50 pt-safe bg-[#121212]/95 backdrop-blur-md border-b border-[#222222]"><div class="h-14 px-4 flex items-center justify-between"><div class="flex items-center gap-3"><button aria-label="Back" class="w-9 h-9 flex items-center justify-center rounded-full text-secondary hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all -ml-1.5" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-sm text-[19px] text-on-surface tracking-tight font-bold">Commissions</h1></div><div class="w-9"></div></div></header>
+<main class="flex-1 flex flex-col relative w-full pb-safe bg-[#121212]">
+<!-- Navigation Controls Header -->
+<div class="px-4 pt-3 pb-2 flex flex-col gap-3">
+<!-- Primary Role Switcher (Prominent at top) -->
+<div>
+<div class="flex items-center p-1 bg-[#1a1919] rounded-xl border border-[#2b2a2a] shadow-inner" id="roleSelector">
+<button class="role-tab flex-1 py-2.5 rounded-lg text-center font-headline-sm text-sm font-semibold transition-all duration-200 text-[#a09e9e] hover:text-[#f2f2f2] active:scale-[0.98]" data-role="client" id="roleClientBtn">
+          As Client
+        </button>
+<button class="role-tab flex-1 py-2.5 rounded-lg text-center font-headline-sm text-sm font-bold transition-all duration-200 bg-[#ffe600] text-[#121212] shadow-[0_2px_12px_rgba(255,230,0,0.22)] active:scale-[0.98]" data-role="hunter" id="roleHunterBtn">
+          As Hunter
+        </button>
+</div>
+<p class="text-[11px] text-[#868383] text-center mt-1.5 font-medium transition-opacity duration-150" id="roleDescription">Commissions where you were hired by a Client</p>
+</div>
+<!-- Clean Search Bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[19px] text-[#787575] pointer-events-none">search</span>
+<input class="w-full h-10 pl-10 pr-9 bg-[#1a1919] border border-[#262626] rounded-xl text-sm text-[#f2f2f2] placeholder-[#6b6868] focus:outline-none focus:border-[#ffe600] focus:ring-1 focus:ring-[#ffe600] transition-all" id="commissionSearch" placeholder="Search commissions..." type="text">
+<button class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-[#868383] hover:text-[#f2f2f2]" id="clearSearchBtn">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Secondary Status Filters -->
+<div class="flex items-center gap-1.5 overflow-x-auto py-0.5 no-scrollbar" id="statusFilterBar">
+<button class="status-pill px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all whitespace-nowrap bg-[#ffe600] text-[#121212] shadow-[0_1px_8px_rgba(255,230,0,0.2)]" data-status="all">All</button>
+<button class="status-pill px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all whitespace-nowrap bg-[#1a1919] text-[#9c9a9c] hover:text-[#f2f2f2] border border-[#2b2a2a]" data-status="active">Active</button>
+<button class="status-pill px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all whitespace-nowrap bg-[#1a1919] text-[#9c9a9c] hover:text-[#f2f2f2] border border-[#2b2a2a]" data-status="completed">Completed</button>
+<button class="status-pill px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all whitespace-nowrap bg-[#1a1919] text-[#9c9a9c] hover:text-[#f2f2f2] border border-[#2b2a2a]" data-status="disputed">Disputed</button>
+</div>
+</div>
+<!-- Commission Cards List -->
+<section class="px-4 flex flex-col gap-2.5 pt-2 pb-6" id="cardsList">
+<!-- CLIENT COMMISSIONS (User hired Hunter) -->
+<!-- Client Card 1: 3D Low-Poly Character Rig -->
+<article class="commission-card bg-[#181818] border border-[#262626] rounded-xl px-4 py-3 transition-all duration-150 hover:border-[#383838] active:scale-[0.99] flex flex-col gap-2.5 hidden" data-group="active" data-query="3d low-poly character rig pixel_craft hunter escrow locked" data-role="client">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">3D Low-Poly Character Rig</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#202020] text-[#a09e9e] text-[11px] font-semibold whitespace-nowrap border border-[#303030] shrink-0">Escrow Locked</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbXWrPgQX8ZA78EvJ6aVSuQQMWwfYUSlp_Qa-s5E0wEUSyD1oLd738_kB-zNxUIwcMWG_xq_anBImOmU9qjETmdjhwXYpUO3rm8CUlM_XMyLGlsZ4cNpDG-Gh2OA38wDvwWWIyDGZyu8166IVhBCfVG5rJzH5NuUHdSL2RMdMgSg7_06TY3WLlPxkDj7-EP8CJHwGB66WxcVish-VkNzdPGQKbK7j53-n2wFx-ZfnstYwjU99Wp4dflQ">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@pixel_craft • Hunter</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#232323]">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱15,000</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Oct 02, 2026</span>
+</div>
+</article>
+<!-- Client Card 2: Mobile UI Revamp -->
+<article class="commission-card bg-[#181818] border border-[#262626] rounded-xl px-4 py-3 transition-all duration-150 hover:border-[#383838] active:scale-[0.99] flex flex-col gap-2.5 hidden" data-group="active" data-query="mobile ui revamp studio_kai hunter in progress" data-role="client">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">Mobile UI Revamp &amp; Prototype</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#242424] text-[#dedede] text-[11px] font-semibold whitespace-nowrap border border-[#363636] shrink-0">
+In Progress
+        </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6p_JUH_cUhu4V2eicVcaUBu7_mQjD9TozYKRKOl7pZmYBeOn_9GrseS278ifeSyjxkdSrHmKSRL6Wf8NuTC4Tf7jBvyzpJpz-mMzJa_y1SM7ZaXdn6tewlhcvvh1Dp7nBVq5J0Fqbl4TUjoopjuUHVhQXcPpAproPFaj7ioBB1w1MhVXxG0H3xUl7ClvHHFyMUk3EsNDmOmoI2pn3vRh8_1Un1XeaE3Awc9SsrOaGgmLjQoyr5ZHa2A">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@studio_kai • Hunter</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#232323]">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱22,000</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Sep 22, 2026</span>
+</div>
+</article>
+<!-- Client Card 3: Custom Brand Identity Pack -->
+<article class="commission-card bg-[#181818] border border-[#262626] rounded-xl px-4 py-3 transition-all duration-150 hover:border-[#383838] active:scale-[0.99] flex flex-col gap-2.5 hidden" data-group="completed" data-query="custom brand identity pack elena_design hunter completed" data-role="client">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">Custom Brand Identity Pack</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#202020] text-[#a09e9e] text-[11px] font-semibold whitespace-nowrap border border-[#303030] shrink-0">
+Completed
+        </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBm7wS4BU1gNaP3aXnZc0hrFRTOLqoYB7LACmPPT12dBwiA-IRkQXgaQ9hN8vxwKPrdOGWDejMg0NtRwcbUEvu8xKhWlDa2CmrgQI0TwsJDb_mu6OdlMGGUDJSLgx5nV7GEVBXKoJgUkhWekUV0wSi7LQkH0W04jDZCHq7RuHJpaxWFR8rUXXi89ZpUzBGuicTt3qTTCBoachQdcxUNzymfVMqpSjwOOIqeN7fw-_pr8fy6ByDWsvzqA">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@elena_design • Hunter</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#232323]">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱18,500</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Aug 18, 2026</span>
+</div>
+</article>
+<!-- Client Card 4: Cross-Platform Flutter Bug Fix (Disputed) -->
+<article class="commission-card bg-[#201012] border border-red-900/40 rounded-xl px-4 py-3 transition-all duration-150 hover:border-red-800/60 active:scale-[0.99] flex flex-col gap-2.5 hidden" data-group="disputed" data-query="cross-platform flutter bug fix sol_labs hunter disputed" data-role="client">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">Cross-Platform Flutter Bug Fix</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#202020] text-[#a09e9e] text-[11px] font-semibold whitespace-nowrap border border-[#303030] shrink-0">Disputed</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkWRVDWNLpWI51V6DP-FlHHBQn3SKCaeruht26Da-WEZR7R4n0XVeTg4Py3BoCmtcd9vySJFb6LbIOAx9uOGKoh8Z198BuVel34BCUuaoSDYokzIQ_ku8QKqlQOb8ouRvKm7kUyHXPNrishOZo77XB0cZshmAV1EpIHguToj0lba3LvCmEJGZoCJX8AK9HI2vhovDh2U-5zHWqZuo9edTUtql3nLkaqvuoE8ud7roE0FEhIANjcFjKuw">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@dev_karl • Hunter</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-red-950/50">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱6,500</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Sep 05, 2026</span>
+</div>
+</article>
+<!-- HUNTER COMMISSIONS (User hired by Client) -->
+<!-- Hunter Card 1: Web Portfolio Website -->
+<article class="commission-card bg-[#181818] border border-[#262626] rounded-xl px-4 py-3 transition-all duration-150 hover:border-[#383838] active:scale-[0.99] flex flex-col gap-2.5" data-group="active" data-query="web portfolio website alexdev client in progress" data-role="hunter">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">Web Portfolio Website</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#242424] text-[#dedede] text-[11px] font-semibold whitespace-nowrap border border-[#363636] shrink-0">
+In Progress
+        </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQqX7C3I1fEJPJm9YOZV9ga98MT-IciSubzYTSnAt6VAP2bkbzsBAgkb_pbD14TEmv1wxiPObDVgXXc1JpjD0-bp3Lso0Gr0Vs0xIe_g_zkmIx0cgG02fWhmJP9EPbde3N-sb976FuSPQ37vZSiZUleOD7bxgC06eOFwkBzfGvdWo8PMkcpPFpDd1AmeavUeuogDeWxvi9a6Areqk88Lr4V7mWkkm7gD2Yv5DdLjjxOdy2LjLkwFjBmA">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@alexdev • Client</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#232323]">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱8,000</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Sep 28, 2026</span>
+</div>
+</article>
+<!-- Hunter Card 2: FinTech Mobile UI Kit & Design System -->
+<article class="commission-card bg-[#181818] border border-[#262626] rounded-xl px-4 py-3 transition-all duration-150 hover:border-[#383838] active:scale-[0.99] flex flex-col gap-2.5" data-group="active" data-query="fintech mobile ui kit design system apex_group client delivered" data-role="hunter">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">FinTech Mobile UI Kit &amp; Design System</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#2a2a2a] text-[#f2f2f2] text-[11px] font-semibold whitespace-nowrap border border-[#3c3c3c] shrink-0">
+Delivered
+        </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6p_JUH_cUhu4V2eicVcaUBu7_mQjD9TozYKRKOl7pZmYBeOn_9GrseS278ifeSyjxkdSrHmKSRL6Wf8NuTC4Tf7jBvyzpJpz-mMzJa_y1SM7ZaXdn6tewlhcvvh1Dp7nBVq5J0Fqbl4TUjoopjuUHVhQXcPpAproPFaj7ioBB1w1MhVXxG0H3xUl7ClvHHFyMUk3EsNDmOmoI2pn3vRh8_1Un1XeaE3Awc9SsrOaGgmLjQoyr5ZHa2A">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@apex_group • Client</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#232323]">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱32,000</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Sep 14, 2026</span>
+</div>
+</article>
+<!-- Hunter Card 3: Franchise Restaurant Site Drawing -->
+<article class="commission-card bg-[#181818] border border-[#262626] rounded-xl px-4 py-3 transition-all duration-150 hover:border-[#383838] active:scale-[0.99] flex flex-col gap-2.5" data-group="completed" data-query="franchise restaurant site drawing marcus_v client completed" data-role="hunter">
+<div class="flex items-start justify-between gap-2">
+<h2 class="font-headline-sm text-[15px] text-[#f2f2f2] font-bold tracking-tight leading-snug">Franchise Restaurant Site Drawing</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#202020] text-[#a09e9e] text-[11px] font-semibold whitespace-nowrap border border-[#303030] shrink-0">
+Completed
+        </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover bg-[#2b2a2a]" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBm7wS4BU1gNaP3aXnZc0hrFRTOLqoYB7LACmPPT12dBwiA-IRkQXgaQ9hN8vxwKPrdOGWDejMg0NtRwcbUEvu8xKhWlDa2CmrgQI0TwsJDb_mu6OdlMGGUDJSLgx5nV7GEVBXKoJgUkhWekUV0wSi7LQkH0W04jDZCHq7RuHJpaxWFR8rUXXi89ZpUzBGuicTt3qTTCBoachQdcxUNzymfVMqpSjwOOIqeN7fw-_pr8fy6ByDWsvzqA">
+<div class="flex items-center gap-1.5 text-[12px]"><span class="font-medium text-[12px] text-[#ffffff]">@marcus_v • Client</span></div>
+</div>
+<span class="material-symbols-outlined text-[#6e6c6c] text-[18px]">chevron_right</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#232323]">
+<span class="font-headline-md text-[17px] tracking-tight font-extrabold text-[#ffffff]">₱12,500</span>
+<span class="text-[#888585] text-[11px] font-medium">Created Aug 24, 2026</span>
+</div>
+</article>
+<!-- Empty State -->
+<div class="hidden flex-col items-center justify-center py-12 text-center px-4" id="emptyState">
+<div class="w-12 h-12 rounded-full bg-[#1e1e1e] flex items-center justify-center text-[#787575] mb-2.5 border border-[#2b2a2a]">
+<span class="material-symbols-outlined text-[24px]">folder_off</span>
+</div>
+<h3 class="font-headline-sm text-sm text-[#f2f2f2] font-semibold">No commissions found</h3>
+<p class="text-[12px] text-[#787575] max-w-xs mt-0.5">
+        No orders match this status or search keyword.
+      </p>
+<button class="mt-3 px-4 py-1.5 rounded-full bg-[#ffe600] text-[#121212] text-[12px] font-bold shadow hover:opacity-90 active:scale-95 transition-all" id="resetFilterBtn">
+        Reset Filters
+      </button>
+</div>
+</section>
+</main>
+<script>
+  (function initCommissions() {
+    const roleClientBtn = document.getElementById('roleClientBtn');
+    const roleHunterBtn = document.getElementById('roleHunterBtn');
+    const roleDescription = document.getElementById('roleDescription');
+    const statusPills = document.querySelectorAll('.status-pill');
+    const searchInput = document.getElementById('commissionSearch');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const cards = document.querySelectorAll('.commission-card');
+    const emptyState = document.getElementById('emptyState');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+
+    let currentRole = 'client';
+    let currentStatus = 'all';
+    let searchQuery = '';
+
+    function updateView() {
+      let visibleCount = 0;
+      const q = searchQuery.trim().toLowerCase();
+
+      cards.forEach(card => {
+        const cardRole = card.getAttribute('data-role');
+        const cardGroup = card.getAttribute('data-group');
+        const cardQuery = card.getAttribute('data-query') || '';
+
+        const matchesRole = (cardRole === currentRole);
+        const matchesStatus = (currentStatus === 'all') || (cardGroup === currentStatus);
+        const matchesQuery = !q || cardQuery.includes(q);
+
+        if (matchesRole && matchesStatus && matchesQuery) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+        emptyState.classList.add('flex');
+      } else {
+        emptyState.classList.add('hidden');
+        emptyState.classList.remove('flex');
+      }
+    }
+
+    // Role Switcher Interaction
+    function setRole(role) {
+      currentRole = role;
+      if (role === 'client') {
+        roleClientBtn.className = "role-tab flex-1 py-2.5 rounded-lg text-center font-headline-sm text-sm font-bold transition-all duration-200 bg-[#ffe600] text-[#121212] shadow-[0_2px_12px_rgba(255,230,0,0.22)] active:scale-[0.98]";
+        roleHunterBtn.className = "role-tab flex-1 py-2.5 rounded-lg text-center font-headline-sm text-sm font-semibold transition-all duration-200 text-[#a09e9e] hover:text-[#f2f2f2] active:scale-[0.98]";
+        roleDescription.textContent = "Commissions where you hired a Hunter";
+      } else {
+        roleHunterBtn.className = "role-tab flex-1 py-2.5 rounded-lg text-center font-headline-sm text-sm font-bold transition-all duration-200 bg-[#ffe600] text-[#121212] shadow-[0_2px_12px_rgba(255,230,0,0.22)] active:scale-[0.98]";
+        roleClientBtn.className = "role-tab flex-1 py-2.5 rounded-lg text-center font-headline-sm text-sm font-semibold transition-all duration-200 text-[#a09e9e] hover:text-[#f2f2f2] active:scale-[0.98]";
+        roleDescription.textContent = "Commissions where you were hired by a Client";
+      }
+      updateView();
+    }
+
+    roleClientBtn.addEventListener('click', () => setRole('client'));
+    roleHunterBtn.addEventListener('click', () => setRole('hunter'));
+
+    // Status Filter Interaction
+    statusPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        statusPills.forEach(p => {
+          p.className = 'status-pill px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all whitespace-nowrap bg-[#1a1919] text-[#9c9a9c] hover:text-[#f2f2f2] border border-[#2b2a2a]';
+        });
+
+        pill.className = 'status-pill px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all whitespace-nowrap bg-[#ffe600] text-[#121212] shadow-[0_1px_8px_rgba(255,230,0,0.2)]';
+        currentStatus = pill.getAttribute('data-status') || 'all';
+        updateView();
+      });
+    });
+
+    // Search Handling
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      if (searchQuery.length > 0) {
+        clearSearchBtn.classList.remove('hidden');
+      } else {
+        clearSearchBtn.classList.add('hidden');
+      }
+      updateView();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.classList.add('hidden');
+      updateView();
+    });
+
+    resetFilterBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.classList.add('hidden');
+      const allPill = document.querySelector('.status-pill[data-status="all"]');
+      if (allPill) allPill.click();
+    });
+
+    // Initialize
+    updateView();
+  })();
+</script>
+
+
+
+
+
+
+</body></html>

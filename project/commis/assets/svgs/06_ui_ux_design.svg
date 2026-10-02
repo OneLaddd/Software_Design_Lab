@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="w-6 h-6 stroke-current stroke-[1.8] fill-none" viewBox="0 0 24 24">
+<rect height="20" rx="3" width="14" x="5" y="2"></rect>
+<line x1="9" x2="15" y1="6" y2="6"></line>
+<circle cx="12" cy="18" r="1"></circle>
+</svg>

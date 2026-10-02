@@ -38,27 +38,8 @@ export async function signInWithGoogle() {
   });
 
   if (sessionError) {
-    return { data: sessionData, error: sessionError, needsProfileSetup: false };
+    return { data: sessionData, error: sessionError };
   }
 
-  const userId = sessionData.session?.user.id;
-  if (!userId) {
-    return {
-      data: sessionData,
-      error: new Error('No user returned from Google sign-in'),
-      needsProfileSetup: false,
-    };
-  }
-
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('username, active_role')
-    .eq('id', userId)
-    .maybeSingle();
-
-  return {
-    data: sessionData,
-    error: profileError,
-    needsProfileSetup: !profile?.username,
-  };
+  return { data: sessionData, error: null };
 }

@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Commis - Chat with @Alex</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans, League Spartan, Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=League+Spartan:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brandYellow: '#FFE600',
+            darkBg: '#131313',
+            surfaceCard: '#1C1B1B',
+            surfaceHigh: '#262626',
+            borderSubtle: '#282828',
+            textMuted: '#9CA3AF'
+          },
+          fontFamily: {
+            spartan: ['"League Spartan"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #0b0b0b;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    #app-container {
+      width: 416px;
+      height: 884px;
+      max-width: 416px;
+      max-height: 884px;
+      position: relative;
+      background-color: #131313;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      border-radius: 40px;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .pressable:active {
+      transform: scale(0.96);
+      transition: transform 0.1s ease;
+    }
+
+    /* Message bubble tail tweaks */
+    .bubble-sent {
+      border-bottom-right-radius: 4px;
+    }
+    .bubble-received {
+      border-bottom-left-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<!-- BEGIN: App Viewport (416px x 884px) -->
+<div class="text-white select-none relative" id="app-container">
+<!-- BEGIN: Sticky Header -->
+<header class="px-4 pt-8 pb-3 shrink-0 bg-[#131313]/95 backdrop-blur-md border-b border-[#222222] z-30 flex items-center justify-between">
+<div class="flex items-center space-x-3 min-w-0">
+<!-- Back Button -->
+<button aria-label="Go back" class="p-1.5 -ml-1 text-neutral-300 hover:text-white pressable focus:outline-none" onclick="history.back()">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<line x1="19" x2="5" y1="12" y2="12"></line>
+<polyline points="12 19 5 12 12 5"></polyline>
+</svg>
+</button>
+<!-- User Avatar & Status Indicator -->
+<div class="relative shrink-0 cursor-pointer" onclick="toggleOptionsMenu(true)">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-neutral-700/80 bg-neutral-800">
+<img alt="@Alex avatar" class="w-full h-full object-cover" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
+</div>
+<!-- Online status dot -->
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#FFE600] rounded-full ring-2 ring-[#131313]" title="Active now"></span>
+</div>
+<!-- User Information -->
+<div class="flex flex-col min-w-0">
+<div class="flex items-center space-x-1.5">
+<h1 class="text-sm font-bold text-white tracking-tight truncate leading-tight">@Alex</h1>
+<span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-400 border border-neutral-700/50">Hunter</span>
+</div>
+
+</div>
+</div>
+<!-- Action Buttons (Options ⋯) -->
+<div class="relative">
+<button aria-label="Conversation options" class="p-2 text-neutral-300 hover:text-white rounded-lg hover:bg-neutral-800/60 pressable focus:outline-none" id="menu-btn" onclick="toggleOptionsMenu()">
+
+</button>
+<!-- ⋯ Options Dropdown Menu -->
+<div class="absolute right-0 top-11 w-48 bg-[#1C1B1B] border border-[#2D2D2D] rounded-2xl shadow-2xl py-1.5 z-50 text-xs font-medium hidden" id="options-dropdown">
+<button class="w-full text-left px-4 py-2.5 hover:bg-neutral-800/80 flex items-center space-x-2.5 text-neutral-200" onclick="alert('Navigating to @Alex profile...')">
+<svg class="w-4 h-4 text-neutral-400 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span class="">View Profile</span>
+</button>
+
+
+<div class="h-px bg-neutral-800 my-1"></div>
+<button class="w-full text-left px-4 py-2.5 hover:bg-red-500/10 flex items-center space-x-2.5 text-red-400" onclick="alert('User reported')">
+<svg class="w-4 h-4 text-red-400 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
+<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+<line x1="4" x2="4" y1="22" y2="15"></line>
+</svg>
+<span class="">Report User</span>
+</button>
+</div>
+</div>
+</header>
+<!-- END: Header -->
+<!-- State Switcher Bar (Demo helper to preview populated vs empty state) -->
+<div class="px-4 py-1.5 bg-[#171717] border-b border-[#222222] flex items-center justify-between text-[11px] text-neutral-400 shrink-0 z-20">
+<span class="">Conversation View:</span>
+<div class="flex items-center space-x-1.5">
+<button class="px-2.5 py-0.5 rounded-full font-semibold bg-neutral-800 text-neutral-400" id="view-active-btn" onclick="toggleConversationView('active')">Active Chat</button>
+<button class="px-2.5 py-0.5 rounded-full hover:text-white font-medium bg-[#FFE600] text-black" id="view-empty-btn" onclick="toggleConversationView('empty')">Empty State</button>
+</div>
+</div>
+<!-- BEGIN: Conversation Area -->
+<main class="flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 relative" id="chat-scroller">
+<!-- EMPTY CONVERSATION CONTAINER (Toggleable) -->
+<div class="flex-col items-center justify-center text-center py-16 px-6 space-y-3 flex" id="empty-state-view">
+<div class="w-20 h-20 rounded-full overflow-hidden border-2 border-neutral-700/60 shadow-xl bg-neutral-800 mb-1">
+<img alt="@Alex" class="w-full h-full object-cover" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
+</div>
+<h2 class="text-base font-bold text-white tracking-tight">@Alex</h2>
+
+<p class="text-xs text-neutral-400 max-w-[240px] leading-relaxed pt-1">
+          This is the beginning of your conversation with <span class="text-white font-medium">@Alex</span>.
+        </p>
+</div>
+<!-- ACTIVE CONVERSATION CONTAINER -->
+<div class="space-y-4 hidden" id="active-chat-view">
+<!-- Date Separator: SEPTEMBER 30, 2026 -->
+<div class="flex items-center justify-center my-3">
+<span class="text-[10px] font-bold uppercase tracking-wider text-neutral-500 bg-[#1A1A1A] px-3 py-1 rounded-full border border-neutral-800/80">
+            SEPTEMBER 30, 2026
+          </span>
+</div>
+<!-- Message 1: Received from Alex -->
+<div class="flex flex-col items-start max-w-[82%] space-y-1">
+<div class="bg-[#1F1E1E] text-neutral-100 text-[13.5px] leading-relaxed px-4 py-2.5 rounded-2xl bubble-received border border-neutral-800/70 shadow-sm">
+            Hey, are you still looking for someone to work on your project?
+          </div>
+<span class="text-[10px] text-neutral-500 font-medium pl-2">8:42 PM</span>
+</div>
+<!-- Message 2: Sent by Current User -->
+<div class="flex flex-col items-end ml-auto max-w-[82%] space-y-1">
+<div class="bg-[#FFE600] text-black font-medium text-[13.5px] leading-relaxed px-4 py-2.5 rounded-2xl bubble-sent shadow-sm">
+            Yeah, I'm still looking. What kind of project are you working on?
+          </div>
+<div class="flex items-center space-x-1.5 pr-1">
+<span class="text-[10px] text-neutral-500 font-medium">8:43 PM</span>
+<!-- Delivered/Read double checkmarks -->
+<svg class="w-3.5 h-3.5 text-[#FFE600]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" viewBox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+<polyline points="20 12 14.5 17.5"></polyline>
+</svg>
+</div>
+</div>
+<!-- Date Separator: TODAY -->
+<div class="flex items-center justify-center my-4">
+<span class="text-[10px] font-bold uppercase tracking-wider text-neutral-500 bg-[#1A1A1A] px-3 py-1 rounded-full border border-neutral-800/80">
+            TODAY
+          </span>
+</div>
+<!-- Message 3: Received from Alex -->
+<div class="flex flex-col items-start max-w-[82%] space-y-1">
+<div class="bg-[#1F1E1E] text-neutral-100 text-[13.5px] leading-relaxed px-4 py-2.5 rounded-2xl bubble-received border border-neutral-800/70 shadow-sm">
+            I saw your Figma design system listing in the marketplace. I have extensive experience in React Native &amp; Tailwind tokens.
+          </div>
+</div>
+<!-- Message 4: Followup Received quickly (subtle timestamp grouped) -->
+<div class="flex flex-col items-start max-w-[82%] space-y-1">
+<div class="bg-[#1F1E1E] text-neutral-100 text-[13.5px] leading-relaxed px-4 py-2.5 rounded-2xl bubble-received border border-neutral-800/70 shadow-sm">
+            Could you share the scope details or expected delivery milestone?
+          </div>
+<span class="text-[10px] text-neutral-500 font-medium pl-2">2:15 PM</span>
+</div>
+<!-- Dynamic Container for newly sent messages -->
+<div class="space-y-4" id="dynamic-messages"></div>
+</div>
+</main>
+<!-- END: Conversation Area -->
+<!-- BEGIN: Attachment Selection Overlay Drawer -->
+<div class="hidden shrink-0 px-4 py-3 bg-[#181818] border-t border-[#262626] transition-all duration-200" id="attachments-panel">
+<div class="flex items-center justify-between pb-2">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Share Attachment</span>
+<button class="text-neutral-400 hover:text-white p-1" onclick="toggleAttachments()">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-1">
+<!-- Option 1: Photo -->
+<button class="flex items-center space-x-3 p-3 rounded-xl bg-neutral-900 hover:bg-neutral-850 border border-neutral-800 text-left pressable focus:outline-none" onclick="simulateAttachment('photo')">
+<div class="w-9 h-9 rounded-lg bg-[#FFE600]/10 text-[#FFE600] flex items-center justify-center shrink-0">
+<svg class="w-5 h-5 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect>
+<circle cx="8.5" cy="8.5" r="1.5"></circle>
+<polyline points="21 15 16 10 5 21"></polyline>
+</svg>
+</div>
+<div>
+<div class="text-xs font-semibold text-white">Photo</div>
+<div class="text-[10px] text-neutral-400">JPG, PNG, GIF</div>
+</div>
+</button>
+<!-- Option 2: File -->
+<button class="flex items-center space-x-3 p-3 rounded-xl bg-neutral-900 hover:bg-neutral-850 border border-neutral-800 text-left pressable focus:outline-none" onclick="simulateAttachment('file')">
+<div class="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
+<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+<polyline points="13 2 13 9 20 9"></polyline>
+</svg>
+</div>
+<div>
+<div class="text-xs font-semibold text-white">File</div>
+<div class="text-[10px] text-neutral-400">PDF, ZIP, DOC</div>
+</div>
+</button>
+</div>
+</div>
+<!-- END: Attachment Selection Overlay -->
+<!-- BEGIN: Fixed Message Composer -->
+<footer class="shrink-0 bg-[#161616]/95 backdrop-blur-md border-t border-neutral-800/90 px-3 pt-2.5 pb-6 z-40">
+<form class="flex items-center space-x-2" id="message-form" onsubmit="handleSendMessage(event)">
+<!-- + Attachment Button -->
+<button aria-label="Add attachment" class="w-10 h-10 rounded-full bg-neutral-800 hover:bg-neutral-700/80 text-white flex items-center justify-center shrink-0 pressable transition-colors focus:outline-none" id="plus-btn" onclick="toggleAttachments()" type="button">
+<svg class="w-5 h-5 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</button>
+<!-- Message Input Field -->
+<div class="flex-1 relative">
+<input autocomplete="off" class="w-full bg-[#1F1E1E] text-white placeholder-neutral-500 text-[13.5px] rounded-full pl-4 pr-10 py-2.5 border border-neutral-700/70 focus:outline-none focus:border-[#FFE600] focus:ring-1 focus:ring-[#FFE600] transition-colors" id="message-input" oninput="handleInputChange(this)" placeholder="Type a message..." type="text">
+</div>
+<!-- Send Button -->
+<button class="h-10 px-4 rounded-full font-bold text-xs tracking-wide transition-all flex items-center justify-center space-x-1 shrink-0 bg-neutral-800 text-neutral-500 cursor-not-allowed pressable" disabled="" id="send-btn" type="submit">
+<span class="">Send</span>
+<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+</svg>
+</button>
+</form>
+</footer>
+<!-- END: Fixed Message Composer -->
+</div>
+<!-- END: App Viewport -->
+<!-- Interactive JavaScript Logic -->
+<script>
+    // State management
+    let isMuted = false;
+
+    // Toggle ⋯ Options Dropdown Menu
+    function toggleOptionsMenu(forceOpen) {
+      const dropdown = document.getElementById('options-dropdown');
+      if (forceOpen === true) {
+        dropdown.classList.remove('hidden');
+      } else {
+        dropdown.classList.toggle('hidden');
+      }
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const menuBtn = document.getElementById('menu-btn');
+      const dropdown = document.getElementById('options-dropdown');
+      if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    // Toggle Mute Notification
+    function toggleMute() {
+      isMuted = !isMuted;
+      const text = document.getElementById('mute-text');
+      text.innerText = isMuted ? 'Unmute Notifications' : 'Mute Notifications';
+      alert(isMuted ? 'Notifications muted for @Alex' : 'Notifications unmuted for @Alex');
+      toggleOptionsMenu();
+    }
+
+    // Toggle Attachments Panel
+    function toggleAttachments() {
+      const panel = document.getElementById('attachments-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    // Simulate Attachment Upload
+    function simulateAttachment(type) {
+      toggleAttachments();
+      const container = document.getElementById('dynamic-messages');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+
+      let contentHtml = '';
+      if (type === 'photo') {
+        contentHtml = `
+          <div class="flex flex-col items-end ml-auto max-w-[82%] space-y-1">
+            <div class="bg-[#FFE600] text-black font-medium p-1.5 rounded-2xl bubble-sent shadow-sm">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="Mockup preview" class="w-48 h-32 object-cover rounded-xl border border-black/10">
+              <span class="block px-2 pt-1 text-[11px] font-semibold">mockup_spec_v1.png</span>
+            </div>
+            <div class="flex items-center space-x-1.5 pr-1">
+              <span class="text-[10px] text-neutral-500 font-medium">${timeStr}</span>
+              <svg class="w-3.5 h-3.5 text-[#FFE600]" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+                <polyline points="20 12 14.5 17.5"></polyline>
+              </svg>
+            </div>
+          </div>
+        `;
+      } else {
+        contentHtml = `
+          <div class="flex flex-col items-end ml-auto max-w-[82%] space-y-1">
+            <div class="bg-[#FFE600] text-black font-medium px-3.5 py-2.5 rounded-2xl bubble-sent shadow-sm flex items-center space-x-2.5">
+              <div class="w-8 h-8 rounded-lg bg-black/10 flex items-center justify-center">
+                <svg class="w-4 h-4 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                  <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+              </div>
+              <div class="text-left">
+                <div class="text-xs font-bold leading-tight">Design_Brief.pdf</div>
+                <div class="text-[10px] opacity-75">1.4 MB • Complete</div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-1.5 pr-1">
+              <span class="text-[10px] text-neutral-500 font-medium">${timeStr}</span>
+              <svg class="w-3.5 h-3.5 text-[#FFE600]" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+                <polyline points="20 12 14.5 17.5"></polyline>
+              </svg>
+            </div>
+          </div>
+        `;
+      }
+
+      container.insertAdjacentHTML('beforeend', contentHtml);
+      scrollToBottom();
+    }
+
+    // Toggle Input Active State
+    function handleInputChange(input) {
+      const sendBtn = document.getElementById('send-btn');
+      const val = input.value.trim();
+
+      if (val.length > 0) {
+        sendBtn.removeAttribute('disabled');
+        sendBtn.classList.remove('bg-neutral-800', 'text-neutral-500', 'cursor-not-allowed');
+        sendBtn.classList.add('bg-[#FFE600]', 'text-black', 'cursor-pointer', 'shadow-md', 'shadow-[#FFE600]/20');
+      } else {
+        sendBtn.setAttribute('disabled', 'true');
+        sendBtn.classList.add('bg-neutral-800', 'text-neutral-500', 'cursor-not-allowed');
+        sendBtn.classList.remove('bg-[#FFE600]', 'text-black', 'cursor-pointer', 'shadow-md', 'shadow-[#FFE600]/20');
+      }
+    }
+
+    // Send Message Handler
+    function handleSendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('message-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('dynamic-messages');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+
+      const msgHtml = `
+        <div class="flex flex-col items-end ml-auto max-w-[82%] space-y-1">
+          <div class="bg-[#FFE600] text-black font-medium text-[13.5px] leading-relaxed px-4 py-2.5 rounded-2xl bubble-sent shadow-sm">
+            ${escapeHtml(text)}
+          </div>
+          <div class="flex items-center space-x-1.5 pr-1">
+            <span class="text-[10px] text-neutral-500 font-medium">${timeStr}</span>
+            <svg class="w-3.5 h-3.5 text-[#FFE600]" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"></polyline>
+              <polyline points="20 12 14.5 17.5"></polyline>
+            </svg>
+          </div>
+        </div>
+      `;
+
+      container.insertAdjacentHTML('beforeend', msgHtml);
+      input.value = '';
+      handleInputChange(input);
+      scrollToBottom();
+    }
+
+    function scrollToBottom() {
+      const scroller = document.getElementById('chat-scroller');
+      scroller.scrollTop = scroller.scrollHeight;
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Toggle between Populated Active Chat vs Empty Conversation
+    function toggleConversationView(mode) {
+      const activeContainer = document.getElementById('active-chat-view');
+      const emptyContainer = document.getElementById('empty-state-view');
+      const activeBtn = document.getElementById('view-active-btn');
+      const emptyBtn = document.getElementById('view-empty-btn');
+
+      if (mode === 'empty') {
+        activeContainer.classList.add('hidden');
+        emptyContainer.classList.remove('hidden');
+        emptyContainer.classList.add('flex');
+
+        emptyBtn.classList.remove('bg-neutral-800', 'text-neutral-400');
+        emptyBtn.classList.add('bg-[#FFE600]', 'text-black');
+
+        activeBtn.classList.remove('bg-[#FFE600]', 'text-black');
+        activeBtn.classList.add('bg-neutral-800', 'text-neutral-400');
+      } else {
+        emptyContainer.classList.add('hidden');
+        emptyContainer.classList.remove('flex');
+        activeContainer.classList.remove('hidden');
+
+        activeBtn.classList.remove('bg-neutral-800', 'text-neutral-400');
+        activeBtn.classList.add('bg-[#FFE600]', 'text-black');
+
+        emptyBtn.classList.remove('bg-[#FFE600]', 'text-black');
+        emptyBtn.classList.add('bg-neutral-800', 'text-neutral-400');
+      }
+    }
+  </script>
+
+
+
+
+</body></html>

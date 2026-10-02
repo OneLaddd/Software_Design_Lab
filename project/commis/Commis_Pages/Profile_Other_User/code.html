@@ -1,0 +1,415 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#303032", "inverse-on-surface": "#313030", "on-secondary-container": "#b6b4b7", "on-background": "#e5e2e1", "surface-container-low": "#1c1b1b", "inverse-surface": "#e5e2e1", "primary-fixed": "#fde400", "surface-container": "#201f1f", "secondary-fixed-dim": "#c8c6c8", "on-tertiary": "#303033", "on-error-container": "#ffdad6", "on-secondary-fixed": "#1b1b1d", "on-primary-fixed": "#201c00", "secondary-fixed": "#e4e2e4", "surface-container-highest": "#353534", "on-tertiary-fixed-variant": "#47464a", "background": "#131313", "surface-container-lowest": "#0e0e0e", "secondary": "#c8c6c8", "tertiary-fixed": "#e4e1e5", "on-primary": "#373100", "surface-variant": "#353534", "on-surface-variant": "#cdc7aa", "outline": "#979177", "on-secondary-fixed-variant": "#474649", "tertiary": "#ffffff", "inverse-primary": "#6a5f00", "secondary-container": "#474649", "surface": "#131313", "outline-variant": "#4b4731", "primary-container": "#fde400", "on-primary-container": "#716500", "error": "#ffb4ab", "on-primary-fixed-variant": "#504700", "surface-container-high": "#2a2a2a", "surface-tint": "#dec800", "surface-dim": "#131313", "on-surface": "#e5e2e1", "surface-bright": "#393939", "on-error": "#690005", "tertiary-fixed-dim": "#c8c6c9", "primary": "#ffffff", "primary-fixed-dim": "#dec800", "on-tertiary-container": "#656467", "on-tertiary-fixed": "#1b1b1e", "tertiary-container": "#e4e1e5", "error-container": "#93000a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter": "1rem", "space-md": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, fontFamily: { "display": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "body-sm": ["Inter"], "label-md": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"] }, fontSize: { "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#131313;color:#e5e2e1;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Back" class="w-11 h-11 flex items-center justify-center rounded-full text-secondary hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all -ml-2" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-tertiary tracking-tight">Profile</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Profile" class="w-11 h-11 flex items-center justify-center"></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full text-on-surface">
+<!-- Profile Header Card Section -->
+<div class="px-margin pt-space-md pb-space-lg flex flex-col gap-space-md">
+<!-- User Avatar & Quick Indicators -->
+<div class="flex items-start justify-between">
+<div class="relative inline-block">
+<!-- Avatar with subtle electric glow -->
+<div class="w-24 h-24 rounded-full p-1 bg-surface-container shadow-[0_0_20px_rgba(253,228,0,0.18)]">
+<img alt="Alex Hunter Profile" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XNqmAej-9SRKi4pQijy2eEF80V46CmLX5tVOQdY3DsIvET2_kNccFkmbmuaTqyyGByY3mVBZcMdG5N_QpjdO999cv5kDLspcK--zadChsVOLMWHdA4VWY7d7U01YW9l7yPc6mVxEhCXaAhavgfB0BSUyPtCJa_Mr2_oA6y4dKNa8sBhx2MKTOx_Nz9Zg-NQFn1kZT18u8k5rQfvjIQDiFQJ8vqo-LrLsEZn-ZmPZHzgiDcwE5EQ6J-VXM">
+</div>
+<!-- Camera / Edit Badge -->
+<button aria-label="Change profile picture" class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-md active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[17px]">photo_camera</span>
+</button>
+</div>
+<!-- Quick Action / Status Hint -->
+<div class="flex flex-col items-end gap-space-xs">
+</div>
+</div>
+<!-- Identity & Role -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h2 class="font-headline-md text-headline-md text-tertiary tracking-tight">@alex_hunter</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-highest text-primary-fixed-dim text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+          Hunter
+        </span>
+</div>
+<!-- Reliability Rating Rating Indicator -->
+<div class="flex items-center gap-1.5 mt-0.5">
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="font-label-lg text-label-lg text-primary-container ml-1">4.8</span>
+</div>
+<span class="text-secondary text-body-sm font-body-sm">· 12 completed commissions</span>
+</div>
+</div>
+<!-- Bio text respecting database constraint -->
+<p class="font-body-md text-body-md text-on-background leading-relaxed">
+      Full-stack developer &amp; UI designer crafting web &amp; mobile apps. Open for bespoke design systems, Next.js apps &amp; smart contracts. ⚡
+    </p>
+<!-- Prominent Own-Profile Action -->
+<div class="flex items-center gap-space-sm mt-1">
+<button class="w-full py-3 px-space-md rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-tertiary font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-sm">
+
+<span class="">Invite to Bid</span>
+</button>
+<button aria-label="Direct Message" class="p-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-secondary hover:text-tertiary flex items-center justify-center active:scale-95 transition-all"><span class="material-symbols-outlined text-[20px]">chat</span></button>
+</div>
+<!-- Stats Matrix Card -->
+<div class="grid grid-cols-3 rounded-2xl bg-surface-container-low p-space-md mt-1 shadow-sm">
+<div class="flex flex-col items-center justify-center text-center px-1">
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold tracking-tight">24</span>
+<span class="font-label-sm text-label-sm text-secondary mt-0.5">Posts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-center px-1 bg-surface-container/60 rounded-xl py-1">
+<span class="font-headline-sm text-headline-sm text-primary-container font-bold tracking-tight">18</span>
+<span class="font-label-sm text-label-sm text-secondary mt-0.5">Completed</span>
+</div>
+<div class="flex flex-col items-center justify-center text-center px-1">
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold tracking-tight">Jan '24</span>
+<span class="font-label-sm text-label-sm text-secondary mt-0.5">Member since</span>
+</div>
+</div>
+</div>
+<!-- Interactive Navigation Tab Strip -->
+<div class="sticky top-16 z-20 bg-surface/95 backdrop-blur-md px-margin border-b border-surface-container-high/60">
+<div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar py-2.5">
+<button class="tab-btn flex-1 py-2.5 px-3 rounded-xl text-center font-label-md text-label-md transition-all flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer bg-primary-container text-on-primary font-bold shadow-[0_2px_12px_rgba(253,228,0,0.2)]" data-tab="portfolio" id="tab-portfolio-btn"><span class="">Portfolio</span><span class="text-label-sm font-label-sm opacity-80">(8)</span></button>
+<button class="tab-btn flex-1 py-2.5 px-3 rounded-xl text-center font-label-md text-label-md transition-all flex items-center justify-center gap-1.5 hover:text-tertiary whitespace-nowrap cursor-pointer bg-surface-container text-secondary" data-tab="posts" id="tab-posts-btn"><span class="">Posts</span><span class="text-label-sm font-label-sm opacity-60">(24)</span></button>
+<button class="tab-btn flex-1 py-2.5 px-3 rounded-xl text-center font-label-md text-label-md transition-all flex items-center justify-center gap-1.5 hover:text-tertiary whitespace-nowrap cursor-pointer bg-surface-container text-secondary" data-tab="commissions" id="tab-commissions-btn"><span class="">Commissions</span><span class="text-label-sm font-label-sm opacity-60">(18)</span></button>
+<button class="tab-btn flex-1 py-2.5 px-3 rounded-xl text-center font-label-md text-label-md transition-all flex items-center justify-center gap-1.5 hover:text-tertiary whitespace-nowrap cursor-pointer bg-surface-container text-secondary" data-tab="reviews" id="tab-reviews-btn"><span class="">Reviews</span><span class="text-label-sm font-label-sm opacity-60">(15)</span></button>
+</div>
+</div>
+<!-- Tab Contents Container -->
+<div class="px-margin pt-space-md pb-space-xl">
+<!-- PANE 1: PORTFOLIO -->
+<div class="flex-col gap-space-md flex" id="pane-portfolio"><div class="grid grid-cols-2 gap-space-sm"><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="Fintech Mobile App" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhYs3s_vBR21iEaMgsCmtfM0CRLBFUGf2agKI5NQ5HFhbypwovPc3tiSN8mVXx7TA1t9CHIUSQEoU5T2UJCo-fHfE5XQNXTqzhhOfsfiFjx-TDkm6Y9v8AzIhnA4wwxDFdQDhmpQyaUL3IWbdr-OVVAhWcKCWx1VlRyw15Shi0JfK8RG6WOZ8AhUUpPKC_MBMRkbWkYTcnmcNBSEc1RVb53cn7vtYEItZ8_9TlPgprsS31g3ZYfvALkQ"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">UI/UX DESIGN</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">Fintech Mobile App</h4><p class="font-body-sm text-[11px] text-secondary truncate">Next.js &amp; React Native design kit</p></div></div><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="Brand Identity Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXeG8gKwg-fAapRESpo82y70DVOQ1l2qpLfkpovytIIMTW-zVu5rOxLBixBFpfjAEOscZzVEvnMD9H3LDZHGFbOb7qTIu7rgWkocSptX2gKmO7Re3M0DV4mdtj1cm7kFBM0xZZeUxpCqtZdZlsa7mCZXRG5JcebXtM7c-JC9ki5rfsSlwqGddxdsj5rIFFIBNtqM3SvYdDnjuaL22mg8mRjiKQj1pId3Z0T_s8yywrfaUkLDCestGJWQ"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">BRAND &amp; IDENTITY</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">Brand Identity Suite</h4><p class="font-body-sm text-[11px] text-secondary truncate">Vector tokens &amp; custom glyphs</p></div></div><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="3D Isometric World" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOSwSsTT6GTEEGQWZ1UVRR88PZpgE1VVdDPZyODNogT1D2YHw3faN1_IG7UdFRpvDlvI41-KVgB1ULP8UuwCwLOJus4lF5NJmUzer5sVM_TEkKWg05VnLqJI85PzPELPIvX0J9pTarYb9hNG3ZGXCRW0eLIHF0e9Ov1wQCjQbkmeqddApzszm3n5WfmCfJKu-ebB5sJsXmSLZ_JYAFkWzdlW2BEREyihmtJ5eO79h7ziKumPkwrKirxQ"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">3D &amp; MOTION</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">3D Isometric World</h4><p class="font-body-sm text-[11px] text-secondary truncate">Spline 3D interactive assets</p></div></div><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="SaaS Analytics Dashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGcyZNba-HDHaVdvbu62u36kW3RnbnZpiJioAEMWdRl5fq0WdhB-g05ryOK6_CyV-DuUu159IYLua3iWKP_7vRQA4It29UC5Z2kQ8KxxBTIDrKtNDAIFZAM1hMPtpijy--Vc8Wv50fL_c7Nw6MV__0BNmmbAZEqdHMChO8cuY8eQmVSmmTSuKkKBjF2d6ekmxx3AjQXREiXjYV_oipfBNeqFueX5zJVsSY90Op9i8Z8h4c-A4SYlbAbQ"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">WEB DEVELOPMENT</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">SaaS Analytics Dashboard</h4><p class="font-body-sm text-[11px] text-secondary truncate">Real-time metrics with Tailwind</p></div></div><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="Smart Contract DApp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XIsUyL06kczbBreuz8QoEx_b86uY4cOUf6XXdQpxdBmKt42o21SVWjMUNwHY5Yb-Tr2E1n67xkyv5jjYxWpfN1kNMGZ3hPgvk43hS3TFEvRe3kzR0xp98ZariCoUaogqcYCC5aDbxUycOPs1yfwkZZeKhOP8UpaJmCjldce9QlJX8b1xZRpMKuNec-hkZqLMwFjGPrEG03jQqXwkCibAyEGYjq4pkWi9c6O-i1H-d2uwrc3tgLwk7g"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">SMART CONTRACTS</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">Smart Contract DApp</h4><p class="font-body-sm text-[11px] text-secondary truncate">Solidity bounties audit portal</p></div></div><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="Creator Portfolio Shell" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8lU0B8xh6DTRXrRWST6lIgh-8JKqy6WrWztR5Y9MI_27LsdkQtFZJ-jj9mvho8CyEptv-FnZTScVY3n1h50YsG-JaJiHNhtn2aY0WyudPd3YosGnQmDoMe_tz0Swx4CeActM7gZMO1lhVzF_lNU3UkfwzoIeWnVZVUs2--uy7nEO4NWHy_saRa_YuyUpvPqcjAAE-9n7p6-jzORby4UaN30SjW8vb72gTr-VcOju82lXKdORE8bkMZg"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">UI/UX DESIGN</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">Creator Portfolio Shell</h4><p class="font-body-sm text-[11px] text-secondary truncate">Mobile-first dark mode layouts</p></div></div><div class="group relative flex flex-col rounded-2xl bg-surface-container-low overflow-hidden hover:bg-surface-container transition-all"><div class="w-full aspect-[4/3] bg-surface-container-highest overflow-hidden relative"><img alt="Cyberpunk Game Assets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvUQivgmLJStv2mVshnU-FRSbN4PfEzAtoRjvN36Db6Hz2htYIuHKDN5JmrWsHrEI_aoOFgEntRvfH3ujRQDJxQQGvJtx0F3YIJrozdzINj_1225HJUbG4SF2zoDVNxXPk54pczRWQ9G8u40JzOTMkdbMVMxHi7BMLWzYm98QjOh18_wBAAnVaFFY8jAQ6eH-GfhstqRpjoAB_iAjMVj4fxtkES1ZkYsGfF5VhWJEEasSVF5Gg3-YUvg"></div><div class="p-3 flex flex-col gap-0.5"><span class="text-tertiary text-label-sm font-semibold tracking-wider uppercase">GAME DESIGN</span><h4 class="font-headline-sm text-[14px] text-tertiary font-bold truncate leading-snug">Cyberpunk Game Assets</h4><p class="font-body-sm text-[11px] text-secondary truncate">Pixel &amp; vector weapon models</p></div></div><button aria-label="Add portfolio entry" class="group relative flex flex-col rounded-2xl bg-surface-container-low/50 border-2 border-dashed border-neutral-700 hover:border-primary-container hover:bg-surface-container transition-all active:scale-95 text-left overflow-hidden"><div class="w-full aspect-[4/3] flex flex-col items-center justify-center"><div class="w-11 h-11 rounded-full bg-surface-container-highest group-hover:bg-primary-container flex items-center justify-center transition-colors shadow-sm"><span class="material-symbols-outlined text-[24px] text-tertiary group-hover:text-on-primary transition-colors">add</span></div></div><div class="p-3 flex flex-col gap-0.5"><h4 class="font-headline-sm text-[14px] text-tertiary group-hover:text-primary-container font-bold truncate leading-snug transition-colors">Add Entry</h4><p class="font-body-sm text-[11px] text-secondary truncate">Upload project</p></div></button></div></div>
+<!-- PANE 2: POSTS -->
+<div class="flex-col gap-space-md hidden" id="pane-posts">
+<!-- Post 1 -->
+<article class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm transition-all hover:bg-surface-container">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container font-label-sm">
+<span class="material-symbols-outlined text-[14px]">code</span>
+</div>
+<span class="font-label-md text-label-md text-tertiary font-bold">c/programming</span>
+<span class="text-secondary text-body-sm">· 4h ago</span>
+</div>
+<button aria-label="More options" class="text-secondary hover:text-tertiary p-1"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary leading-snug">I am one of the developers that helped solve Navier-Stokes Millennium Prize problem...</h3>
+<p class="font-body-md text-body-md text-secondary line-clamp-2">Documenting the mathematical pipeline, GPU tensor allocation tactics, and novel neural operators we applied to continuous vector fluid fields under discrete grid boundaries.</p>
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div class="flex items-center gap-space-xs">
+<div class="inline-flex items-center rounded-full bg-surface-container-high py-1 px-3 gap-1.5 text-tertiary">
+<button aria-label="Upvote" class="flex items-center text-primary-container hover:scale-110 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">shift</span></button>
+<span class="font-label-md text-label-md font-bold text-tertiary">30.3k</span>
+<button aria-label="Downvote" class="flex items-center text-secondary hover:text-tertiary active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] rotate-180">shift</span></button>
+</div>
+<button class="inline-flex items-center rounded-full bg-surface-container-high py-1.5 px-3.5 gap-1.5 text-secondary hover:text-tertiary transition-colors"><span class="material-symbols-outlined text-[18px]">chat_bubble</span><span class="font-label-md text-label-md">1.2k</span></button>
+</div>
+<button aria-label="Share post" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-secondary hover:text-tertiary active:scale-90 transition-all"><span class="material-symbols-outlined text-[18px]">share</span></button>
+</div>
+</article>
+<!-- Post 2 -->
+<article class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm transition-all hover:bg-surface-container">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container font-label-sm">
+<span class="material-symbols-outlined text-[14px]">palette</span>
+</div>
+<span class="font-label-md text-label-md text-tertiary font-bold">c/DesignSystems</span>
+<span class="text-secondary text-body-sm">· 2d ago</span>
+</div>
+<button aria-label="More options" class="text-secondary hover:text-tertiary p-1"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary leading-snug">Open sourced our dark mode electric design tokens and typography kit for creators!</h3>
+<p class="font-body-md text-body-md text-secondary line-clamp-2">Tailwind configs, fluid typography ratios, and strict token hierarchy rules built for nighttime bounty hunters. Free to fork on GitHub.</p>
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div class="flex items-center gap-space-xs">
+<div class="inline-flex items-center rounded-full bg-surface-container-high py-1 px-3 gap-1.5 text-tertiary">
+<button aria-label="Upvote" class="flex items-center text-primary-container hover:scale-110 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">shift</span></button>
+<span class="font-label-md text-label-md font-bold text-tertiary">418</span>
+<button aria-label="Downvote" class="flex items-center text-secondary hover:text-tertiary active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] rotate-180">shift</span></button>
+</div>
+<button class="inline-flex items-center rounded-full bg-surface-container-high py-1.5 px-3.5 gap-1.5 text-secondary hover:text-tertiary transition-colors"><span class="material-symbols-outlined text-[18px]">chat_bubble</span><span class="font-label-md text-label-md">45</span></button>
+</div>
+<button aria-label="Share post" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-secondary hover:text-tertiary active:scale-90 transition-all"><span class="material-symbols-outlined text-[18px]">share</span></button>
+</div>
+</article>
+<!-- Post 3 -->
+<article class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm transition-all hover:bg-surface-container">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container font-label-sm">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+</div>
+<span class="font-label-md text-label-md text-tertiary font-bold">c/Web3Devs</span>
+<span class="text-secondary text-body-sm">· 5d ago</span>
+</div>
+<button aria-label="More options" class="text-secondary hover:text-tertiary p-1"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary leading-snug">Writing zero-knowledge proof escrow contracts for peer-to-peer commissions</h3>
+<p class="font-body-md text-body-md text-secondary line-clamp-2">How we eliminate custody risk while guaranteeing milestone auto-release upon cryptographic test suite validation.</p>
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div class="flex items-center gap-space-xs">
+<div class="inline-flex items-center rounded-full bg-surface-container-high py-1 px-3 gap-1.5 text-tertiary">
+<button aria-label="Upvote" class="flex items-center text-primary-container hover:scale-110 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">shift</span></button>
+<span class="font-label-md text-label-md font-bold text-tertiary">892</span>
+<button aria-label="Downvote" class="flex items-center text-secondary hover:text-tertiary active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] rotate-180">shift</span></button>
+</div>
+<button class="inline-flex items-center rounded-full bg-surface-container-high py-1.5 px-3.5 gap-1.5 text-secondary hover:text-tertiary transition-colors"><span class="material-symbols-outlined text-[18px]">chat_bubble</span><span class="font-label-md text-label-md">118</span></button>
+</div>
+<button aria-label="Share post" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-secondary hover:text-tertiary active:scale-90 transition-all"><span class="material-symbols-outlined text-[18px]">share</span></button>
+</div>
+</article>
+</div>
+<!-- PANE 3: COMMISSIONS -->
+<div class="flex-col gap-space-md hidden" id="pane-commissions">
+<!-- Commission 1 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-tertiary font-bold">Franchise Restaurant Site Drawing Update</h4>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Client: <span class="text-tertiary font-label-sm">@Elena_Rostova</span></p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold shadow-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+Completed
+</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-2">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary-container font-extrabold">₱28,500</span>
+<span class="font-label-sm text-label-sm text-secondary">PHP</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Delivered in 4 days</span>
+</div>
+</div>
+<!-- Commission 2 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-tertiary font-bold">Brand Identity &amp; Vector Icon Suite for FinTech</h4>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Client: <span class="text-tertiary font-label-sm">@pixel_craft</span></p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-primary-fixed-dim font-label-sm text-label-sm font-semibold whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+In Progress
+</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-2">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary-container font-extrabold">$850</span>
+<span class="font-label-sm text-label-sm text-secondary">USD</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Milestone 2 of 3</span>
+</div>
+</div>
+<!-- Commission 3 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-tertiary font-bold">Unity Mobile Puzzle Game Revamp</h4>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Client: <span class="text-tertiary font-label-sm">@pixel_play</span></p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold shadow-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+Completed
+</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-2">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary-container font-extrabold">$450</span>
+<span class="font-label-sm text-label-sm text-secondary">USD</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Delivered in 24 hours</span>
+</div>
+</div>
+<!-- Commission 4 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-tertiary font-bold">Fullstack Next.js Bounty Escrow Interface</h4>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Client: <span class="text-tertiary font-label-sm">@crypto_nord</span></p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold shadow-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+Completed
+</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-2">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary-container font-extrabold">₱15,000</span>
+<span class="font-label-sm text-label-sm text-secondary">PHP</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Delivered last week</span>
+</div>
+</div>
+</div>
+<!-- PANE 4: REVIEWS -->
+<div class="flex-col gap-space-md hidden" id="pane-reviews">
+<!-- Review Overview Summary Scoreboard -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary font-extrabold tracking-tight">4.8</span>
+<span class="text-secondary text-body-md font-body-md">/ 5.0</span>
+</div>
+<div class="flex items-center text-primary-container gap-0.5 mt-1">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star_half</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary mt-1">Based on 15 verified reviews</span>
+</div>
+<!-- Rating bars mini visual -->
+<div class="flex-1 max-w-[170px] flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-secondary w-3">5</span>
+<div class="flex-1 h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 86%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">13</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-secondary w-3">4</span>
+<div class="flex-1 h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 14%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">2</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-secondary w-3">3</span>
+<div class="flex-1 h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 0%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">0</span>
+</div>
+</div>
+</div>
+<!-- Review Card 1 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-xs hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center font-label-sm text-tertiary font-bold">
+ER
+</div>
+<div>
+<span class="font-label-md text-label-md text-tertiary font-bold">@Elena_Rostova</span>
+<span class="block text-secondary text-body-sm text-[11px]">Architectural Lead</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">3 days ago</span>
+</div>
+<div class="flex items-center text-primary-container gap-0.5 mt-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="font-label-sm text-label-sm text-tertiary ml-1.5 font-bold">5.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-background mt-1">
+"Delivered phenomenal results ahead of deadline. Clean code and unmatched design eye. Will hire again!"
+</p>
+</div>
+<!-- Review Card 2 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-xs hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center font-label-sm text-tertiary font-bold">
+PC
+</div>
+<div>
+<span class="font-label-md text-label-md text-tertiary font-bold">@pixel_craft</span>
+<span class="block text-secondary text-body-sm text-[11px]">Product Manager</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">1 week ago</span>
+</div>
+<div class="flex items-center text-primary-container gap-0.5 mt-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="font-label-sm text-label-sm text-tertiary ml-1.5 font-bold">5.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-background mt-1">
+"Exceptional attention to detail on the UI token kit. Everything was production-ready out of the box."
+</p>
+</div>
+<!-- Review Card 3 -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-xs hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center font-label-sm text-tertiary font-bold">
+PP
+</div>
+<div>
+<span class="font-label-md text-label-md text-tertiary font-bold">@pixel_play</span>
+<span class="block text-secondary text-body-sm text-[11px]">Indie Game Studio</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">2 weeks ago</span>
+</div>
+<div class="flex items-center text-primary-container gap-0.5 mt-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: &quot;FILL&quot; 1;">star_half</span>
+<span class="font-label-sm text-label-sm text-tertiary ml-1.5 font-bold">4.8</span>
+</div>
+<p class="font-body-md text-body-md text-on-background mt-1">
+"Super responsive and nailed the UI facelift perfectly. Highly recommend Alex for any speed bounty!"
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+  function switchProfileTab(tabName) {
+    const tabs = ['portfolio', 'posts', 'commissions', 'reviews'];
+
+    tabs.forEach(function(tab) {
+      const pane = document.getElementById('pane-' + tab);
+      const btn = document.getElementById('tab-' + tab + '-btn');
+
+      if (!pane || !btn) return;
+
+      if (tab === tabName) {
+        pane.classList.remove('hidden');
+        pane.classList.add('flex');
+
+        // Active Tab Styling (Electric Yellow background, dark on-primary text)
+        btn.classList.remove('bg-surface-container', 'text-secondary');
+        btn.classList.add('bg-primary-container', 'text-on-primary', 'font-bold', 'shadow-[0_2px_12px_rgba(253,228,0,0.2)]');
+      } else {
+        pane.classList.add('hidden');
+        pane.classList.remove('flex');
+
+        // Inactive Tab Styling (Surface container background, muted secondary text)
+        btn.classList.remove('bg-primary-container', 'text-on-primary', 'font-bold', 'shadow-[0_2px_12px_rgba(253,228,0,0.2)]');
+        btn.classList.add('bg-surface-container', 'text-secondary');
+      }
+    });
+  }
+
+  // Ensure interactive click listeners are initialized cleanly
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = ['portfolio', 'posts', 'commissions', 'reviews'];
+    tabs.forEach(function(tab) {
+      const btn = document.getElementById('tab-' + tab + '-btn');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchProfileTab(tab);
+        });
+      }
+    });
+    // Default to Portfolio tab
+    switchProfileTab('portfolio');
+  });
+</script>
+
+
+</body></html>

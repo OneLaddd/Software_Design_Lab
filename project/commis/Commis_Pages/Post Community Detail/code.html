@@ -1,0 +1,398 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-container": "#656467", "surface-container": "#201f1f", "error": "#ffb4ab", "tertiary-container": "#e4e1e5", "on-secondary-fixed-variant": "#474649", "on-secondary-container": "#b6b4b7", "primary-container": "#fde400", "surface-container-low": "#1c1b1b", "inverse-on-surface": "#313030", "on-error-container": "#ffdad6", "secondary-fixed-dim": "#c8c6c8", "primary-fixed-dim": "#dec800", "on-primary": "#373100", "outline": "#979177", "surface-tint": "#dec800", "outline-variant": "#4b4731", "error-container": "#93000a", "surface-variant": "#353534", "background": "#131313", "on-tertiary": "#303033", "tertiary": "#ffffff", "surface-dim": "#131313", "on-background": "#e5e2e1", "secondary": "#c8c6c8", "surface-container-highest": "#353534", "on-tertiary-fixed": "#1b1b1e", "surface-container-high": "#2a2a2a", "inverse-surface": "#e5e2e1", "on-primary-fixed-variant": "#504700", "primary-fixed": "#fde400", "primary": "#ffffff", "on-primary-container": "#716500", "on-primary-fixed": "#201c00", "on-secondary": "#303032", "tertiary-fixed": "#e4e1e5", "secondary-container": "#474649", "surface-container-lowest": "#0e0e0e", "tertiary-fixed-dim": "#c8c6c9", "secondary-fixed": "#e4e2e4", "on-secondary-fixed": "#1b1b1d", "on-tertiary-fixed-variant": "#47464a", "on-surface-variant": "#cdc7aa", "on-error": "#690005", "surface": "#131313", "inverse-primary": "#6a5f00", "on-surface": "#e5e2e1", "surface-bright": "#393939" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1.25rem", "space-sm": "0.5rem", "space-md": "1rem", "space-xl": "2rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "gutter": "1rem" }, fontFamily: { "label-md": ["Inter"], "body-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Inter"], "label-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "display": ["Plus Jakarta Sans"] }, fontSize: { "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }] } } } }</script><style>@layer base { html, body { width: 100vw; margin: 0; padding: 0; background-color: #131313; } body { overscroll-behavior-y: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-margin flex items-center justify-between"><button aria-label="Go back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full text-on-surface">
+<!-- Article Main Container -->
+<article class="px-margin pt-space-md pb-space-lg flex flex-col gap-space-md">
+<!-- Author Meta Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img class="w-full h-full object-cover" data-alt="High contrast portrait of a male tech researcher in a dark obsidian nocturnal studio with subtle yellow neon ambient backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPvCufzdOlwLiCYC3IOHhLJuKBA9OTHVFRPdLZi3XWtzsPea1ZpsXy-OVgohtFMd0DI-140s0hYbU0Ar4sDOmuBKHB-nsWcMkRzuUWi_spluZLqnlPhPQjCvVh1OOuJGkyQbmiG11oBkEIqAZkzehodhH9yRaH4MFkwICLH-zaVozeZncgJ8IgSx63lynhswiW3vRJYLuOeDwkQx8r0esWm5WPWGcUnuKkdbnCH1jhe4p1Qehe9nrXVA">
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-primary">@dev_linus</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container inline-block"></span>
+
+</div>
+
+</div>
+</div>
+<div class="relative flex items-center gap-space-xs" id="post-menu-container"><button aria-label="Post options" id="post-menu-btn" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" type="button" onclick="const menu = document.getElementById('post-dropdown-menu'); menu.classList.toggle('hidden');"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button><div id="post-dropdown-menu" class="absolute right-0 top-11 w-44 bg-surface-container-high border border-surface-container-highest/60 rounded-xl shadow-2xl p-1 z-50 flex flex-col gap-0.5 backdrop-blur-xl animate-in fade-in zoom-in-95"><button type="button" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-body-sm font-label-md text-on-surface hover:bg-surface-container-highest transition-colors" onclick="showToast('Opening editor...'); document.getElementById('post-dropdown-menu').classList.add('hidden');"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">edit</span><span class="">Edit Post</span></button><div class="h-px bg-surface-container-highest/60 my-0.5"></div><button type="button" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-body-sm font-label-md text-error hover:bg-surface-container-highest transition-colors" onclick="showToast('Post deletion requested'); document.getElementById('post-dropdown-menu').classList.add('hidden');"><span class="material-symbols-outlined text-[18px] text-error">delete</span><span class="">Delete Post</span></button></div></div>
+</div>
+<!-- Post Title -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">
+      I am one of the developers of OpenAI that helped solve Navier–Stokes Millennium Prize Problem, one of the deepest problems at the frontier of mathematics.
+    </h1>
+<!-- Post Body Text -->
+<div class="space-y-space-md font-body-md text-body-md text-on-surface/90 leading-relaxed">
+<p class="">
+        We combined sparse neural operators with distributed physics-informed transformers over 12,000 H100 clusters to prove global regularity across smooth bounded domains.
+      </p>
+<p class="">
+        In this post, we break down how boundary condition discretization interacts with vorticity damping, and why traditional PDE solvers hit dimensional bottlenecks. Full theorem derivations and open-source benchmark reproduction scripts are linked below.
+      </p>
+</div>
+<!-- Technical Simulation Showcase Card -->
+<div class="rounded-xl overflow-hidden bg-surface-container-low shadow-md flex flex-col">
+<div class="relative w-full aspect-video bg-surface-container-lowest overflow-hidden flex items-center justify-center"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuABUeGDOvmI02TR5_3I-fvnne3tBfDcCsg8FyYp0avEGetJ_VCEc449yCuspu0nrk_SjIS5y-J2BeyIo6PDZQL53Dc4ulyePenCXiF5-QEzJ4LjM4eoFgcj2K5OyCBMBAz8bc9wHIjBq3EnUQm2ddr54OM3ejcf-KHFs0Uh5QFMCebemeza_WH0JeK9ppnS_jcUD4NPEeLKqH-8EPoxD9YdnhWMRad7yjHAb-pfuGZaBWPxU4KFlQcsww" alt="PDE Tensor Field Simulation" class="w-full h-full object-cover rounded-xl"><div class="absolute inset-0 bg-surface-container-lowest/20 pointer-events-none"></div></div>
+
+</div>
+<!-- Tags Row -->
+
+<!-- Post Action Controls Bar -->
+<div class="flex items-center gap-space-xs pt-space-xs overflow-x-auto no-scrollbar">
+<!-- Upvote / Downvote Segmented Pill -->
+<div class="flex items-center bg-surface-container-high rounded-full px-1 py-0.5 shrink-0" id="post-voting-group">
+<button aria-label="Upvote" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface hover:text-primary-container transition-colors" id="post-upvote-btn" onclick="togglePostVote(true)" type="button">
+<span class="material-symbols-outlined text-[20px]" id="post-upvote-icon">arrow_upward</span>
+</button>
+<span class="font-label-md text-label-md px-1 text-on-surface" id="post-score">30.3k</span>
+<button aria-label="Downvote" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface hover:text-error transition-colors" id="post-downvote-btn" onclick="togglePostVote(false)" type="button">
+<span class="material-symbols-outlined text-[20px]" id="post-downvote-icon">arrow_downward</span>
+</button>
+</div>
+<!-- Comments Pill -->
+<a class="flex items-center gap-1.5 bg-surface-container-high px-3.5 h-9 rounded-full text-on-surface hover:bg-surface-container-highest transition-colors shrink-0" href="#comments-section">
+<span class="material-symbols-outlined text-[18px]">chat_bubble_outline</span>
+<span class="font-label-md text-label-md">1.2k</span>
+</a>
+<!-- Share Pill -->
+<button class="flex items-center gap-1.5 bg-surface-container-high px-3.5 h-9 rounded-full text-on-surface hover:bg-surface-container-highest transition-colors shrink-0" onclick="triggerShareNotice()" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span class="font-label-md text-label-md">Share</span>
+</button>
+<!-- Bookmark Pill -->
+<button class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary-container transition-colors shrink-0 ml-auto" id="bookmark-btn" onclick="toggleBookmark()" type="button">
+<span class="material-symbols-outlined text-[18px]" id="bookmark-icon">bookmark_border</span>
+</button>
+</div>
+</article>
+<!-- Divider / Comments Anchor -->
+<div class="w-full h-2 bg-surface-container-lowest" id="comments-section"></div>
+<!-- Comments Header & Filter -->
+<section class="px-margin pt-space-lg pb-space-xl flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-baseline gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-primary">Comments</h2>
+<span class="font-label-md text-label-md text-on-surface-variant">(1,248)</span>
+</div>
+<!-- Sorting Pill -->
+<div class="flex items-center bg-surface-container-high rounded-full p-0.5">
+<button class="sort-tab px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary-container text-on-primary-container transition-all" onclick="selectSort(this)" type="button">Top</button>
+<button class="sort-tab px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" onclick="selectSort(this)" type="button">New</button>
+<button class="sort-tab px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" onclick="selectSort(this)" type="button">Old</button>
+</div>
+</div>
+<!-- Active Inline Quick Reply Banner -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant">Comment as <strong class="text-on-surface">@guest_architect</strong></span>
+</div>
+<div class="relative">
+<textarea class="w-full bg-surface-container-highest/60 rounded-lg p-space-sm font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none resize-none" id="main-comment-input" placeholder="Write your reply..." rows="2"></textarea>
+</div>
+<div class="flex justify-between items-center pt-1">
+<div class="flex items-center gap-space-xs">
+
+<button class="w-7 h-7 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary-container" type="button">
+
+</button>
+</div>
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm flex items-center gap-1 shadow-[0_2px_10px_rgba(253,228,0,0.2)] active:scale-95 transition-transform" onclick="submitQuickReply()" type="button">
+<span class="">Publish</span>
+<span class="material-symbols-outlined text-[14px]">send</span>
+</button>
+</div>
+</div>
+<!-- Thread 1: Top-Level Comment + Deep Threaded Responses -->
+<div class="flex flex-col gap-space-md">
+<!-- Comment #1 -->
+<div class="flex gap-space-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high shrink-0 mt-0.5">
+<img class="w-full h-full object-cover" data-alt="Avatar photo of an analytical developer with rim glasses under cool cyberpunk dark lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKmyiQb1dfawplJUfauf_6bgvIlOyJ4GNZTbTlpxI__3u6Ichp5T1m3nRz9toMJ5V-Ef1RmmJ9aqPwbIKbi6iv2GemVu2UOxdSn6ncijEvn0YOm4PZHl37T4Wp8ypg_aZzgJv2YA7Qb9zN8TPs7R7ldvXZubKbXWU5yCxDLHegDSS9xqKAgvroOzXpoo2riNwzCkF9euVg6CM4__971Q3ziWu-lp1EFkebGHK42MWmN40XHXjdz-dh3Q">
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">@async_coder</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3h ago</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[16px]">more_horiz</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 leading-relaxed">
+            This is a really useful explanation of neural operators for fluid dynamics. How did you stabilize the gradient blowups near non-linear boundary vortex layers without sacrificing convergence speed?
+          </p>
+<!-- Comment 1 Actions -->
+<div class="flex items-center gap-space-md pt-1">
+<div class="flex items-center gap-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors" onclick="voteComment(this, 1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-sm text-label-sm text-on-surface font-bold score">142</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-error transition-colors" onclick="voteComment(this, -1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container" onclick="replyTo('@async_coder')" type="button">
+<span class="material-symbols-outlined text-[14px]">reply</span>
+<span class="">Reply</span>
+</button>
+</div>
+<!-- Nested Level 1 Reply (@dev_linus OP) -->
+<div class="relative pl-4 mt-space-sm flex gap-space-sm">
+<!-- Sleek Thread Guide Line -->
+<div class="absolute left-0 top-0 bottom-2 w-0.5 rounded-full bg-surface-container-highest"></div>
+<div class="w-7 h-7 rounded-full overflow-hidden bg-surface-container-high shrink-0 mt-0.5">
+<img class="w-full h-full object-cover" data-alt="High contrast portrait of a male tech researcher in a dark obsidian nocturnal studio with subtle yellow neon ambient backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuCXQJBhO64VZG-u4f0gw571LI4PyKJV8bX9-8CtEqg3o-F2xL9LIZ0YRTqOh8FIj21kS_vBowV_NCFu4V4Si9rIBm6MMEBs7Qnr0-7ws6LGk74OUCVG36X4nuj0yIkMOIKf8fhdJC5Tkzx-P9Ut3GUrTGjzVQUy_2QgMyNHzCtdY1PC4JQ_FPbC8XiloVSAi7ay0ONLk0takz2HCxSPpxt5__hL_su5Tiydtlru83zzQbeWsdLH9ySw">
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-primary font-semibold">@dev_linus</span>
+<span class="font-label-sm text-label-sm text-on-primary-container bg-primary-container/20 px-1 py-0.2 rounded">OP</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[16px]">more_horiz</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 leading-relaxed">
+                We introduced adaptive Dirichlet spectral penalty loss terms weighted inversely by local vorticity magnitude. That effectively dampens high-frequency boundary oscillations.
+              </p>
+<!-- Reply 1 Actions -->
+<div class="flex items-center gap-space-md pt-1">
+<div class="flex items-center gap-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors" onclick="voteComment(this, 1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-sm text-label-sm text-on-surface font-bold score">58</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-error transition-colors" onclick="voteComment(this, -1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container" onclick="replyTo('@dev_linus')" type="button">
+<span class="material-symbols-outlined text-[14px]">reply</span>
+<span class="">Reply</span>
+</button>
+</div>
+<!-- Sub-Nested Level 2 Reply (@torch_guru) -->
+<div class="relative pl-4 mt-space-sm flex gap-space-sm">
+<!-- Second Thread Guide Line -->
+<div class="absolute left-0 top-0 bottom-2 w-0.5 rounded-full bg-surface-container-highest"></div>
+<div class="w-6 h-6 rounded-full overflow-hidden bg-surface-container-high shrink-0 mt-0.5">
+<img class="w-full h-full object-cover" data-alt="Stylized glowing geometric avatar in electric yellow wireframe matrix style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKTjuzT61a6DTURkeC6QgclGJPTKJURNiNOLNW3RZhIOpS8qYWpljwYvB1wc9TmrVUuWx2LRgT7AXcWCia3zffRHmdjv8vCP4zaztJt29LmlHsllW37M4jdF2AwfZ2sw--BeKLfRxnQ8-CEyESDQ4ifEC4qzouSYB_YKX3hMpmpA602_ipyA8JUNlo-K496-ZAUEZHgel999BV45zZQyorrf-4UO9IhmLEmNIzQw2Le0Rr7ohCPyTXNg">
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">@torch_guru</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1h ago</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 leading-relaxed">
+                    Did you benchmark that penalty loss against standard PINN residual sampling? Curious about memory overhead during backprop.
+                  </p>
+<div class="flex items-center gap-space-md pt-1">
+<div class="flex items-center gap-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors" onclick="voteComment(this, 1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-sm text-label-sm text-on-surface font-bold score">19</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-error transition-colors" onclick="voteComment(this, -1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container" onclick="replyTo('@torch_guru')" type="button">
+<span class="material-symbols-outlined text-[14px]">reply</span>
+<span class="">Reply</span>
+</button>
+</div>
+</div>
+</div><div class="relative pl-4 mt-space-sm flex flex-col gap-space-xs"><div class="absolute left-0 top-0 bottom-2 w-0.5 rounded-full bg-surface-container-highest"></div><div class="bg-surface-container-low rounded-xl p-space-sm flex flex-col gap-space-xs border border-surface-container-highest/60"><div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant"><span class="flex items-center gap-1 font-label-sm text-label-sm">Replying to <span class="text-primary-container font-semibold">@torch_guru</span></span></div><div class="relative"><textarea class="w-full bg-surface-container-highest/60 rounded-lg p-space-sm font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none resize-none" placeholder="Write a reply to @torch_guru..." rows="2"></textarea></div><div class="flex justify-end items-center gap-space-xs pt-1"><button type="button" class="px-3 py-1 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" onclick="this.closest('.bg-surface-container-low').parentElement.remove()">Cancel</button><button type="button" class="px-3.5 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm flex items-center gap-1 shadow-[0_2px_10px_rgba(253,228,0,0.2)] active:scale-95 transition-transform" onclick="showToast('Reply posted to @torch_guru'); this.closest('.bg-surface-container-low').parentElement.remove()"><span class="material-symbols-outlined text-[14px]">reply</span><span class="">Reply</span></button></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Thread 2: Top-Level Comment from @elena_codes -->
+<div class="flex gap-space-sm pt-space-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high shrink-0 mt-0.5">
+<img class="w-full h-full object-cover" data-alt="Portrait of a female AI researcher illuminated by the faint glow of monitors in a darkened office laboratory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_FFX9paTiRvPhbUbqrmy00HHzxlKLuRzUf05aLorTFLOR55hdeKG6TM3Yl0hbDhU_8KE5x5dvzjA1OtvK-o8A9hqKbBjruoUsGIudtpiHNP-X9FuC5zCdaJw1f8G0Cj85MoTFDcFXPnSiG_nfXuh1E-g7Jdj-JP6soG7ggl1-wXbc9kQQC9uW8nlZuMZmfmdGIucV4-w2I8TchXQsh3T30wpzZ82zs4ZeFTj2dcWiVy29QmMnGFQew">
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">@elena_codes</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4h ago</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[16px]">more_horiz</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 leading-relaxed">
+            Incredible milestone for applied computational mathematics! The reduction in verification steps alone is going to change high-performance CFD simulations.
+          </p>
+<div class="flex items-center gap-space-md pt-1">
+<div class="flex items-center gap-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors" onclick="voteComment(this, 1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+<span class="font-label-sm text-label-sm text-on-surface font-bold score">89</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-error transition-colors" onclick="voteComment(this, -1)" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container" onclick="replyTo('@elena_codes')" type="button">
+<span class="material-symbols-outlined text-[14px]">reply</span>
+<span class="">Reply</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Toast Notification container for delightful feedback -->
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-primary-container text-on-primary-container px-4 py-2 rounded-full font-label-sm text-label-sm shadow-lg opacity-0 pointer-events-none transition-all duration-300 transform -translate-y-2 flex items-center gap-2" id="toast">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span id="toast-msg" class="">Link copied to clipboard</span>
+</div>
+</div>
+<script>
+  let postVotedState = 0;
+  let baseScore = 30324;
+  let isBookmarked = false;
+
+  function togglePostVote(isUpvote) {
+    const upIcon = document.getElementById('post-upvote-icon');
+    const downIcon = document.getElementById('post-downvote-icon');
+    const scoreEl = document.getElementById('post-score');
+
+    if (isUpvote) {
+      if (postVotedState === 1) {
+        postVotedState = 0;
+        upIcon.classList.remove('text-primary-container');
+      } else {
+        postVotedState = 1;
+        upIcon.classList.add('text-primary-container');
+        downIcon.classList.remove('text-error');
+      }
+    } else {
+      if (postVotedState === -1) {
+        postVotedState = 0;
+        downIcon.classList.remove('text-error');
+      } else {
+        postVotedState = -1;
+        downIcon.classList.add('text-error');
+        upIcon.classList.remove('text-primary-container');
+      }
+    }
+
+    const currentScore = baseScore + postVotedState;
+    scoreEl.innerText = (currentScore / 1000).toFixed(1) + 'k';
+    if (postVotedState === 1) {
+      scoreEl.className = 'font-label-md text-label-md px-1 text-primary-container font-bold';
+    } else if (postVotedState === -1) {
+      scoreEl.className = 'font-label-md text-label-md px-1 text-error font-bold';
+    } else {
+      scoreEl.className = 'font-label-md text-label-md px-1 text-on-surface font-semibold';
+    }
+  }
+
+  function toggleBookmark() {
+    isBookmarked = !isBookmarked;
+    const btn = document.getElementById('bookmark-icon');
+    if (isBookmarked) {
+      btn.innerText = 'bookmark';
+      btn.classList.add('text-primary-container');
+      showToast('Saved to your research bookmarks');
+    } else {
+      btn.innerText = 'bookmark_border';
+      btn.classList.remove('text-primary-container');
+      showToast('Removed from bookmarks');
+    }
+  }
+
+  function triggerShareNotice() {
+    showToast('Post permalink copied to clipboard!');
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-msg');
+    toastMsg.innerText = message;
+    toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 2200);
+  }
+
+  function voteComment(btn, direction) {
+    const parent = btn.closest('.flex');
+    const scoreSpan = parent.querySelector('.score');
+    let score = parseInt(scoreSpan.innerText, 10);
+    const hasUpvoted = btn.dataset.voted === 'up';
+    const hasDownvoted = btn.dataset.voted === 'down';
+
+    if (direction === 1) {
+      if (hasUpvoted) {
+        score -= 1;
+        delete btn.dataset.voted;
+        btn.classList.remove('text-primary-container');
+      } else {
+        score += hasDownvoted ? 2 : 1;
+        btn.dataset.voted = 'up';
+        btn.classList.add('text-primary-container');
+        const downBtn = parent.querySelectorAll('button')[1];
+        delete downBtn.dataset.voted;
+        downBtn.classList.remove('text-error');
+      }
+    } else {
+      if (hasDownvoted) {
+        score += 1;
+        delete btn.dataset.voted;
+        btn.classList.remove('text-error');
+      } else {
+        score -= hasUpvoted ? 2 : 1;
+        btn.dataset.voted = 'down';
+        btn.classList.add('text-error');
+        const upBtn = parent.querySelectorAll('button')[0];
+        delete upBtn.dataset.voted;
+        upBtn.classList.remove('text-primary-container');
+      }
+    }
+    scoreSpan.innerText = score;
+  }
+
+  function replyTo(handle) {
+    const bottomInput = document.querySelector('aside input');
+    if (bottomInput) {
+      bottomInput.value = 'Replying to ' + handle + ' ';
+      bottomInput.focus();
+    } else {
+      const inlineInput = document.getElementById('main-comment-input');
+      inlineInput.value = 'Replying to ' + handle + ' ';
+      inlineInput.focus();
+    }
+  }
+
+  function submitQuickReply() {
+    const input = document.getElementById('main-comment-input');
+    if (input.value.trim() !== '') {
+      showToast('Comment published to thread');
+      input.value = '';
+    }
+  }
+
+  function selectSort(btn) {
+    document.querySelectorAll('.sort-tab').forEach(b => {
+      b.className = 'sort-tab px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all';
+    });
+    btn.className = 'sort-tab px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary-container text-on-primary-container transition-all';
+  }
+</script></main><aside class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-low/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.35)]"></aside>
+
+</body></html>

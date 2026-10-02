@@ -17,15 +17,26 @@ const YELLOW = '#FDE400';
 const BACKGROUND = '#302F2D';
 
 type Role = 'client' | 'hunter';
+type UsernameAvailability = 'idle' | 'checking' | 'available' | 'taken' | 'error';
 
 function isValidUsername(value: string) {
   return /^[a-zA-Z0-9_]{3,20}$/.test(value);
+}
+
+function suggestUsername(name: string) {
+  return name
+    .trim()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-zA-Z0-9_]/g, '')
+    .slice(0, 20);
 }
 
 export default function GoogleProfileScreen() {
   const router = useRouter();
   const [role, setRole] = useState<Role>('hunter');
   const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
+  const [usernameAvailability, setUsernameAvailability] = useState<UsernameAvailability>('idle');
   const [fullName, setFullName] = useState('your Google account');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [avatarFailed, setAvatarFailed] = useState(false);
@@ -39,7 +50,10 @@ export default function GoogleProfileScreen() {
     supabase.auth.getUser().then(({ data }) => {
       if (!mounted || !data.user) return;
       const metadata = data.user.user_metadata ?? {};
-      setFullName(metadata.full_name ?? metadata.name ?? data.user.email ?? 'your Google account');
+      const googleName = metadata.full_name ?? metadata.name ?? data.user.email ?? 'your Google account';
+      setFullName(googleName);
+      setUsername(suggestUsername(googleName));
+      setUserId(data.user.id);
       setAvatarUrl(metadata.avatar_url ?? metadata.picture ?? '');
     });
 
@@ -49,11 +63,42 @@ export default function GoogleProfileScreen() {
   }, []);
 
   const usernameValid = isValidUsername(username);
+  const usernameAvailable = usernameAvailability === 'available';
+
+  useEffect(() => {
+    if (!userId || !usernameValid) {
+      setUsernameAvailability('idle');
+      return;
+    }
+
+    let active = true;
+    setUsernameAvailability('checking');
+    const timeout = setTimeout(async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id')
+        .ilike('username', username.trim())
+        .neq('id', userId)
+        .maybeSingle();
+
+      if (!active) return;
+      if (error) {
+        setUsernameAvailability('error');
+      } else {
+        setUsernameAvailability(data ? 'taken' : 'available');
+      }
+    }, 350);
+
+    return () => {
+      active = false;
+      clearTimeout(timeout);
+    };
+  }, [userId, username, usernameValid]);
 
   const handleContinue = async () => {
     setUsernameTouched(true);
     setSubmitError('');
-    if (!usernameValid) return;
+    if (!usernameValid || !usernameAvailable) return;
 
     setIsSubmitting(true);
     const { data: userData } = await supabase.auth.getUser();
@@ -140,10 +185,31 @@ export default function GoogleProfileScreen() {
             </View>
 
             <View style={styles.usernameSection}>
-              <Text style={[styles.fieldLabel, usernameTouched && !usernameValid && styles.errorLabel]}>
-                USERNAME
-              </Text>
-              <View style={[styles.usernameBox, usernameTouched && !usernameValid && styles.errorBorder]}>
+              <View style={styles.usernameLabelRow}>
+                <Text
+                  style={[
+                    styles.fieldLabel,
+                    (usernameTouched && !usernameValid ||
+                      usernameAvailability === 'taken' ||
+                      usernameAvailability === 'error') && styles.errorLabel,
+                  ]}>
+                  USERNAME
+                </Text>
+                {usernameAvailability === 'checking' ? (
+                  <Text style={styles.availabilityChecking}>Checking...</Text>
+                ) : usernameAvailability === 'available' ? (
+                  <Text style={styles.availabilityAvailable}>✓ Available</Text>
+                ) : usernameAvailability === 'taken' ? (
+                  <Text style={styles.errorText}>Taken</Text>
+                ) : null}
+              </View>
+              <View
+                style={[
+                  styles.usernameBox,
+                  (usernameTouched && !usernameValid ||
+                    usernameAvailability === 'taken' ||
+                    usernameAvailability === 'error') && styles.errorBorder,
+                ]}>
                 <Text style={styles.atSign}>@</Text>
                 <TextInput
                   value={username}
@@ -160,7 +226,10 @@ export default function GoogleProfileScreen() {
                 />
                 {username.length > 0 && (
                   <Pressable
-                    onPress={() => setUsername('')}
+                    onPress={() => {
+                      setUsername('');
+                      setUsernameTouched(true);
+                    }}
                     style={({ pressed }) => pressed && styles.pressed}
                     accessibilityRole="button"
                     accessibilityLabel="Clear username">
@@ -170,9 +239,13 @@ export default function GoogleProfileScreen() {
               </View>
               {usernameTouched && !usernameValid ? (
                 <Text style={styles.errorText}>Use 3-20 letters, numbers, or underscores</Text>
+              ) : usernameAvailability === 'taken' ? (
+                <Text style={styles.errorText}>That username is already taken. Choose another.</Text>
+              ) : usernameAvailability === 'error' ? (
+                <Text style={styles.errorText}>Couldn&apos;t check username availability. Try again.</Text>
               ) : (
                 <Text style={styles.helperText}>
-                  You can keep this auto-generated handle or create your own.
+                  Suggested from your Google name. You can edit it before continuing.
                 </Text>
               )}
             </View>
@@ -180,11 +253,11 @@ export default function GoogleProfileScreen() {
             <Pressable
               style={({ pressed }) => [
                 styles.continueButton,
-                !usernameValid && styles.continueDisabled,
-                pressed && usernameValid && styles.pressedContinue,
+                (!usernameValid || !usernameAvailable || isSubmitting) && styles.continueDisabled,
+                pressed && usernameValid && usernameAvailable && styles.pressedContinue,
               ]}
               onPress={handleContinue}
-              disabled={!usernameValid || isSubmitting}
+              disabled={!usernameValid || !usernameAvailable || isSubmitting}
               accessibilityRole="button"
               accessibilityLabel="Continue">
               <Text style={styles.continueText}>{isSubmitting ? 'Setting up...' : 'Continue'}</Text>
@@ -227,7 +300,6 @@ function RoleOption({
       {selected && <View style={styles.cardBadge} />}
       <Image source={icon} style={styles.roleIcon} resizeMode="contain" />
       <Text style={styles.roleTitle}>{title}</Text>
-      {selected && <View style={styles.titleDot} />}
       <Text style={styles.roleSubtitle}>{subtitle}</Text>
     </Pressable>
   );
@@ -249,7 +321,7 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1 },
   scrollContent: { flexGrow: 1, paddingHorizontal: 24, paddingTop: 28, paddingBottom: 12 },
   profileHeader: { alignItems: 'center', marginBottom: 28 },
-  avatarGlow: { position: 'absolute', top: 0, width: 150, height: 150, borderRadius: 75, backgroundColor: 'rgba(253, 228, 0, 0.12)' },
+  avatarGlow: { position: 'absolute', top: -15, width: 150, height: 150, borderRadius: 75, backgroundColor: 'rgba(253, 228, 0, 0.12)' },
   avatarFrame: { width: 116, height: 116, borderRadius: 58, padding: 4, backgroundColor: '#1D1D1F', borderWidth: 2, borderColor: '#DEC800', shadowColor: '#FDE400', shadowOpacity: 0.22, shadowRadius: 16, shadowOffset: { width: 0, height: 0 }, elevation: 5 },
   avatar: { width: '100%', height: '100%', borderRadius: 54 },
   googleBadge: { position: 'absolute', top: 88, right: '28%', width: 32, height: 32, borderRadius: 16, backgroundColor: '#0E0E0E', alignItems: 'center', justifyContent: 'center' },
@@ -270,8 +342,11 @@ const styles = StyleSheet.create({
   roleSubtitle: { color: '#CDC7AA', fontFamily: 'Roboto', fontSize: 15, lineHeight: 20, marginTop: 1 },
   pressedRole: { opacity: 0.76, transform: [{ scale: 0.985 }] },
   usernameSection: { gap: 7, marginTop: 6 },
+  usernameLabelRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   fieldLabel: { color: '#CDC7AA', fontFamily: 'RobotoExtraBold', fontSize: 12, letterSpacing: 0.7 },
   errorLabel: { color: '#FF7676' },
+  availabilityChecking: { color: '#CDC7AA', fontFamily: 'Roboto', fontSize: 12 },
+  availabilityAvailable: { color: '#4ADE80', fontFamily: 'Roboto', fontSize: 12 },
   usernameBox: { height: 64, borderRadius: 14, backgroundColor: '#1C1B1B', paddingHorizontal: 18, flexDirection: 'row', alignItems: 'center' },
   errorBorder: { borderWidth: 1, borderColor: '#FF6969' },
   atSign: { color: '#CDC7AA', fontFamily: 'RobotoExtraBold', fontSize: 20, marginRight: 4 },

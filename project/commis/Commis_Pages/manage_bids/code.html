@@ -1,0 +1,390 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#201c00", "primary-fixed": "#fde400", "on-error-container": "#ffdad6", "on-surface-variant": "#cdc7aa", "secondary-fixed": "#e4e2e4", "surface-bright": "#393939", "primary": "#ffffff", "surface-dim": "#131313", "on-secondary-fixed": "#1b1b1d", "background": "#131313", "on-secondary": "#303032", "secondary": "#c8c6c8", "tertiary-fixed-dim": "#c8c6c9", "error-container": "#93000a", "on-error": "#690005", "surface": "#131313", "primary-fixed-dim": "#dec800", "on-background": "#e5e2e1", "on-tertiary": "#303033", "surface-container-lowest": "#0e0e0e", "on-tertiary-container": "#656467", "surface-container": "#201f1f", "on-primary-fixed-variant": "#504700", "outline-variant": "#4b4732", "on-primary": "#373100", "inverse-on-surface": "#313030", "error": "#ffb4ab", "on-tertiary-fixed": "#1a1c1c", "on-tertiary-fixed-variant": "#47464a", "tertiary-fixed": "#e4e1e5", "on-secondary-container": "#b9b8ba", "on-secondary-fixed-variant": "#474648", "on-primary-container": "#716500", "secondary-fixed-dim": "#c8c6c8", "surface-tint": "#dec800", "primary-container": "#fde400", "inverse-surface": "#e5e2e1", "on-surface": "#e5e2e1", "outline": "#979177", "tertiary": "#ffffff", "secondary-container": "#474649", "surface-container-high": "#2a2a2a", "inverse-primary": "#6a5f00", "tertiary-container": "#e4e1e5", "surface-container-low": "#1c1b1b", "surface-variant": "#353534", "surface-container-highest": "#353534" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "1rem", "margin": "1.25rem", "space-xl": "2rem" }, "fontFamily": { "display": ["Plus Jakarta Sans"], "body-md": ["Inter"], "label-md": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-sm": ["Inter"] }, "fontSize": { "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-space-xs rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Manage Bids</h1></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface px-margin pb-safe"><div class="flex flex-col w-full pb-8">
+<!-- Status Switcher / View Context Bar -->
+<div class="flex items-center justify-between py-space-sm mb-space-sm">
+
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+
+
+</div>
+</div>
+<!-- Request Summary Card -->
+<div class="relative overflow-hidden bg-surface-container rounded-xl p-space-lg mb-space-lg shadow-md">
+<div class="absolute -right-10 -top-10 w-36 h-36 bg-primary-fixed/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col gap-space-xs mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Active Request</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">A4 Novel Typesetting Project</h2>
+<div class="flex items-baseline gap-space-xs mt-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant">Budget:</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary-fixed tracking-tight">$30 – $250</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">USD</span>
+</div>
+</div>
+<!-- Quick Stats Grid -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-md bg-surface-container-low/70 rounded-lg p-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Bids</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="total-bids-count">104</span>
+
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Average Bid</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-primary-fixed font-bold">$111</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">USD</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter & Section Header -->
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Hunter Proposals</h3>
+<span class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full font-label-sm text-label-sm font-bold">104</span>
+</div>
+
+</div>
+<!-- Bid Notification Banner (Dynamic when accepted) -->
+<div class="hidden bg-surface-container-highest p-space-md rounded-xl mb-space-md items-center justify-between" id="selection-banner">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[22px]">verified</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-bold">Hunter Assigned</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Other open offers are currently placed on hold.</div>
+</div>
+</div>
+<button class="px-2.5 py-1 bg-surface-container-low text-on-surface font-label-sm text-label-sm rounded-lg hover:bg-surface-bright transition-colors" id="btn-reset-selection" type="button">
+      Change
+    </button>
+</div>
+<!-- Hunters Bid List -->
+<div class="flex flex-col gap-space-md" id="bids-container">
+<!-- BID CARD 1 (Leading Candidate) -->
+<div class="bid-card group relative bg-surface-container rounded-xl p-space-md transition-all duration-200" data-amount="105" data-hunter="alex_hunter">
+<!-- Status Badge Strip (Shows on Accept) -->
+<div class="accepted-tag hidden items-center gap-1.5 bg-primary-fixed text-on-primary px-3 py-1 rounded-full w-fit mb-space-sm font-label-sm text-label-sm font-bold shadow-[0_0_12px_rgba(253,228,0,0.35)]">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="">ACCEPTED HUNTER</span>
+</div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of a young male professional graphic designer with glasses and dark crew cut in a modern moody dark cyberpunk office environment lit by subtle neon yellow desk lamps" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy6aXn_mi4aJUx33lfga4rVVfMP8_TmjP7BRAbPHvDlWudoNeE4po_G4IbwUcOJI4W0F4_iHdHgUDylWXZ9LyOwAOJ6gYOO7CyBjDiUSAkHuUSTrO4NwO6T_8i2D-KbBUgwGWO594rG69P4dGswO7IaO_GXYfHMmNolLJZKZUO3DEyZOzEDGXgO7qrsyD2PD85xnyoQxdnyYbrcY-B-Z0v67oYsWGmxpFwt0fsFz8fTt8C2YOSBFLJ">
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-primary-fixed border-2 border-surface-container"></span>
+</div>
+<div class="min-w-0 flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">@alex_hunter</span>
+
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="flex items-center text-primary-fixed">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-0.5 font-bold">4.8</span>
+</span>
+<span class="">•</span>
+<span class="">12 completed</span>
+<span class="">•</span>
+<span class="text-on-surface-variant">Just now</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-tight">$105</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">USD</div>
+</div>
+</div>
+<!-- Proposal Message -->
+<p class="font-body-md text-body-md text-on-surface/90 bg-surface-container-low p-space-sm rounded-lg mb-space-md">
+        "I can professionally format the entire manuscript and make sure the final document is properly prepared for A4 printing."
+      </p>
+<!-- Actions Row -->
+<div class="card-actions flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="btn-profile px-3 py-2 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg font-label-lg text-label-lg flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="">Profile</span>
+</button>
+<button aria-label="Message Hunter" class="w-10 h-10 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+<button class="btn-accept flex-1 max-w-[140px] py-2 px-3 bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary font-label-lg text-label-lg font-bold rounded-lg flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(253,228,0,0.25)] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="accept-label">Accept Bid</span>
+</button>
+</div>
+<!-- Locked Overlay Mask (Shown when other card is accepted) -->
+<div class="locked-overlay hidden absolute inset-0 bg-surface/85 backdrop-blur-[2px] rounded-xl flex items-center justify-center p-space-md z-10">
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1.5 rounded-full text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="">Pending Selection Locked</span>
+</div>
+</div>
+</div>
+<!-- BID CARD 2 -->
+<div class="bid-card group relative bg-surface-container rounded-xl p-space-md transition-all duration-200" data-amount="95" data-hunter="designer01">
+<div class="accepted-tag hidden items-center gap-1.5 bg-primary-fixed text-on-primary px-3 py-1 rounded-full w-fit mb-space-sm font-label-sm text-label-sm font-bold shadow-[0_0_12px_rgba(253,228,0,0.35)]">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="">ACCEPTED HUNTER</span>
+</div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of a modern UI editorial layout artist with styled beard and black turtleneck against a dark grey architectural background with rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMI3i6rSbB0GKhe88NWpYZW3CM2rW-6P6CzzZ7lTGihkZbnG1YzDO_pVCkpZ_rkhvTfEgmbyUiCMnbM1o9u6PNhvfasC-DOHokDILAmD3IkO_9XXgV8JqUJmIeI7qBIaefo9oNBc98G421iNhK4MTouOpcWQCmGXsCTFJqAEjfEIIWUF7i-h1dT8VzHOHD_vFDvwu7xF7yeO4LwarFBUr2Yz5ET2HWXdrwAiBi72rTmu-7WmbP7yAq">
+</div>
+<div class="min-w-0 flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">@designer01</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="flex items-center text-primary-fixed">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-0.5 font-bold">4.9</span>
+</span>
+<span class="">•</span>
+<span class="">3 reviews</span>
+<span class="">•</span>
+<span class="text-on-surface-variant">12 min ago</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-tight">$95</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">USD</div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 bg-surface-container-low p-space-sm rounded-lg mb-space-md">
+        "I can professionally format the entire manuscript in InDesign with custom chapter headers, print margins, and full ePub export in 3 days."
+      </p>
+<div class="card-actions flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="btn-profile px-3 py-2 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg font-label-lg text-label-lg flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="">Profile</span>
+</button>
+<button aria-label="Message Hunter" class="w-10 h-10 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+<button class="btn-accept flex-1 max-w-[140px] py-2 px-3 bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary font-label-lg text-label-lg font-bold rounded-lg flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(253,228,0,0.25)] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="accept-label">Accept Bid</span>
+</button>
+</div>
+<div class="locked-overlay hidden absolute inset-0 bg-surface/85 backdrop-blur-[2px] rounded-xl flex items-center justify-center p-space-md z-10">
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1.5 rounded-full text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="">Pending Selection Locked</span>
+</div>
+</div>
+</div>
+<!-- BID CARD 3 -->
+<div class="bid-card group relative bg-surface-container rounded-xl p-space-md transition-all duration-200" data-amount="120" data-hunter="layoutpro">
+<div class="accepted-tag hidden items-center gap-1.5 bg-primary-fixed text-on-primary px-3 py-1 rounded-full w-fit mb-space-sm font-label-sm text-label-sm font-bold shadow-[0_0_12px_rgba(253,228,0,0.35)]">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="">ACCEPTED HUNTER</span>
+</div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of an experienced book designer woman with dark hair in a sleek studio setup with book spines and monochrome typography prints in the soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaBxmnhEEend87-3v1jv5Ovv6Jjarb8uRidYBpH1UjwjlAdqkKzWi4SyHCd6LgXx03XeASoCzHglPQiTPuR25lsVFjYhzaOCfAP83vpRGvNfCD9Wnj4zYcpki4dbdZi3kFEh4Jw2M-Z_4im6emY7n9jby6w50iEq3bokFFii-WlhkL1q5j6Oy0oXg4IfRjRlBLpC3iFq5BqhIprq-6vOFXGd0OM6MFQ2ARxsIO7w-0DwTyQBvvG5op">
+</div>
+<div class="min-w-0 flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">@layoutpro</span>
+<span class="bg-surface-container-highest text-secondary px-1.5 py-0.5 rounded font-label-sm text-label-sm font-semibold">5.0 TOP</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="flex items-center text-primary-fixed">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-0.5 font-bold">5.0</span>
+</span>
+<span class="">•</span>
+<span class="">4 reviews</span>
+<span class="">•</span>
+<span class="text-on-surface-variant">18 min ago</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-tight">$120</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">USD</div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 bg-surface-container-low p-space-sm rounded-lg mb-space-md">
+        "I have experience with professional book layouts for independent publishers. Will provide sample chapter within 12 hours."
+      </p>
+<div class="card-actions flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="btn-profile px-3 py-2 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg font-label-lg text-label-lg flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="">Profile</span>
+</button>
+<button aria-label="Message Hunter" class="w-10 h-10 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+<button class="btn-accept flex-1 max-w-[140px] py-2 px-3 bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary font-label-lg text-label-lg font-bold rounded-lg flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(253,228,0,0.25)] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="accept-label">Accept Bid</span>
+</button>
+</div>
+<div class="locked-overlay hidden absolute inset-0 bg-surface/85 backdrop-blur-[2px] rounded-xl flex items-center justify-center p-space-md z-10">
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1.5 rounded-full text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="">Pending Selection Locked</span>
+</div>
+</div>
+</div>
+<!-- BID CARD 4 -->
+<div class="bid-card group relative bg-surface-container rounded-xl p-space-md transition-all duration-200" data-amount="140" data-hunter="kai_typesets">
+<div class="accepted-tag hidden items-center gap-1.5 bg-primary-fixed text-on-primary px-3 py-1 rounded-full w-fit mb-space-sm font-label-sm text-label-sm font-bold shadow-[0_0_12px_rgba(253,228,0,0.35)]">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="">ACCEPTED HUNTER</span>
+</div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up creative portrait of a digital typesetter with warm studio amber backlighting, headphones around neck, dark minimalist outfit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkac5_xQs2peKb1X6IWiZu7YjPHNlZpBNROWL-VD5ftGIi8po5b7Kdz14zPn65w3ygnjRKLS5bBvI9-a_sUtL1bARyoQ0xcT9wYEruJk-O7zhB9-Ig1w-P9e0PDlfdujtiEy3iAc12rQbmMyILXdDLbHdXsPw_Yj0Hl5IESbwVvY2QVRPBA_dqTXXrfRjQz4rKkh3ibg4R-o1ZDoSD5gdDSnrKSCrFnzzzGvgXSn_FvPUL39zmKlGp">
+</div>
+<div class="min-w-0 flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">@kai_typesets</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="flex items-center text-primary-fixed">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-0.5 font-bold">4.8</span>
+</span>
+<span class="">•</span>
+<span class="">12 reviews</span>
+<span class="">•</span>
+<span class="text-on-surface-variant">34 min ago</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-tight">$140</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">USD</div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface/90 bg-surface-container-low p-space-sm rounded-lg mb-space-md">
+        "Specialized in long-form fiction formatting. Includes 3 revision rounds, PDF/X-1a print-ready files, and Kindle-compatible ePUB."
+      </p>
+<div class="card-actions flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="btn-profile px-3 py-2 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg font-label-lg text-label-lg flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="">Profile</span>
+</button>
+<button aria-label="Message Hunter" class="w-10 h-10 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded-lg flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+<button class="btn-accept flex-1 max-w-[140px] py-2 px-3 bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary font-label-lg text-label-lg font-bold rounded-lg flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(253,228,0,0.25)] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="accept-label">Accept Bid</span>
+</button>
+</div>
+<div class="locked-overlay hidden absolute inset-0 bg-surface/85 backdrop-blur-[2px] rounded-xl flex items-center justify-center p-space-md z-10">
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1.5 rounded-full text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="">Pending Selection Locked</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interaction script for Accepting Bid simulation -->
+<script>
+    (function initManageBids() {
+      const cards = document.querySelectorAll('.bid-card');
+      const banner = document.getElementById('selection-banner');
+      const resetBtn = document.getElementById('btn-reset-selection');
+      let acceptedHunter = null;
+
+      cards.forEach(card => {
+        const acceptBtn = card.querySelector('.btn-accept');
+        const acceptLabel = card.querySelector('.accept-label');
+        const acceptedTag = card.querySelector('.accepted-tag');
+
+        acceptBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const hunterHandle = card.getAttribute('data-hunter');
+
+          if (acceptedHunter === hunterHandle) {
+            // Already accepted - click toggles back
+            resetSelection();
+            return;
+          }
+
+          // Mark current as accepted
+          acceptedHunter = hunterHandle;
+
+          // Update banner
+          if (banner) {
+            banner.classList.remove('hidden');
+            banner.classList.add('flex');
+          }
+
+          // Cycle through all cards
+          cards.forEach(c => {
+            const isTarget = (c === card);
+            const overlay = c.querySelector('.locked-overlay');
+            const cTag = c.querySelector('.accepted-tag');
+            const cBtn = c.querySelector('.btn-accept');
+            const cLabel = c.querySelector('.accept-label');
+
+            if (isTarget) {
+              c.classList.remove('opacity-40');
+              c.classList.add('bg-surface-container-high', 'shadow-[0_0_20px_rgba(253,228,0,0.15)]');
+              if (overlay) overlay.classList.add('hidden');
+              if (cTag) cTag.classList.remove('hidden');
+              if (cLabel) cLabel.textContent = 'Accepted';
+              if (cBtn) {
+                cBtn.classList.add('bg-primary-fixed', 'text-on-primary');
+              }
+            } else {
+              c.classList.add('opacity-40');
+              c.classList.remove('bg-surface-container-high', 'shadow-[0_0_20px_rgba(253,228,0,0.15)]');
+              if (overlay) overlay.classList.remove('hidden');
+              if (cTag) cTag.classList.add('hidden');
+              if (cLabel) cLabel.textContent = 'Accept Bid';
+            }
+          });
+        });
+      });
+
+      function resetSelection() {
+        acceptedHunter = null;
+        if (banner) {
+          banner.classList.add('hidden');
+          banner.classList.remove('flex');
+        }
+        cards.forEach(c => {
+          c.classList.remove('opacity-40', 'bg-surface-container-high', 'shadow-[0_0_20px_rgba(253,228,0,0.15)]');
+          const overlay = c.querySelector('.locked-overlay');
+          const cTag = c.querySelector('.accepted-tag');
+          const cLabel = c.querySelector('.accept-label');
+          if (overlay) overlay.classList.add('hidden');
+          if (cTag) cTag.classList.add('hidden');
+          if (cLabel) cLabel.textContent = 'Accept Bid';
+        });
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', resetSelection);
+      }
+    })();
+  </script>
+</div></main>
+
+
+
+
+
+
+
+</body></html>

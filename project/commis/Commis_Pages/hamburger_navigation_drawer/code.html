@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=416, height=884, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Commis Mobile Navigation Drawer</title>
+<!-- Tailwind CSS CDN with forms & container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans & League Spartan -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#131313',
+              surface: '#1c1b1b',
+              drawer: '#171717',
+              border: '#2a2a2a',
+              yellow: '#ffe600',
+              muted: '#8e8e93',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"League Spartan"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+<!-- BEGIN: Style - Typography & Canvas Setup -->
+<style data-purpose="typography">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b0b0b;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .font-display {
+      font-family: 'League Spartan', sans-serif;
+    }
+  </style>
+<!-- END: Style - Typography & Canvas Setup -->
+<!-- BEGIN: Style - Drawer Custom Details -->
+<style data-purpose="drawer-layout">
+    /* Fixed viewport simulation for iOS 416x884 px mobile canvas */
+    #mobile-canvas {
+      width: 416px;
+      height: 884px;
+      position: relative;
+      overflow: hidden;
+      background-color: #131313;
+    }
+    
+    /* Subtle glow for electric yellow indicators */
+    .yellow-glow {
+      box-shadow: 0 0 14px rgba(255, 230, 0, 0.22);
+    }
+  </style>
+<!-- END: Style - Drawer Custom Details -->
+</head>
+<body>
+<!-- Screen Canvas Wrapper (416x884 px) -->
+<div class="relative flex flex-col select-none text-white" id="mobile-canvas">
+<!-- BEGIN: UnderneathScreenBackground -->
+<!-- Dimmed background interface simulating the underlying Commis app screen -->
+<div class="absolute inset-0 flex flex-col bg-[#131313] pointer-events-none select-none" data-purpose="app-background">
+<!-- Simulated App Header -->
+<div class="px-5 pt-6 pb-4 flex items-center justify-between border-b border-[#222]">
+<div class="flex items-center gap-2">
+<img alt="Commis Logo" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTODmABzntGyMNerPZhAiUvvntVMJdQpcFSRRPjh7_4L6wQOYwAt9UU4yqUHNPkR0886nMr35b2_ONK0RvMkLHmYEtZ7o_BFu0zikwF9XNkOwfHUgyPLhmOGv3mvIXCzhs1_iSJKqUc53OYgfy9-TuMfsquBuCwNahK-bTtgojv1oCPTaFPtujMU5Jr1XnGjF1OFppKBDa6wru0Nm9U3P3g4tKeVw_UOll7AlSIMBOIcAuSPyQRo7L6TtOT7UMUofskfs">
+<span class="font-display text-2xl font-extrabold tracking-wider text-white">COMMIS</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-[#202020] flex items-center justify-center text-gray-400">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<!-- Simulated App Feed Content -->
+<div class="p-5 space-y-4 opacity-40">
+<div class="h-28 bg-[#1c1b1b] rounded-2xl border border-[#2a2a2a] p-4 flex flex-col justify-between">
+<div class="h-4 w-32 bg-[#2d2d2d] rounded"></div>
+<div class="h-3 w-48 bg-[#252525] rounded"></div>
+<div class="h-5 w-24 bg-[#ffe600]/20 rounded"></div>
+</div>
+<div class="h-36 bg-[#1c1b1b] rounded-2xl border border-[#2a2a2a] p-4 flex flex-col justify-between">
+<div class="h-4 w-40 bg-[#2d2d2d] rounded"></div>
+<div class="h-3 w-56 bg-[#252525] rounded"></div>
+<div class="h-3 w-36 bg-[#252525] rounded"></div>
+<div class="h-5 w-20 bg-[#2d2d2d] rounded"></div>
+</div>
+<div class="h-32 bg-[#1c1b1b] rounded-2xl border border-[#2a2a2a] p-4 flex flex-col justify-between">
+<div class="h-4 w-28 bg-[#2d2d2d] rounded"></div>
+<div class="h-3 w-44 bg-[#252525] rounded"></div>
+<div class="h-5 w-24 bg-[#ffe600]/20 rounded"></div>
+</div>
+</div>
+</div>
+<!-- END: UnderneathScreenBackground -->
+<!-- BEGIN: ScrimOverlay -->
+<!-- Dimmed backdrop scrim blur -->
+<div class="absolute inset-0 bg-black/65 backdrop-blur-[3px] z-10 transition-opacity" data-purpose="scrim-overlay"></div>
+<!-- END: ScrimOverlay -->
+<!-- BEGIN: NavigationDrawerContainer -->
+<!-- Drawer panel occupying ~82% width positioned on the right -->
+<aside class="absolute top-0 right-0 bottom-0 bg-[#171717] border-l border-[#2a2a2a] shadow-2xl z-20 flex flex-col justify-between p-6 w-72" data-purpose="navigation-drawer">
+<!-- Top Section: Close Button, Profile, Nav Hierarchy -->
+<div class="flex flex-col">
+<!-- Header Row: Brand Identity & Close Button -->
+<div class="flex items-center justify-between pb-6 pt-1">
+<div class="flex items-center gap-2.5"><span class="font-display font-black tracking-tight text-[36px] leading-none lowercase"><span class="text-[#ffe600]">commis</span><span class="text-white">.</span></span></div>
+<!-- Close Drawer Button -->
+
+</div>
+<!-- BEGIN: UserProfileHeader -->
+<div class="mt-2 p-3.5 bg-[#1d1d1d] border border-[#292929] rounded-2xl flex items-center gap-3.5 shadow-inner" data-purpose="user-profile-header">
+<!-- Avatar with electric yellow accent border ring -->
+<div class="relative shrink-0">
+<div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-[#ffe600] to-yellow-200 yellow-glow">
+<img alt="User Profile Avatar" class="w-full h-full object-cover rounded-full bg-[#111]" src="https://lh3.googleusercontent.com/aida/AEtjO1XNqmAej-9SRKi4pQijy2eEF80V46CmLX5tVOQdY3DsIvET2_kNccFkmbmuaTqyyGByY3mVBZcMdG5N_QpjdO999cv5kDLspcK--zadChsVOLMWHdA4VWY7d7U01YW9l7yPc6mVxEhCXaAhavgfB0BSUyPtCJa_Mr2_oA6y4dKNa8sBhx2MKTOx_Nz9Zg-NQFn1kZT18u8k5rQfvjIQDiFQJ8vqo-LrLsEZn-ZmPZHzgiDcwE5EQ6J-VXM">
+</div>
+</div>
+<!-- User Identifiers & Role Badge -->
+<div class="flex flex-col overflow-hidden">
+<h2 class="text-white font-bold text-base tracking-tight truncate leading-snug">@alex_hunter
+            </h2>
+<div class="mt-1 flex items-center">
+<span class="text-[#ffe600] text-xs font-medium tracking-wide">Hunter</span>
+</div>
+</div>
+</div>
+<!-- END: UserProfileHeader -->
+<!-- Divider line -->
+<div class="h-px bg-[#262626] my-6"></div>
+<!-- BEGIN: NavigationHierarchy -->
+<nav aria-label="Main Menu" class="space-y-1.5" data-purpose="primary-navigation">
+<!-- Nav Item: Profile -->
+<a class="group flex items-center justify-between px-3.5 py-3.5 rounded-xl hover:bg-[#202020] active:bg-[#242424] text-gray-200 transition-colors" href="#profile">
+<div class="flex items-center gap-3.5">
+<div class="w-8 h-8 rounded-lg bg-[#222] flex items-center justify-center text-gray-300 group-hover:text-[#ffe600] transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[15px] font-semibold tracking-normal text-white">Profile</span>
+</div>
+<svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Nav Item: Marked Bounties -->
+<a class="group flex items-center justify-between px-3.5 py-3.5 rounded-xl hover:bg-[#202020] active:bg-[#242424] text-gray-200 transition-colors" href="#active-work">
+<div class="flex items-center gap-3.5">
+<div class="w-8 h-8 rounded-lg bg-[#222] flex items-center justify-center text-gray-300 group-hover:text-[#ffe600] transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[15px] font-semibold tracking-normal text-white">Commissions</span>
+</div>
+<svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a><a class="group flex items-center justify-between px-3.5 py-3.5 rounded-xl hover:bg-[#202020] active:bg-[#242424] text-gray-200 transition-colors" href="#marked-bounties">
+<div class="flex items-center gap-3.5">
+<div class="w-8 h-8 rounded-lg bg-[#222] flex items-center justify-center text-gray-300 group-hover:text-[#ffe600] transition-colors">
+<!-- Bookmark/Target Icon -->
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[15px] font-semibold tracking-normal text-white">Marked Bounties</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[11px] px-2 py-0.5 rounded-md font-bold bg-[#ffe600] text-black">4</span>
+<svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</a>
+<!-- Nav Item: Liked Posts -->
+<a class="group flex items-center justify-between px-3.5 py-3.5 rounded-xl hover:bg-[#202020] active:bg-[#242424] text-gray-200 transition-colors" href="#liked-posts">
+<div class="flex items-center gap-3.5">
+<div class="w-8 h-8 rounded-lg bg-[#222] flex items-center justify-center text-gray-300 group-hover:text-[#ffe600] transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[15px] font-semibold tracking-normal text-white">Liked Posts</span>
+</div>
+<svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Nav Item: Communities -->
+<a class="group flex items-center justify-between px-3.5 py-3.5 rounded-xl hover:bg-[#202020] active:bg-[#242424] text-gray-200 transition-colors" href="#communities">
+<div class="flex items-center gap-3.5">
+<div class="w-8 h-8 rounded-lg bg-[#222] flex items-center justify-center text-gray-300 group-hover:text-[#ffe600] transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[15px] font-semibold tracking-normal text-white">Communities</span>
+</div>
+<svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</nav>
+<!-- END: NavigationHierarchy -->
+</div>
+<!-- BEGIN: DrawerFooter -->
+<!-- Bottom Section: App Version & Distinctly Styled Logout Button -->
+<footer class="pt-4 border-t border-[#232323] space-y-3" data-purpose="drawer-footer">
+<!-- App version tag -->
+<div class="flex items-center justify-between px-1">
+<span class="text-[11px] font-medium text-gray-500 uppercase tracking-widest">Commis</span>
+<span class="text-[11px] font-mono text-gray-600">v1.0.0</span>
+</div>
+<!-- Logout Action Button -->
+<button class="w-full flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-red-950/25 hover:bg-red-950/40 active:bg-red-950/60 text-red-400 border border-red-900/40 font-semibold text-sm tracking-wide transition-all shadow-sm cursor-pointer" data-purpose="logout-action" type="button">
+<!-- Logout Exit Icon -->
+<svg class="w-4 h-4 shrink-0 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="">Log Out</span>
+</button>
+</footer>
+<!-- END: DrawerFooter -->
+</aside>
+<!-- END: NavigationDrawerContainer -->
+</div>
+
+
+
+
+
+
+
+
+
+
+</body></html>
