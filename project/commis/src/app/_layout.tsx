@@ -1,6 +1,7 @@
 import { Slot } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
 import { supabase } from '../lib/supabase';
 
 const fontAssets = {
@@ -26,5 +27,32 @@ export default function RootLayout() {
 
   if (!fontsLoaded) return null;
 
-  return <Slot />;
+  if (Platform.OS !== 'web') return <Slot />;
+
+  return (
+    <View style={styles.webViewport}>
+      <View style={styles.phoneCanvas}>
+        <Slot />
+      </View>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  webViewport: {
+    flex: 1,
+    minHeight: '100vh' as any,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#353535',
+  },
+  phoneCanvas: {
+    flex: 1,
+    width: '100%',
+    maxWidth: 360,
+    height: '100vh' as any,
+    maxHeight: 860,
+    overflow: 'hidden',
+    backgroundColor: '#131313',
+  },
+});

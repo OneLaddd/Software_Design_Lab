@@ -72,9 +72,10 @@ export default function LoginScreen() {
   const handleGoogleLogin = async () => {
     setPasswordError('');
     setIsGoogleSubmitting(true);
-    const { error } = await signInWithGoogle();
+    const { error, cancelled } = await signInWithGoogle();
     setIsGoogleSubmitting(false);
 
+    if (cancelled) return;
     if (error) {
       setPasswordError(error.message || 'Google sign-in failed. Try again');
       return;

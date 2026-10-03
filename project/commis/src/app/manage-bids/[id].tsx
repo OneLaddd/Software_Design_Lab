@@ -290,7 +290,7 @@ export default function ManageBidsScreen() {
                         accessibilityLabel={`${profile?.username ?? 'Hunter'} profile avatar`}
                       />
                       <View style={styles.hunterDetails}>
-                        <Text style={styles.hunterName} numberOfLines={1}>
+                        <Text style={styles.hunterName} numberOfLines={1} onPress={() => profile?.id && router.push({ pathname: '/profile/[id]', params: { id: profile.id } } as any)}>
                           {profile?.username ? `@${profile.username}` : 'Hunter'}
                         </Text>
                         <Text style={styles.hunterMeta}>
@@ -383,8 +383,8 @@ export default function ManageBidsScreen() {
                 <View style={styles.nextSteps}>
                   <Text style={styles.nextStepsTitle}>WHAT HAPPENS NEXT</Text>
                   <Text style={styles.nextStep}>✓  Bid changes to Accepted and a commission agreement is created.</Text>
-                  <Text style={styles.nextStepMuted}>▣  Request becomes Awarded; other pending bids are rejected.</Text>
-                  <Text style={styles.nextStepMuted}>›  Return to Manage Bids with updated statuses.</Text>
+                  <Text style={styles.nextStepMuted}>✓  Request becomes Awarded; other pending bids are rejected.</Text>
+                  <Text style={styles.nextStepMuted}>✓  Return to Manage Bids with updated statuses.</Text>
                 </View>
                 {acceptError ? <Text style={styles.acceptError}>{acceptError}</Text> : null}
               </ScrollView>

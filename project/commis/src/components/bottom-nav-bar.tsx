@@ -48,6 +48,8 @@ export function BottomNavBar({ activeTab = 'market', onTabPress }: BottomNavBarP
 
     if (tabId === 'market') {
       router.replace('/marketplace' as any);
+    } else if (tabId === 'messages') {
+      router.replace('/messages' as any);
     }
     // Other tabs are no-ops / placeholders for this phase
   };

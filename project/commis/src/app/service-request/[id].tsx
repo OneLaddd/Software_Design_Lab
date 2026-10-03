@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -13,8 +12,10 @@ import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import Svg, { Circle, Path } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BidComposerModal, type BidDraft } from '@/components/bid-composer-modal';
+import { CloseRequestSheet } from '@/components/close-request-sheet';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { supabase } from '@/lib/supabase';
+import { ConfirmationModal } from '@/components/confirmation-modal';
 
 interface ServiceRequest {
   id: string;
@@ -107,11 +108,14 @@ export default function ServiceRequestDetailScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isCloseSheetVisible, setIsCloseSheetVisible] = useState(false);
+  const [closeError, setCloseError] = useState('');
   const [isSubmittingBid, setIsSubmittingBid] = useState(false);
   const [isWithdrawingBid, setIsWithdrawingBid] = useState(false);
   const [isBidModalVisible, setIsBidModalVisible] = useState(false);
   const [bidBeingEdited, setBidBeingEdited] = useState<Bid | null>(null);
   const [bidSubmitError, setBidSubmitError] = useState('');
+  const [withdrawConfirmation, setWithdrawConfirmation] = useState<Bid | null>(null);
   const [requestError, setRequestError] = useState('');
   const [relatedDataError, setRelatedDataError] = useState('');
   const [roleError, setRoleError] = useState('');
@@ -122,7 +126,9 @@ export default function ServiceRequestDetailScreen() {
   const isOwner = Boolean(request && currentUserId === request.client_id);
   const isHunter = currentRole === 'hunter';
   const isEligibleHunter = Boolean(isHunter && !isOwner);
-  const existingUserBid = bids?.find((bid) => bid.hunter_id === currentUserId);
+  const existingUserBid = bids?.find(
+    (bid) => bid.hunter_id === currentUserId && bid.status === 'pending'
+  );
   const hasExistingBid = Boolean(existingUserBid);
   const canPlaceBid = Boolean(
     isEligibleHunter &&
@@ -311,21 +317,14 @@ export default function ServiceRequestDetailScreen() {
 
   const closeRequest = () => {
     if (!request || !isOwner || request.status !== 'open' || isClosing) return;
-
-    Alert.alert('Close request?', 'Hunters will no longer be able to place bids.', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Close Request',
-        style: 'destructive',
-        onPress: () => void confirmCloseRequest(),
-      },
-    ]);
+    setCloseError('');
+    setIsCloseSheetVisible(true);
   };
 
   const confirmCloseRequest = async () => {
     if (!request) return;
     setIsClosing(true);
-    setActionError('');
+    setCloseError('');
     const { data, error } = await supabase
       .from('service_requests')
       .update({ status: 'closed' })
@@ -336,9 +335,10 @@ export default function ServiceRequestDetailScreen() {
 
     if (error || !data) {
       console.warn('Failed to close request:', error);
-      setActionError(error ? 'Could not close this request.' : 'You are not allowed to close this request.');
+      setCloseError(error ? 'Could not close this request. Please try again.' : 'You are not allowed to close this request.');
     } else {
       setRequest({ ...request, status: data.status as ServiceRequest['status'] });
+      setIsCloseSheetVisible(false);
     }
     setIsClosing(false);
   };
@@ -366,7 +366,7 @@ export default function ServiceRequestDetailScreen() {
 
     const { data: existingBid, error: existingBidError } = await supabase
       .from('bids')
-      .select('id')
+      .select('id, status')
       .eq('request_id', request.id)
       .eq('hunter_id', currentUserId)
       .limit(1)
@@ -378,7 +378,7 @@ export default function ServiceRequestDetailScreen() {
       setIsSubmittingBid(false);
       return;
     }
-    if (existingBid) {
+    if (existingBid && ['pending', 'accepted'].includes(existingBid.status)) {
       setBidSubmitError('You have already submitted a bid for this request.');
       setIsSubmittingBid(false);
       await loadDetails();
@@ -435,10 +435,7 @@ export default function ServiceRequestDetailScreen() {
 
   const withdrawBid = (bid: Bid) => {
     if (bid.hunter_id !== currentUserId || bid.status !== 'pending' || isWithdrawingBid) return;
-    Alert.alert('Withdraw bid?', 'This removes your pending bid from the request.', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Withdraw Bid', style: 'destructive', onPress: () => void confirmWithdrawBid(bid) },
-    ]);
+    setWithdrawConfirmation(bid);
   };
 
   const confirmWithdrawBid = async (bid: Bid) => {
@@ -574,7 +571,7 @@ export default function ServiceRequestDetailScreen() {
                   accessibilityLabel="Client profile avatar"
                 />
                 <View style={styles.profileInfo}>
-                  <Text style={styles.profileName} numberOfLines={1}>
+                  <Text style={styles.profileName} numberOfLines={1} onPress={() => router.push({ pathname: '/profile/[id]', params: { id: client.id } } as any)}>
                     {client.username ? `@${client.username}` : 'Commis member'}
                   </Text>
                   <Text style={styles.profileSubtext}>Client</Text>
@@ -734,7 +731,7 @@ export default function ServiceRequestDetailScreen() {
                         accessibilityLabel={`${hunter?.username ?? 'Hunter'} profile avatar`}
                       />
                       <View style={styles.hunterTextBlock}>
-                        <Text style={styles.hunterName} numberOfLines={1}>
+                        <Text style={styles.hunterName} numberOfLines={1} onPress={() => hunter?.id && router.push({ pathname: '/profile/[id]', params: { id: hunter.id } } as any)}>
                           {hunter?.username ? `@${hunter.username}` : 'Hunter'}
                         </Text>
                         <Text style={styles.bidSubtext}>• {relativeTime(bid.created_at)}</Text>
@@ -768,7 +765,7 @@ export default function ServiceRequestDetailScreen() {
                   </View>
                   {bid.message?.trim() ? (
                     <Text style={styles.bidMessage}>
-                      {isHunter && bid.hunter_id !== currentUserId && bid.message.trim().length > 36
+                      {bid.hunter_id !== currentUserId && bid.message.trim().length > 36
                         ? `${bid.message.trim().slice(0, 36).trimEnd()}...`
                         : bid.message.trim()}
                     </Text>
@@ -807,6 +804,34 @@ export default function ServiceRequestDetailScreen() {
           }
         }}
         onWithdraw={bidBeingEdited ? () => withdrawBid(bidBeingEdited) : undefined}
+      />
+      <CloseRequestSheet
+        visible={isCloseSheetVisible}
+        title={request.title}
+        budget={requestBudget}
+        bidCount={bidStats?.bid_count ?? null}
+        isClosing={isClosing}
+        error={closeError}
+        onConfirm={() => void confirmCloseRequest()}
+        onDismiss={() => {
+          if (!isClosing) {
+            setIsCloseSheetVisible(false);
+            setCloseError('');
+          }
+        }}
+      />
+      <ConfirmationModal
+        visible={Boolean(withdrawConfirmation)}
+        title="Withdraw this bid?"
+        message="Your pending bid will be removed from this request."
+        confirmLabel="Withdraw Bid"
+        busy={isWithdrawingBid}
+        onCancel={() => setWithdrawConfirmation(null)}
+        onConfirm={() => {
+          const bid = withdrawConfirmation;
+          setWithdrawConfirmation(null);
+          if (bid) void confirmWithdrawBid(bid);
+        }}
       />
     </View>
   );

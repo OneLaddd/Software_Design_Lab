@@ -54,6 +54,17 @@ begin
   if r not in ('client','hunter') then r := 'hunter'; end if;
   insert into public.profiles (id, username, active_role)
   values (new.id, uname, r);
+  insert into public.notifications (user_id, type, title, body)
+  values (
+    new.id,
+    'welcome',
+    case when r = 'client' then 'Welcome to Commis, Client!' else 'Welcome to Commis, Hunter!' end,
+    case when r = 'client' then
+      'Welcome to Commis. You can post service requests, review bids from Hunters, and build your commissions from the Marketplace.'
+    else
+      'Welcome to Commis. You can explore the Marketplace, discover service requests, and place bids on commissions that match your skills. You can also showcase your work through Posts and your Portfolio.'
+    end
+  );
   return new;
 end $$;
 
@@ -81,6 +92,7 @@ create table categories (
 
 alter table categories enable row level security;
 create policy "categories are public" on categories for select using (true);
+grant select on public.categories to authenticated;
 
 insert into categories (slug, name) values
   ('graphic-design', 'Graphic Design'),
@@ -177,7 +189,7 @@ create table bids (
   hunter_id uuid references profiles(id) not null,
   amount numeric not null,
   message text,
-  status text default 'pending' check (status in ('pending','accepted','rejected')),
+  status text default 'pending' check (status in ('pending','accepted','rejected','cancelled')),
   created_at timestamptz default now()
 );
 
@@ -200,6 +212,9 @@ create policy "bids visible to request owner and bidder" on bids for select
 create policy "hunters create own bids" on bids for insert with check (auth.uid() = hunter_id);
 create policy "hunters update own pending bids" on bids for update
   using (auth.uid() = hunter_id and status = 'pending');
+
+grant select (id, request_id, hunter_id) on public.bids to authenticated;
+grant update (amount, message) on public.bids to authenticated;
 
 
 -- =====================================================================
@@ -237,6 +252,7 @@ alter table votes enable row level security;
 alter table comments enable row level security;
 
 create policy "posts are public" on posts for select using (true);
+grant select on public.posts to authenticated;
 create policy "users create own posts" on posts for insert with check (auth.uid() = author_id);
 create policy "users update own posts" on posts for update using (auth.uid() = author_id);
 create policy "users delete own posts" on posts for delete using (auth.uid() = author_id);
@@ -262,11 +278,15 @@ create table portfolio_entries (
   subtitle text,
   category_id uuid references categories(id),
   image_url text,
+  description text,
+  skills text[] not null default '{}',
+  project_url text,
   created_at timestamptz default now()
 );
 
 alter table portfolio_entries enable row level security;
 create policy "portfolio entries are public" on portfolio_entries for select using (true);
+grant select, insert, update, delete on public.portfolio_entries to authenticated;
 create policy "users manage own portfolio" on portfolio_entries for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
@@ -283,9 +303,12 @@ create table orders (
   hunter_id uuid references profiles(id) not null,
   amount numeric not null,
   status text not null default 'created'
-    check (status in ('created','escrow_locked','in_progress','delivered','completed','disputed')),
+    check (status in ('created','escrow_locked','in_progress','delivered','completed','disputed','cancelled')),
   delivered_at timestamptz,
   auto_release_at timestamptz,
+  team_fee_amount numeric,
+  cancelled_at timestamptz,
+  cancelled_by uuid references profiles(id),
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
@@ -305,10 +328,24 @@ alter table deliverables enable row level security;
 
 create policy "participants view own orders" on orders for select
   using (auth.uid() = client_id or auth.uid() = hunter_id or exists(select 1 from profiles where id = auth.uid() and is_admin));
+grant select on public.orders to authenticated;
 create policy "participants view deliverables" on deliverables for select
   using (exists(select 1 from orders o where o.id = deliverables.order_id and (o.client_id = auth.uid() or o.hunter_id = auth.uid())));
 create policy "participants upload deliverables" on deliverables for insert
   with check (exists(select 1 from orders o where o.id = order_id and (o.client_id = auth.uid() or o.hunter_id = auth.uid())));
+create policy "hunters remove own in progress deliverables" on deliverables for delete
+  using (
+    uploaded_by = auth.uid()
+    and exists(
+      select 1 from orders o
+      where o.id = deliverables.order_id
+        and o.hunter_id = auth.uid()
+        and o.status = 'in_progress'
+    )
+  );
+grant select (id, order_id, file_url, file_name, file_size_bytes, uploaded_by, created_at) on public.deliverables to authenticated;
+grant insert (order_id, file_url, file_name, file_size_bytes, uploaded_by) on public.deliverables to authenticated;
+grant delete on public.deliverables to authenticated;
 -- No direct INSERT/UPDATE policy on orders for regular users — all writes go through
 -- the SECURITY DEFINER functions in Section 10, which bypass RLS by design.
 
@@ -319,21 +356,30 @@ create policy "participants upload deliverables" on deliverables for insert
 
 create table reviews (
   id uuid primary key default gen_random_uuid(),
-  order_id uuid references orders(id) unique not null,
+  order_id uuid references orders(id) not null,
   reviewer_id uuid references profiles(id) not null,
   reviewee_id uuid references profiles(id) not null,
   reviewed_role text not null check (reviewed_role in ('client','hunter')),
   rating smallint not null check (rating between 1 and 5),
-  comment text,
+  comment text check (comment is null or length(comment) <= 1000),
+  unique (order_id, reviewer_id),
   created_at timestamptz default now()
 );
 
 alter table reviews enable row level security;
 create policy "reviews are public" on reviews for select using (true);
+grant select on public.reviews to authenticated;
 create policy "order participants leave reviews" on reviews for insert
   with check (
     auth.uid() = reviewer_id
-    and exists(select 1 from orders o where o.id = order_id and (o.client_id = auth.uid() or o.hunter_id = auth.uid()) and o.status = 'completed')
+    and exists(
+      select 1 from orders o where o.id = order_id
+        and o.status in ('completed', 'cancelled')
+        and (
+          (o.client_id = auth.uid() and reviewee_id = o.hunter_id and reviewed_role = 'hunter')
+          or (o.hunter_id = auth.uid() and reviewee_id = o.client_id and reviewed_role = 'client')
+        )
+    )
   );
 
 create or replace function public.update_rating()
@@ -376,7 +422,7 @@ create table wallets (
 create table wallet_transactions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references profiles(id) not null,
-  type text not null check (type in ('deposit','withdrawal','escrow_lock','escrow_release','commission_payment')),
+  type text not null check (type in ('deposit','withdrawal','escrow_lock','escrow_release','commission_payment','platform_fee')),
   amount numeric not null,
   description text,
   order_id uuid references orders(id),
@@ -389,6 +435,8 @@ alter table wallet_transactions enable row level security;
 create policy "users view own wallet" on wallets for select using (auth.uid() = user_id);
 create policy "users view own transactions" on wallet_transactions for select using (auth.uid() = user_id);
 -- No direct write policies — all writes go through Section 10's functions.
+
+grant select on public.wallets, public.wallet_transactions to authenticated;
 
 -- Auto-create a wallet row whenever a profile is created
 create or replace function public.handle_new_wallet()
@@ -405,6 +453,10 @@ drop trigger if exists on_profile_created_wallet on profiles;
 create trigger on_profile_created_wallet
   after insert on profiles
   for each row execute function public.handle_new_wallet();
+
+insert into public.wallets (user_id)
+select id from public.profiles
+on conflict (user_id) do nothing;
 
 
 -- =====================================================================
@@ -423,12 +475,14 @@ security definer set search_path = ''
 as $$
 declare
   v_request_id uuid; v_client_id uuid; v_hunter_id uuid; v_amount numeric; v_order_id uuid;
+  v_request_title text; v_client_username text; v_hunter_username text;
 begin
   select request_id, hunter_id, amount into v_request_id, v_hunter_id, v_amount
   from public.bids where id = p_bid_id and status = 'pending';
   if v_request_id is null then raise exception 'Bid not found or already resolved'; end if;
 
-  select client_id into v_client_id from public.service_requests where id = v_request_id;
+  select client_id, title into v_client_id, v_request_title
+  from public.service_requests where id = v_request_id;
   if v_client_id != auth.uid() then raise exception 'Only the request owner can accept a bid'; end if;
 
   update public.bids set status = 'accepted' where id = p_bid_id;
@@ -439,8 +493,26 @@ begin
   values (v_request_id, p_bid_id, v_client_id, v_hunter_id, v_amount)
   returning id into v_order_id;
 
+  select username into v_client_username from public.profiles where id = v_client_id;
+  select username into v_hunter_username from public.profiles where id = v_hunter_id;
+
   insert into public.notifications (user_id, type, title, body, related_id)
-  values (v_hunter_id, 'bid_accepted', 'Your bid was accepted!', 'Head to your commissions to get started.', v_order_id);
+  values (
+    v_hunter_id,
+    'bid_accepted_hunter',
+    'Your bid was accepted!',
+    '@' || coalesce(v_client_username, 'client') || ' hired you for ' || coalesce(v_request_title, 'your request') || ' - ' || chr(8369) || v_amount::text,
+    v_order_id
+  );
+
+  insert into public.notifications (user_id, type, title, body, related_id)
+  values (
+    v_client_id,
+    'bid_accepted_client',
+    'You hired @' || coalesce(v_hunter_username, 'hunter'),
+    'Work begins once you lock escrow.',
+    v_order_id
+  );
 
   return v_order_id;
 end $$;
@@ -454,7 +526,8 @@ declare
   v_client_id uuid; v_amount numeric; v_admin_id uuid; v_balance numeric;
 begin
   select client_id, amount into v_client_id, v_amount
-  from public.orders where id = p_order_id and status = 'created';
+  from public.orders where id = p_order_id and status = 'created' for update;
+  if not found then raise exception 'This commission is no longer awaiting escrow'; end if;
   if v_client_id != auth.uid() then raise exception 'Only the client can lock escrow for this order'; end if;
 
   select available_balance into v_balance from public.wallets where user_id = v_client_id;
@@ -462,7 +535,9 @@ begin
 
   select id into v_admin_id from public.profiles where is_admin = true limit 1;
 
-  update public.wallets set available_balance = available_balance - v_amount where user_id = v_client_id;
+  update public.wallets set available_balance = available_balance - v_amount
+  where user_id = v_client_id and available_balance >= v_amount;
+  if not found then raise exception 'Insufficient funds'; end if;
   insert into public.wallet_transactions (user_id, type, amount, description, order_id)
   values (v_client_id, 'escrow_lock', -v_amount, 'Escrow locked for order', p_order_id);
 
@@ -500,23 +575,51 @@ language plpgsql
 security definer set search_path = ''
 as $$
 declare
-  v_hunter_id uuid; v_amount numeric; v_admin_id uuid;
+  v_client_id uuid; v_hunter_id uuid; v_amount numeric; v_fee numeric; v_hunter_amount numeric; v_admin_id uuid; v_status text;
 begin
-  select hunter_id, amount into v_hunter_id, v_amount
-  from public.orders where id = p_order_id and status in ('delivered','disputed');
+  select client_id, hunter_id, amount, status into v_client_id, v_hunter_id, v_amount, v_status
+  from public.orders where id = p_order_id for update;
+  if not found or v_status <> 'delivered' then raise exception 'Only delivered commissions can release escrow'; end if;
+  if auth.uid() is not null and auth.uid() <> v_client_id
+    and not exists (select 1 from public.profiles where id = auth.uid() and is_admin = true) then
+    raise exception 'Only the client or an admin can release this escrow';
+  end if;
 
-  select id into v_admin_id from public.profiles where is_admin = true limit 1;
+  select id into v_admin_id from public.profiles where is_admin = true order by created_at limit 1;
+  if v_admin_id is null then raise exception 'The Commis Team escrow account was not found'; end if;
+  v_fee := round(v_amount * 0.10, 2);
+  v_hunter_amount := v_amount - v_fee;
 
-  update public.wallets set escrow_balance = escrow_balance - v_amount where user_id = v_admin_id;
+  update public.wallets set escrow_balance = escrow_balance - v_amount,
+    available_balance = available_balance + v_fee, updated_at = now()
+  where user_id = v_admin_id and escrow_balance >= v_amount;
+  if not found then raise exception 'The escrow wallet does not contain the full commission amount'; end if;
+
+  update public.wallets set available_balance = available_balance + v_hunter_amount, updated_at = now()
+  where user_id = v_hunter_id;
+  if not found then raise exception 'Hunter wallet was not found'; end if;
+
   insert into public.wallet_transactions (user_id, type, amount, description, order_id)
-  values (v_admin_id, 'escrow_release', -v_amount, 'Released escrow to hunter', p_order_id);
+  values
+    (v_admin_id, 'escrow_release', -v_amount, 'Escrow settled for completed commission', p_order_id),
+    (v_admin_id, 'platform_fee', v_fee, 'Commis Team 10% service fee', p_order_id),
+    (v_hunter_id, 'commission_payment', v_hunter_amount, 'Commission payment after 10% Commis Team fee', p_order_id);
 
-  update public.wallets set available_balance = available_balance + v_amount where user_id = v_hunter_id;
-  insert into public.wallet_transactions (user_id, type, amount, description, order_id)
-  values (v_hunter_id, 'commission_payment', v_amount, 'Commission payment received', p_order_id);
+  update public.orders set status = 'completed', team_fee_amount = v_fee, updated_at = now()
+  where id = p_order_id;
 
-  update public.orders set status = 'completed', updated_at = now() where id = p_order_id;
+  insert into public.notifications (user_id, type, title, body, related_id)
+  values
+    (v_client_id, 'commission_settled_client', 'Commission completed',
+      'The commission was completed. The Commis Team received 10% (' || v_fee::text || '), and the Hunter received 90% (' || v_hunter_amount::text || ').', p_order_id),
+    (v_hunter_id, 'commission_settled_hunter', 'Commission payment received',
+      'Your payment is ' || v_hunter_amount::text || ' after the Commis Team''s 10% service fee (' || v_fee::text || ').', p_order_id),
+    (v_admin_id, 'commission_platform_fee', 'Commis Team fee earned',
+      'The Commis Team received its 10% service fee (' || v_fee::text || ') from a completed commission.', p_order_id);
 end $$;
+
+revoke all on function public.release_escrow(uuid) from public;
+grant execute on function public.release_escrow(uuid) to authenticated, service_role;
 
 create or replace function public.withdraw_funds(p_amount numeric)
 returns void
@@ -524,6 +627,10 @@ language plpgsql
 security definer set search_path = ''
 as $$
 begin
+  if p_amount is null or p_amount <= 0 then
+    raise exception 'Amount must be greater than zero';
+  end if;
+
   update public.wallets set available_balance = available_balance - p_amount
   where user_id = auth.uid() and available_balance >= p_amount;
   if not found then raise exception 'Insufficient funds'; end if;
@@ -538,10 +645,19 @@ language plpgsql
 security definer set search_path = ''
 as $$
 begin
+  if p_amount is null or p_amount <= 0 then
+    raise exception 'Amount must be greater than zero';
+  end if;
+
   update public.wallets set available_balance = available_balance + p_amount where user_id = auth.uid();
+  if not found then raise exception 'Wallet not found'; end if;
+
   insert into public.wallet_transactions (user_id, type, amount, description)
   values (auth.uid(), 'deposit', p_amount, 'Top-up deposit to balance');
 end $$;
+
+grant execute on function public.deposit_funds(numeric) to authenticated;
+grant execute on function public.withdraw_funds(numeric) to authenticated;
 
 
 -- =====================================================================
@@ -554,10 +670,22 @@ create table disputes (
   filed_by uuid references profiles(id) not null,
   reason text not null,
   explanation text,
-  status text not null default 'submitted' check (status in ('submitted','under_review','resolved')),
-  resolution text check (resolution in ('refund_client','release_hunter')),
+  status text not null default 'submitted' check (status in ('submitted','under_review','resolution_pending','resolved')),
+  resolution text check (resolution in ('refund_client','release_hunter','split')),
+  review_started_at timestamptz,
+  decision_ready_at timestamptz,
+  client_percent numeric,
+  hunter_percent numeric,
+  team_fee_amount numeric,
+  resolution_note text,
+  resolved_by uuid references profiles(id),
   created_at timestamptz default now(),
-  resolved_at timestamptz
+  resolved_at timestamptz,
+  constraint disputes_split_percentages_check check (
+    (client_percent is null and hunter_percent is null)
+    or (client_percent between 0 and 100 and hunter_percent between 0 and 100
+      and client_percent + hunter_percent = 100)
+  )
 );
 
 create table dispute_attachments (
@@ -578,6 +706,8 @@ create table dispute_messages (
 alter table disputes enable row level security;
 alter table dispute_attachments enable row level security;
 alter table dispute_messages enable row level security;
+
+grant select on public.disputes, public.dispute_attachments to authenticated;
 
 create policy "participants view own disputes" on disputes for select
   using (exists(select 1 from orders o where o.id = disputes.order_id and (o.client_id = auth.uid() or o.hunter_id = auth.uid())) or exists(select 1 from profiles where id = auth.uid() and is_admin));
@@ -604,41 +734,303 @@ begin
   returning id into v_dispute_id;
 
   insert into public.notifications (user_id, type, title, body, related_id)
-  select id, 'dispute_filed', 'New dispute filed', p_reason, v_dispute_id
-  from public.profiles where is_admin = true;
+  select recipient.user_id, recipient.type, recipient.title, recipient.body, v_dispute_id
+  from (
+    select o.client_id as user_id,
+      'dispute_filed_client'::text as type,
+      'Your dispute was submitted'::text as title,
+      'Your dispute for ' || coalesce(sr.title, 'this commission') || ' was submitted. View the case and its evidence.' as body
+    from public.orders o
+    left join public.service_requests sr on sr.id = o.request_id
+    where o.id = p_order_id
+    union all
+    select o.hunter_id,
+      'dispute_filed_hunter',
+      'A dispute was filed for your commission',
+      'The client filed a dispute for ' || coalesce(sr.title, 'your commission') || '. View the case and respond.'
+    from public.orders o
+    left join public.service_requests sr on sr.id = o.request_id
+    where o.id = p_order_id
+    union all
+    select p.id,
+      'dispute_filed_admin',
+      'New dispute needs review',
+      'A client filed a dispute for ' || coalesce(sr.title, 'a commission') || '. Review the case.'
+    from public.profiles p
+    cross join public.orders o
+    left join public.service_requests sr on sr.id = o.request_id
+    where p.is_admin = true and o.id = p_order_id
+  ) as recipient;
 
   return v_dispute_id;
 end $$;
+
+create or replace function public.file_dispute_with_attachments(
+  p_order_id uuid,
+  p_reason text,
+  p_explanation text,
+  p_attachments jsonb default '[]'::jsonb
+)
+returns uuid
+language plpgsql
+security definer set search_path = ''
+as $$
+declare
+  v_dispute_id uuid;
+  v_attachments jsonb := coalesce(p_attachments, '[]'::jsonb);
+  v_prefix text := p_order_id::text || '/' || auth.uid()::text || '/';
+begin
+  if auth.uid() is null then
+    raise exception 'You must be signed in to file a dispute';
+  end if;
+  if nullif(btrim(p_reason), '') is null then
+    raise exception 'Choose a reason for the dispute';
+  end if;
+  if nullif(btrim(p_explanation), '') is null or length(p_explanation) > 1000 then
+    raise exception 'Enter an explanation of 1 to 1000 characters';
+  end if;
+  if jsonb_typeof(v_attachments) is distinct from 'array' then
+    raise exception 'Evidence attachments must be a list';
+  end if;
+  if jsonb_array_length(v_attachments) > 5 then
+    raise exception 'You can attach up to 5 evidence files';
+  end if;
+  if exists (
+    select 1 from jsonb_array_elements(v_attachments) as item(value)
+    where jsonb_typeof(item.value) is distinct from 'object'
+      or nullif(item.value ->> 'file_url', '') is null
+      or left(item.value ->> 'file_url', length(v_prefix)) <> v_prefix
+      or not exists (
+        select 1 from storage.objects object_row
+        where object_row.bucket_id = 'dispute-attachments'
+          and object_row.name = item.value ->> 'file_url'
+      )
+  ) then
+    raise exception 'Evidence file path is invalid';
+  end if;
+
+  update public.orders
+  set status = 'disputed', updated_at = now()
+  where id = p_order_id
+    and client_id = auth.uid()
+    and status in ('in_progress', 'delivered');
+  if not found then
+    raise exception 'Only the client can dispute an in progress or delivered commission';
+  end if;
+
+  insert into public.disputes (order_id, filed_by, reason, explanation)
+  values (p_order_id, auth.uid(), p_reason, btrim(p_explanation))
+  returning id into v_dispute_id;
+
+  insert into public.dispute_attachments (dispute_id, file_url, file_name)
+  select v_dispute_id, item.value ->> 'file_url', item.value ->> 'file_name'
+  from jsonb_array_elements(v_attachments) as item(value);
+
+  insert into public.notifications (user_id, type, title, body, related_id)
+  select recipient.user_id, recipient.type, recipient.title, recipient.body, v_dispute_id
+  from (
+    select o.client_id as user_id,
+      'dispute_filed_client'::text as type,
+      'Your dispute was submitted'::text as title,
+      'Your dispute for ' || coalesce(sr.title, 'this commission') || ' was submitted. View the case and its evidence.' as body
+    from public.orders o
+    left join public.service_requests sr on sr.id = o.request_id
+    where o.id = p_order_id
+    union all
+    select o.hunter_id,
+      'dispute_filed_hunter',
+      'A dispute was filed for your commission',
+      'The client filed a dispute for ' || coalesce(sr.title, 'your commission') || '. View the case and respond.'
+    from public.orders o
+    left join public.service_requests sr on sr.id = o.request_id
+    where o.id = p_order_id
+    union all
+    select p.id,
+      'dispute_filed_admin',
+      'New dispute needs review',
+      'A client filed a dispute for ' || coalesce(sr.title, 'a commission') || '. Review the case.'
+    from public.profiles p
+    cross join public.orders o
+    left join public.service_requests sr on sr.id = o.request_id
+    where p.is_admin = true and o.id = p_order_id
+  ) as recipient;
+
+  return v_dispute_id;
+end $$;
+
+revoke all on function public.file_dispute_with_attachments(uuid, text, text, jsonb) from public;
+grant execute on function public.file_dispute_with_attachments(uuid, text, text, jsonb) to authenticated;
+
+create or replace function public.start_dispute_review(p_dispute_id uuid)
+returns void
+language plpgsql
+security definer set search_path = ''
+as $$
+begin
+  if not exists (select 1 from public.profiles where id = auth.uid() and is_admin = true) then
+    raise exception 'Only an admin can start dispute review';
+  end if;
+  update public.disputes
+  set status = 'under_review', review_started_at = now()
+  where id = p_dispute_id and status = 'submitted';
+  if not found then raise exception 'This dispute is not awaiting review'; end if;
+end $$;
+
+create or replace function public.mark_dispute_decision_pending(p_dispute_id uuid)
+returns void
+language plpgsql
+security definer set search_path = ''
+as $$
+declare
+  v_order_id uuid;
+  v_request_title text;
+begin
+  if not exists (select 1 from public.profiles where id = auth.uid() and is_admin = true) then
+    raise exception 'Only an admin can advance dispute review';
+  end if;
+  update public.disputes
+  set status = 'resolution_pending', decision_ready_at = now()
+  where id = p_dispute_id and status = 'under_review'
+  returning order_id into v_order_id;
+  if not found then raise exception 'This dispute is not under review'; end if;
+
+  select sr.title into v_request_title
+  from public.orders o
+  left join public.service_requests sr on sr.id = o.request_id
+  where o.id = v_order_id;
+
+  insert into public.notifications (user_id, type, title, body, related_id)
+  select id, 'dispute_decision_needed', 'Dispute decision needed',
+    'Review the evidence for ' || coalesce(v_request_title, 'this commission') || ' and set the escrow split.',
+    p_dispute_id
+  from public.profiles where is_admin = true;
+end $$;
+
+create or replace function public.resolve_dispute_split(
+  p_dispute_id uuid,
+  p_client_percent numeric,
+  p_resolution_note text default null
+)
+returns void
+language plpgsql
+security definer set search_path = ''
+as $$
+declare
+  v_order_id uuid;
+  v_client_id uuid;
+  v_hunter_id uuid;
+  v_amount numeric;
+  v_team_fee numeric;
+  v_distributable numeric;
+  v_client_percent numeric;
+  v_hunter_percent numeric;
+  v_client_amount numeric;
+  v_hunter_amount numeric;
+  v_admin_id uuid;
+  v_status text;
+begin
+  if not exists (select 1 from public.profiles where id = auth.uid() and is_admin = true) then
+    raise exception 'Only an admin can resolve disputes';
+  end if;
+  if p_client_percent is null or p_client_percent < 0 or p_client_percent > 100 then
+    raise exception 'Client share must be between 0 and 100 percent';
+  end if;
+
+  select d.status, d.order_id, o.client_id, o.hunter_id, o.amount
+  into v_status, v_order_id, v_client_id, v_hunter_id, v_amount
+  from public.disputes d
+  join public.orders o on o.id = d.order_id
+  where d.id = p_dispute_id
+  for update of d, o;
+  if not found or v_status <> 'resolution_pending' then
+    raise exception 'This dispute is not ready for a decision';
+  end if;
+
+  select id into v_admin_id from public.profiles where is_admin = true order by created_at limit 1;
+  if v_admin_id is null then raise exception 'The Commis Team escrow account was not found'; end if;
+  v_team_fee := round(v_amount * 0.10, 2);
+  v_distributable := v_amount - v_team_fee;
+  v_client_percent := p_client_percent;
+  v_hunter_percent := 100 - v_client_percent;
+  v_client_amount := round(v_distributable * v_client_percent / 100, 2);
+  v_hunter_amount := v_distributable - v_client_amount;
+
+  update public.wallets
+  set escrow_balance = escrow_balance - v_amount,
+    available_balance = available_balance + v_team_fee, updated_at = now()
+  where user_id = v_admin_id and escrow_balance >= v_amount;
+  if not found then raise exception 'The escrow wallet does not contain the full commission amount'; end if;
+
+  update public.wallets
+  set available_balance = available_balance + v_client_amount, updated_at = now()
+  where user_id = v_client_id;
+  if not found then raise exception 'Client wallet was not found'; end if;
+  update public.wallets
+  set available_balance = available_balance + v_hunter_amount, updated_at = now()
+  where user_id = v_hunter_id;
+  if not found then raise exception 'Hunter wallet was not found'; end if;
+
+  insert into public.wallet_transactions (user_id, type, amount, description, order_id)
+  values
+    (v_admin_id, 'escrow_release', -v_amount, 'Dispute escrow settled', v_order_id),
+    (v_admin_id, 'platform_fee', v_team_fee, 'Commis Team 10% dispute resolution fee', v_order_id);
+  if v_client_amount > 0 then
+    insert into public.wallet_transactions (user_id, type, amount, description, order_id)
+    values (v_client_id, 'escrow_release', v_client_amount,
+      'Dispute award: ' || v_client_percent::text || '% of post-fee funds', v_order_id);
+  end if;
+  if v_hunter_amount > 0 then
+    insert into public.wallet_transactions (user_id, type, amount, description, order_id)
+    values (v_hunter_id, 'commission_payment', v_hunter_amount,
+      'Dispute award: ' || v_hunter_percent::text || '% of post-fee funds', v_order_id);
+  end if;
+
+  update public.disputes
+  set status = 'resolved', resolution = 'split', client_percent = v_client_percent,
+    hunter_percent = v_hunter_percent, resolution_note = nullif(btrim(p_resolution_note), ''),
+    team_fee_amount = v_team_fee, resolved_by = auth.uid(), resolved_at = now()
+  where id = p_dispute_id;
+  update public.orders set status = 'completed', team_fee_amount = v_team_fee, updated_at = now()
+  where id = v_order_id;
+
+  insert into public.notifications (user_id, type, title, body, related_id)
+  values
+    (v_client_id, 'dispute_resolved_client', 'Your dispute was resolved',
+      'The Commis Team received 10% (' || v_team_fee::text || '). From the remaining 90%, you receive ' || v_client_percent::text || '% (' || v_client_amount::text || ') and the Hunter receives ' || v_hunter_percent::text || '% (' || v_hunter_amount::text || ').', p_dispute_id),
+    (v_hunter_id, 'dispute_resolved_hunter', 'Your commission dispute was resolved',
+      'The Commis Team received 10% (' || v_team_fee::text || '). From the remaining 90%, you receive ' || v_hunter_percent::text || '% (' || v_hunter_amount::text || ') and the Client receives ' || v_client_percent::text || '% (' || v_client_amount::text || ').', p_dispute_id),
+    (v_admin_id, 'dispute_platform_fee', 'Commis Team fee earned',
+      'The Commis Team received its 10% service fee (' || v_team_fee::text || ') from a resolved dispute.', p_dispute_id);
+end $$;
+
+revoke all on function public.start_dispute_review(uuid) from public;
+revoke all on function public.mark_dispute_decision_pending(uuid) from public;
+revoke all on function public.resolve_dispute_split(uuid, numeric, text) from public;
+grant execute on function public.start_dispute_review(uuid) to authenticated;
+grant execute on function public.mark_dispute_decision_pending(uuid) to authenticated;
+grant execute on function public.resolve_dispute_split(uuid, numeric, text) to authenticated;
+
 
 create or replace function public.resolve_dispute(p_dispute_id uuid, p_resolution text)
 returns void
 language plpgsql
 security definer set search_path = ''
 as $$
-declare
-  v_order_id uuid; v_client_id uuid; v_amount numeric; v_admin_id uuid;
 begin
   if not exists (select 1 from public.profiles where id = auth.uid() and is_admin = true) then
     raise exception 'Only admin can resolve disputes';
   end if;
-
-  select order_id into v_order_id from public.disputes where id = p_dispute_id;
-  select client_id, amount into v_client_id, v_amount from public.orders where id = v_order_id;
-  select id into v_admin_id from public.profiles where is_admin = true limit 1;
-
   if p_resolution = 'refund_client' then
-    update public.wallets set escrow_balance = escrow_balance - v_amount where user_id = v_admin_id;
-    update public.wallets set available_balance = available_balance + v_amount where user_id = v_client_id;
-    insert into public.wallet_transactions (user_id, type, amount, description, order_id)
-    values (v_client_id, 'escrow_release', v_amount, 'Dispute resolved: refunded', v_order_id);
-    update public.orders set status = 'completed', updated_at = now() where id = v_order_id;
+    perform public.resolve_dispute_split(p_dispute_id, 100, null);
+  elsif p_resolution = 'release_hunter' then
+    perform public.resolve_dispute_split(p_dispute_id, 0, null);
   else
-    perform public.release_escrow(v_order_id);
+    raise exception 'Use refund_client or release_hunter';
   end if;
-
-  update public.disputes set status = 'resolved', resolution = p_resolution, resolved_at = now()
-  where id = p_dispute_id;
 end $$;
+
+revoke all on function public.resolve_dispute(uuid, text) from public;
+grant execute on function public.resolve_dispute(uuid, text) to authenticated;
 
 
 -- =====================================================================
@@ -674,6 +1066,23 @@ create table notifications (
   created_at timestamptz default now()
 );
 
+insert into public.notifications (user_id, type, title, body)
+select
+  p.id,
+  'welcome',
+  case when p.active_role = 'client' then 'Welcome to Commis, Client!' else 'Welcome to Commis, Hunter!' end,
+  case when p.active_role = 'client' then
+    'Welcome to Commis. You can post service requests, review bids from Hunters, and build your commissions from the Marketplace.'
+  else
+    'Welcome to Commis. You can explore the Marketplace, discover service requests, and place bids on commissions that match your skills. You can also showcase your work through Posts and your Portfolio.'
+  end
+from public.profiles p
+where not exists (
+  select 1
+  from public.notifications n
+  where n.user_id = p.id and n.type = 'welcome'
+);
+
 create table conversations (
   id uuid primary key default gen_random_uuid(),
   created_at timestamptz default now()
@@ -699,13 +1108,33 @@ alter table conversations enable row level security;
 alter table conversation_participants enable row level security;
 alter table messages enable row level security;
 
+create or replace function public.is_conversation_participant(p_conversation_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select exists (
+    select 1
+    from public.conversation_participants cp
+    where cp.conversation_id = p_conversation_id
+      and cp.user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.is_conversation_participant(uuid) from public;
+grant execute on function public.is_conversation_participant(uuid) to authenticated;
+
+grant select on public.notifications to authenticated;
+
 create policy "users view own notifications" on notifications for select using (auth.uid() = user_id);
 create policy "users mark own notifications read" on notifications for update using (auth.uid() = user_id);
 
 create policy "participants view own conversations" on conversations for select
   using (exists(select 1 from conversation_participants cp where cp.conversation_id = id and cp.user_id = auth.uid()));
 create policy "users view own participation rows" on conversation_participants for select
-  using (exists(select 1 from conversation_participants cp2 where cp2.conversation_id = conversation_id and cp2.user_id = auth.uid()));
+  using (public.is_conversation_participant(conversation_id));
 create policy "users join conversations" on conversation_participants for insert with check (auth.uid() = user_id);
 
 create policy "participants view messages" on messages for select
@@ -739,6 +1168,8 @@ create policy "users manage own saved requests" on saved_requests for all
 create policy "users manage own interests" on user_interests for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
+grant select, insert, delete on public.saved_requests to authenticated;
+
 
 -- =====================================================================
 -- 15. STORAGE BUCKETS & POLICIES
@@ -748,6 +1179,7 @@ create policy "users manage own interests" on user_interests for all
 --   post-media         (PUBLIC)
 --   portfolio-media    (PUBLIC)
 --   order-deliverables (PRIVATE — do not toggle "Public bucket")
+--   dispute-attachments (PRIVATE — do not toggle "Public bucket")
 -- Then run the policies below.
 
 create policy "avatar images are publicly accessible"
@@ -789,6 +1221,58 @@ create policy "order participants can view deliverables"
       select 1 from orders o
       where o.id::text = (storage.foldername(name))[1]
       and (o.client_id = auth.uid() or o.hunter_id = auth.uid() or exists(select 1 from profiles where id = auth.uid() and is_admin))
+    )
+  );
+create policy "hunters can remove own in progress delivery files"
+  on storage.objects for delete
+  using (
+    bucket_id = 'order-deliverables'
+    and (storage.foldername(name))[2] = auth.uid()::text
+    and exists (
+      select 1 from orders o
+      where o.id::text = (storage.foldername(name))[1]
+        and o.hunter_id = auth.uid()
+        and o.status = 'in_progress'
+    )
+  );
+create policy "clients upload dispute evidence"
+  on storage.objects for insert
+  with check (
+    bucket_id = 'dispute-attachments'
+    and exists (
+      select 1 from orders o
+      where o.id::text = (storage.foldername(name))[1]
+        and o.client_id = auth.uid()
+        and (storage.foldername(name))[2] = auth.uid()::text
+        and o.status in ('in_progress', 'delivered')
+    )
+  );
+create policy "participants view dispute evidence"
+  on storage.objects for select
+  using (
+    bucket_id = 'dispute-attachments'
+    and (
+      exists (
+        select 1 from orders o
+        where o.id::text = (storage.foldername(name))[1]
+          and (o.client_id = auth.uid() or o.hunter_id = auth.uid())
+      )
+      or exists (select 1 from profiles where id = auth.uid() and is_admin = true)
+    )
+  );
+create policy "clients clean up unfiled dispute evidence"
+  on storage.objects for delete
+  using (
+    bucket_id = 'dispute-attachments'
+    and (storage.foldername(name))[2] = auth.uid()::text
+    and not exists (
+      select 1 from dispute_attachments a where a.file_url = storage.objects.name
+    )
+    and exists (
+      select 1 from orders o
+      where o.id::text = (storage.foldername(name))[1]
+        and o.client_id = auth.uid()
+        and o.status in ('in_progress', 'delivered')
     )
   );
 

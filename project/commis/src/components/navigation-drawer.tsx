@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
+import { SymbolView } from 'expo-symbols';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { supabase } from '../lib/supabase';
@@ -31,7 +32,7 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const drawerWidth = Math.min(width * 0.78, 300);
+  const drawerWidth = Math.min(Math.min(width, 430) * 0.78, 300);
 
   const [currentProfile, setCurrentProfile] = useState<DrawerProfile | null>(profile ?? null);
 
@@ -161,7 +162,8 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
               <Pressable
                 style={({ pressed }) => [styles.navItem, pressed && styles.navItemPressed]}
                 onPress={() => {
-                  // TODO: Navigate to Profile screen
+                  router.push('/profile' as any);
+                  onClose();
                 }}>
                 <View style={styles.navItemLeft}>
                   <View style={styles.iconBox}>
@@ -192,7 +194,8 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
               <Pressable
                 style={({ pressed }) => [styles.navItem, pressed && styles.navItemPressed]}
                 onPress={() => {
-                  // TODO: Navigate to Commissions screen
+                  router.push('/commissions' as any);
+                  onClose();
                 }}>
                 <View style={styles.navItemLeft}>
                   <View style={styles.iconBox}>
@@ -223,7 +226,8 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
               <Pressable
                 style={({ pressed }) => [styles.navItem, pressed && styles.navItemPressed]}
                 onPress={() => {
-                  // TODO: Navigate to Marked Bounties screen
+                  onClose();
+                  router.push('/marked-bounties' as any);
                 }}>
                 <View style={styles.navItemLeft}>
                   <View style={styles.iconBox}>
@@ -300,6 +304,36 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
                     </Svg>
                   </View>
                   <Text style={styles.navItemLabel}>Communities</Text>
+                </View>
+                <Svg width={16} height={16} viewBox="0 0 24 24" fill="none">
+                  <Path
+                    d="M9 5l7 7-7 7"
+                    stroke="#6B7280"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </Svg>
+              </Pressable>
+
+              {/* Funds */}
+              <Pressable
+                style={({ pressed }) => [styles.navItem, pressed && styles.navItemPressed]}
+                onPress={() => {
+                  onClose();
+                  router.push('/funds' as any);
+                }}
+                accessibilityRole="button"
+                accessibilityLabel="Open Funds">
+                <View style={styles.navItemLeft}>
+                  <View style={styles.iconBox}>
+                    <SymbolView
+                      name={{ ios: 'wallet.pass.fill', android: 'account_balance_wallet', web: 'account_balance_wallet' }}
+                      size={18}
+                      tintColor="#D1D5DB"
+                    />
+                  </View>
+                  <Text style={styles.navItemLabel}>Funds</Text>
                 </View>
                 <Svg width={16} height={16} viewBox="0 0 24 24" fill="none">
                   <Path

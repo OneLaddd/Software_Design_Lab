@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -13,37 +13,35 @@ import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Line, Path } from 'react-native-svg';
 import { BottomNavBar } from '@/components/bottom-nav-bar';
+import {
+  MarketplaceFilterSheet,
+  type MarketplaceFilterValues,
+} from '@/components/marketplace-filter-sheet';
 import { NavigationDrawer } from '@/components/navigation-drawer';
+import { ServiceRequestCard, type ServiceRequestCardData } from '@/components/service-request-card';
 import { supabase } from '@/lib/supabase';
 
-interface CategoryItem {
-  id: string;
-  name: string;
-  slug: string;
-}
-
-interface RequestCategoryJoin {
-  category_id: string;
-  categories: CategoryItem | CategoryItem[] | null;
-}
-
-interface ServiceRequestRow {
-  id: string;
+interface ServiceRequestRow extends ServiceRequestCardData {
   client_id: string;
-  title: string;
-  description: string;
-  budget_min: number | null;
-  budget_max: number | null;
   currency: string | null;
   status: string | null;
-  created_at: string;
-  request_categories?: RequestCategoryJoin[];
 }
+
+type RequestCategoryJoin = NonNullable<ServiceRequestCardData['request_categories']>[number];
 
 interface BidStat {
   count: number;
   avg: number;
 }
+
+const DEFAULT_FILTERS: MarketplaceFilterValues = {
+  categoryIds: [],
+  categories: [],
+  minimumBudget: '',
+  maximumBudget: '',
+  status: 'open',
+  sort: 'Newest',
+};
 
 function formatRelativeTime(dateString: string): string {
   const diffMs = Date.now() - new Date(dateString).getTime();
@@ -85,35 +83,35 @@ function formatCategoryTags(requestCategories?: RequestCategoryJoin[]): string {
   return `${names[0]} | ${names[1]} | ${names.length - 2} more`;
 }
 
-function formatBudgetRange(min: number | null, max: number | null, currency: string | null): string {
-  const curr = currency || 'USD';
-  const sym = curr === 'PHP' ? '₱' : '$';
-
+function formatBudgetRange(min: number | null, max: number | null): string {
   if (min != null && max != null) {
-    return `${sym}${min.toLocaleString()} - ${sym}${max.toLocaleString()} ${curr}`;
+    return `₱${min.toLocaleString()} - ₱${max.toLocaleString()} PHP`;
   }
   if (min != null) {
-    return `From ${sym}${min.toLocaleString()} ${curr}`;
+    return `From ₱${min.toLocaleString()} PHP`;
   }
   if (max != null) {
-    return `Up to ${sym}${max.toLocaleString()} ${curr}`;
+    return `Up to ₱${max.toLocaleString()} PHP`;
   }
-  return `Budget Negotiable (${curr})`;
+  return 'Budget not set (PHP)';
 }
 
 export default function MarketplaceScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [requests, setRequests] = useState<ServiceRequestRow[]>([]);
   const [bidStats, setBidStats] = useState<Record<string, BidStat>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (activeFilters: MarketplaceFilterValues) => {
     try {
-      // 1. Fetch service requests joining request_categories -> categories
-      const { data: reqData, error: reqError } = await supabase
+      const joinModifier = activeFilters.categoryIds.length > 0 ? '!inner' : '';
+      let requestQuery = supabase
         .from('service_requests')
         .select(`
           id,
@@ -125,7 +123,7 @@ export default function MarketplaceScreen() {
           currency,
           status,
           created_at,
-          request_categories (
+          request_categories${joinModifier} (
             category_id,
             categories (
               id,
@@ -134,42 +132,60 @@ export default function MarketplaceScreen() {
             )
           )
         `)
-        .order('created_at', { ascending: false });
+        .eq('status', activeFilters.status);
+
+      if (activeFilters.categoryIds.length > 0) {
+        requestQuery = requestQuery.in('request_categories.category_id', activeFilters.categoryIds);
+      }
+      if (activeFilters.minimumBudget.trim()) {
+        requestQuery = requestQuery.gte('budget_min', Number(activeFilters.minimumBudget));
+      }
+      if (activeFilters.maximumBudget.trim()) {
+        requestQuery = requestQuery.lte('budget_max', Number(activeFilters.maximumBudget));
+      }
+      if (activeFilters.sort === 'Newest' || activeFilters.sort === 'Oldest') {
+        requestQuery = requestQuery.order('created_at', { ascending: activeFilters.sort === 'Oldest' });
+      } else if (activeFilters.sort === 'Budget: Low to High' || activeFilters.sort === 'Budget: High to Low') {
+        requestQuery = requestQuery.order('budget_min', { ascending: activeFilters.sort === 'Budget: Low to High', nullsFirst: false });
+      }
+
+      const { data: reqData, error: reqError } = await requestQuery;
 
       if (reqError) {
         console.warn('Failed to load service requests:', reqError);
       }
 
-      // 2. Fetch bids to compute count and average bid grouped by request_id
-      const { data: bidsData, error: bidsError } = await supabase
-        .from('bids')
-        .select('request_id, amount');
-
-      if (bidsError) {
-        console.warn('Failed to load bids for stats:', bidsError);
-      }
-
       const stats: Record<string, BidStat> = {};
-      if (bidsData) {
-        const aggregations: Record<string, { count: number; sum: number }> = {};
-        for (const bid of bidsData) {
-          if (!aggregations[bid.request_id]) {
-            aggregations[bid.request_id] = { count: 0, sum: 0 };
-          }
-          aggregations[bid.request_id].count += 1;
-          aggregations[bid.request_id].sum += Number(bid.amount) || 0;
+      const loadedRequests = reqData ?? [];
+      const statRows = await Promise.all(loadedRequests.map(async (request) => {
+        const { data, error } = await supabase.rpc('get_request_bid_stats', { p_request_id: request.id });
+        if (error) {
+          console.warn('Failed to load marketplace bid stats:', error);
+          return { requestId: request.id, stat: { count: 0, avg: 0 } };
         }
+        const row = (data as { bid_count: number; average_bid: number | null }[] | null)?.[0];
+        return {
+          requestId: request.id,
+          stat: {
+            count: Number(row?.bid_count ?? 0) || 0,
+            avg: row?.average_bid == null ? 0 : Math.round(Number(row.average_bid)),
+          },
+        };
+      }));
 
-        for (const reqId in aggregations) {
-          stats[reqId] = {
-            count: aggregations[reqId].count,
-            avg: Math.round(aggregations[reqId].sum / aggregations[reqId].count),
-          };
-        }
+      for (const { requestId, stat } of statRows) {
+        stats[requestId] = stat;
       }
 
       setBidStats(stats);
-      setRequests(reqData || []);
+      const sortedRequests = [...loadedRequests];
+      if (activeFilters.sort === 'Most Bids' || activeFilters.sort === 'Least Bids') {
+        sortedRequests.sort((first, second) => {
+          const difference = (stats[first.id]?.count ?? 0) - (stats[second.id]?.count ?? 0);
+          return activeFilters.sort === 'Most Bids' ? -difference : difference;
+        });
+      }
+      setRequests(sortedRequests);
     } catch (err) {
       console.warn('Error fetching marketplace data:', err);
       setRequests([]);
@@ -180,52 +196,38 @@ export default function MarketplaceScreen() {
   }, []);
 
   useEffect(() => {
-    loadData();
+    void loadData(DEFAULT_FILTERS);
   }, [loadData]);
 
   const onRefresh = () => {
     setIsRefreshing(true);
-    loadData();
+    void loadData(filters);
+  };
+
+  const visibleRequests = useMemo(() => {
+    const query = searchText.trim().toLocaleLowerCase();
+    if (!query) return requests;
+    return requests.filter((request) =>
+      `${request.title} ${request.description}`.toLocaleLowerCase().includes(query)
+    );
+  }, [requests, searchText]);
+
+  const applyFilters = (nextFilters: MarketplaceFilterValues) => {
+    setFilters(nextFilters);
+    setIsFilterOpen(false);
+    setIsLoading(true);
+    void loadData(nextFilters);
   };
 
   const renderItem = ({ item }: { item: ServiceRequestRow }) => {
     const stats = bidStats[item.id] || { count: 0, avg: 0 };
-    const curr = item.currency || 'USD';
-    const sym = curr === 'PHP' ? '₱' : '$';
-    const budgetText = formatBudgetRange(item.budget_min, item.budget_max, item.currency);
-    const categoryText = formatCategoryTags(item.request_categories);
-    const relativeTime = formatRelativeTime(item.created_at);
-
     return (
-      <Pressable
-        style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+      <ServiceRequestCard
+        request={item}
+        bidCount={stats.count}
+        averageBid={stats.avg}
         onPress={() => router.push(`/service-request/${item.id}` as any)}
-        accessibilityRole="button"
-        accessibilityLabel={item.title}>
-        <Text style={styles.cardTitle} numberOfLines={2}>
-          {item.title}
-        </Text>
-        <Text style={styles.cardBudget}>{budgetText}</Text>
-        <View style={styles.bidStatsRow}>
-          <Text style={styles.bidStatsText}>
-            {stats.count} {stats.count === 1 ? 'Bid' : 'Bids'}
-          </Text>
-          <Text style={styles.bidStatsDot}>•</Text>
-          <Text style={styles.bidStatsText}>
-            {sym}
-            {stats.avg.toLocaleString()} {curr} Average Bid
-          </Text>
-        </View>
-        <Text style={styles.cardDescription} numberOfLines={2} ellipsizeMode="tail">
-          {item.description}
-        </Text>
-        <View style={styles.cardFooter}>
-          <Text style={styles.categoryTags} numberOfLines={1}>
-            {categoryText}
-          </Text>
-          <Text style={styles.relativeTime}>{relativeTime}</Text>
-        </View>
-      </Pressable>
+      />
     );
   };
 
@@ -272,13 +274,17 @@ export default function MarketplaceScreen() {
             </Svg>
             <TextInput
               style={styles.searchInput}
+              value={searchText}
+              onChangeText={setSearchText}
               placeholder="Search Service Requests"
               placeholderTextColor="#8E8E93"
-              editable={false}
+              autoCapitalize="none"
+              autoCorrect={false}
               accessibilityLabel="Search Service Requests"
             />
           </View>
           <Pressable
+            onPress={() => setIsFilterOpen(true)}
             style={({ pressed }) => [styles.sortButton, pressed && styles.pressed]}
             accessibilityRole="button"
             accessibilityLabel="Sort and Filter">
@@ -291,18 +297,21 @@ export default function MarketplaceScreen() {
 
         {/* Sorted By Status Subheader */}
         <View style={styles.sortedByContainer}>
-          <Text style={styles.sortedByText}>Sorted by Latest Results</Text>
+          <Text style={styles.sortedByText}>
+            Sorted by {filters.sort === 'Newest' ? 'Latest Results' : filters.sort}
+            {filters.categoryIds.length || filters.minimumBudget || filters.maximumBudget || filters.status !== 'open' ? ' · Filtered' : ''}
+          </Text>
         </View>
       </View>
 
       {/* Requests List or Centered Empty State */}
       <FlatList
-        data={requests}
+        data={visibleRequests}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={[
           styles.listContent,
-          requests.length === 0 && styles.listContentEmpty,
+          visibleRequests.length === 0 && styles.listContentEmpty,
         ]}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={renderEmptyState}
@@ -326,16 +335,20 @@ export default function MarketplaceScreen() {
         onPress={() => router.push('/post-bounty')}
         accessibilityRole="button"
         accessibilityLabel="Add New Bounty">
-        <Image
-          source={require('@/assets/svgs/39_add_button.svg')}
-          style={styles.fabIcon}
-          contentFit="contain"
-          tintColor="#000000"
-        />
+        <Svg width={24} height={24} viewBox="0 0 24 24" accessibilityLabel="Add">
+          <Path d="M12 5v14M5 12h14" stroke="#000000" strokeWidth={2.5} strokeLinecap="round" />
+        </Svg>
       </Pressable>
 
       {/* Bottom Navigation Bar */}
       <BottomNavBar activeTab="market" />
+
+      <MarketplaceFilterSheet
+        visible={isFilterOpen}
+        initialValues={filters}
+        onClose={() => setIsFilterOpen(false)}
+        onApply={applyFilters}
+      />
 
       {/* Hamburger Navigation Drawer */}
       <NavigationDrawer
@@ -535,9 +548,5 @@ const styles = StyleSheet.create({
   },
   fabPressed: {
     transform: [{ scale: 0.95 }],
-  },
-  fabIcon: {
-    width: 22,
-    height: 22,
   },
 });

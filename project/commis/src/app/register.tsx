@@ -110,9 +110,10 @@ export default function RegisterScreen() {
   const handleGoogleRegister = async () => {
     setSubmitError('');
     setIsGoogleSubmitting(true);
-    const { error } = await signInWithGoogle();
+    const { error, cancelled } = await signInWithGoogle();
     setIsGoogleSubmitting(false);
 
+    if (cancelled) return;
     if (error) {
       setSubmitError(error.message || 'Google sign-in failed. Try again');
       return;

@@ -4,10 +4,13 @@ import { supabase } from './supabase';
 
 WebBrowser.maybeCompleteAuthSession();
 
+interface GoogleSignInResult {
+  error: Error | null;
+  cancelled: boolean;
+}
+
 export async function signInWithGoogle() {
   const redirectTo = Linking.createURL('auth/callback');
-  console.log('redirectTo:', redirectTo);
-  
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
@@ -15,13 +18,17 @@ export async function signInWithGoogle() {
   });
 
   if (error || !data?.url) {
-    return { error: error ?? new Error('No auth URL returned') };
+    return { error: error ?? new Error('No auth URL returned'), cancelled: false } satisfies GoogleSignInResult;
   }
 
-  const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
+  const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo, { createTask: false });
+
+  if (result.type === 'cancel' || result.type === 'dismiss') {
+    return { error: null, cancelled: true } satisfies GoogleSignInResult;
+  }
 
   if (result.type !== 'success' || !result.url) {
-    return { error: new Error('Sign-in was cancelled') };
+    return { error: new Error('Google sign-in did not complete'), cancelled: false } satisfies GoogleSignInResult;
   }
 
   const url = new URL(result.url.replace('#', '?'));
@@ -29,7 +36,7 @@ export async function signInWithGoogle() {
   const refresh_token = url.searchParams.get('refresh_token');
 
   if (!access_token || !refresh_token) {
-    return { error: new Error('No tokens in callback URL') };
+    return { error: new Error('No tokens in callback URL'), cancelled: false } satisfies GoogleSignInResult;
   }
 
   const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
@@ -38,8 +45,8 @@ export async function signInWithGoogle() {
   });
 
   if (sessionError) {
-    return { data: sessionData, error: sessionError };
+    return { error: sessionError, cancelled: false } satisfies GoogleSignInResult;
   }
 
-  return { data: sessionData, error: null };
+  return { error: null, cancelled: false } satisfies GoogleSignInResult;
 }

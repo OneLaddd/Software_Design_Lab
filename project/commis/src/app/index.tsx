@@ -7,25 +7,20 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from 'react-native';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const verticalVideo = require('@/assets/videos/start-video-vertical.mp4');
-const landscapeVideo = require('@/assets/videos/start-video-landscape.mp4');
 
 export default function StartPageScreen() {
   const router = useRouter();
-  const { width } = useWindowDimensions();
-  const isDesktop = width >= 800;
-  const videoSource = isDesktop ? landscapeVideo : verticalVideo;
   const [videoReady, setVideoReady] = useState(false);
   const [videoViewKey, setVideoViewKey] = useState(0);
   const isFocused = useRef(false);
 
-  const player = useVideoPlayer(videoSource, (videoPlayer) => {
+  const player = useVideoPlayer(verticalVideo, (videoPlayer) => {
     videoPlayer.loop = true;
     videoPlayer.muted = true;
     videoPlayer.play();
@@ -106,11 +101,7 @@ export default function StartPageScreen() {
       />
       {!videoReady && (
         <Image
-          source={
-            isDesktop
-              ? require('@/assets/images/start-video-landscape-poster.jpg')
-              : require('@/assets/images/start-video-vertical-poster.jpg')
-          }
+          source={require('@/assets/images/start-video-vertical-poster.jpg')}
           style={StyleSheet.absoluteFill}
           resizeMode="cover"
         />
@@ -118,7 +109,7 @@ export default function StartPageScreen() {
       <View style={styles.videoOverlay} pointerEvents="none" />
 
       <SafeAreaView style={styles.safeArea} edges={['top']}>
-        <View style={[styles.header, isDesktop && styles.desktopHeader]}>
+        <View style={styles.header}>
           <View />
           <View style={styles.headerActions}>
             <Pressable
@@ -134,19 +125,19 @@ export default function StartPageScreen() {
           </View>
         </View>
 
-        <View style={[styles.content, isDesktop && styles.desktopContent]}>
+        <View style={styles.content}>
           <Image
             source={require('@/assets/images/commis-title.png')}
-            style={[styles.brand, isDesktop && styles.desktopBrand]}
+            style={styles.brand}
             resizeMode="contain"
           />
-          <Text style={[styles.tagline, isDesktop && styles.desktopTagline]}>
+          <Text style={styles.tagline}>
             Name your bounty.
           </Text>
 
-          <View style={[styles.roleSection, isDesktop && styles.desktopRoleSection]}>
-            <Text style={[styles.prompt, isDesktop && styles.desktopPrompt]}>I am a...</Text>
-            <View style={[styles.roles, isDesktop && styles.desktopRoles]}>
+          <View style={styles.roleSection}>
+            <Text style={styles.prompt}>I am a...</Text>
+            <View style={styles.roles}>
               <RoleCard
                 title="Client"
                 body={'I\'m looking for\ncreators to bring\nmy vision to life.'}
@@ -233,10 +224,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 8,
   },
-  desktopHeader: {
-    paddingHorizontal: 52,
-    paddingTop: 22,
-  },
   headerActions: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -259,14 +246,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     paddingBottom: 0,
   },
-  desktopContent: {
-    width: '100%',
-    maxWidth: 1120,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 52,
-    paddingBottom: 32,
-  },
   brand: {
     width: '80%',
     height: 120,
@@ -274,10 +253,6 @@ const styles = StyleSheet.create({
     // The logo asset includes transparent left padding, so its visible mark needs compensation.
     marginLeft: -18,
     alignSelf: 'flex-start',
-  },
-  desktopBrand: {
-    width: 300,
-    height: 76,
   },
   tagline: {
     color: '#FFFFFF',
@@ -287,18 +262,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'Agrandir',
   },
-  desktopTagline: {
-    fontSize: 48,
-    lineHeight: 56,
-  },
   roleSection: {
     marginTop: 178,
-  },
-  desktopRoleSection: {
-    alignSelf: 'flex-start',
-    width: '62%',
-    maxWidth: 620,
-    marginTop: 74,
   },
   prompt: {
     color: '#FFFFFF',
@@ -309,17 +274,9 @@ const styles = StyleSheet.create({
     fontFamily: 'LeagueSpartanBold',
     marginBottom: 20,
   },
-  desktopPrompt: {
-    textAlign: 'left',
-    fontSize: 42,
-    lineHeight: 48,
-  },
   roles: {
     flexDirection: 'row',
     gap: 12,
-  },
-  desktopRoles: {
-    gap: 18,
   },
   roleCard: {
     flex: 1,
