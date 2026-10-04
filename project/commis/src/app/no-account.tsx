@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { signInWithGoogle } from '../lib/googleAuth';
@@ -12,10 +12,17 @@ const BACKGROUND = '#302F2D';
 
 export default function NoAccountScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams<{ required?: string; action?: string }>();
+  const isRequired = params.required === '1';
+  const requestedAction = typeof params.action === 'string' ? params.action : 'use this feature';
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [googleError, setGoogleError] = useState('');
 
   const handleBack = async () => {
+    if (isRequired) {
+      router.replace('/home' as any);
+      return;
+    }
     const { data } = await supabase.auth.getSession();
     if (data.session) {
       router.back();
@@ -70,12 +77,13 @@ export default function NoAccountScreen() {
             accessibilityLabel="Back">
             <Text style={styles.headerLink}>Back</Text>
           </Pressable>
-          <Pressable
+          {!isRequired ? <Pressable
+            onPress={() => router.replace('/home' as any)}
             style={({ pressed }) => [styles.textLink, pressed && styles.pressed]}
             accessibilityRole="button"
-            accessibilityLabel="Skip">
+            accessibilityLabel="Skip account creation and browse as a guest">
             <Text style={styles.headerLink}>Skip</Text>
-          </Pressable>
+          </Pressable> : <View style={styles.textLink} />}
         </View>
 
         <View style={styles.content}>
@@ -92,8 +100,9 @@ export default function NoAccountScreen() {
           </View>
 
           <Text style={styles.description}>
-            Don&apos;t just browse from the sidelines. Create your account to start posting custom
-            requests as a Client or claiming active commission slots as a Hunter.
+            {isRequired
+              ? `Create an account or sign in to ${requestedAction}. You can keep browsing as a guest, but this feature requires an account.`
+              : 'Browse Commis as a guest, or create an account to post custom requests as a Client, claim commission slots as a Hunter, and use all features.'}
           </Text>
 
           <View style={styles.actions}>

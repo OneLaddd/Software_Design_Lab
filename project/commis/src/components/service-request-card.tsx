@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import { MarkdownText } from '@/components/markdown-text';
 
 export interface ServiceRequestCategory {
   category_id: string;
@@ -111,7 +112,7 @@ export function ServiceRequestCard({
         <Text style={styles.bidStatsText}>•</Text>
         <Text style={styles.bidStatsText}>₱{averageBid.toLocaleString()} PHP Average Bid</Text>
       </View>
-      <Text style={styles.cardDescription} numberOfLines={2} ellipsizeMode="tail">{request.description}</Text>
+      <MarkdownText style={styles.cardDescription} numberOfLines={2}>{request.description}</MarkdownText>
       <View style={styles.cardFooter}>
         <Text style={styles.categoryTags} numberOfLines={1}>{formatCategoryTags(request.request_categories)}</Text>
         <Text style={styles.relativeTime}>{formatRelativeTime(request.created_at)}</Text>

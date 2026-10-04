@@ -9,9 +9,10 @@ import {
   View,
 } from 'react-native';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { Menu, Search } from 'lucide-react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Circle, Line, Path } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 import { BottomNavBar } from '@/components/bottom-nav-bar';
 import {
   MarketplaceFilterSheet,
@@ -98,6 +99,7 @@ function formatBudgetRange(min: number | null, max: number | null): string {
 
 export default function MarketplaceScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams<{ category?: string }>();
   const insets = useSafeAreaInsets();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -196,8 +198,41 @@ export default function MarketplaceScreen() {
   }, []);
 
   useEffect(() => {
-    void loadData(DEFAULT_FILTERS);
-  }, [loadData]);
+    let active = true;
+    const applyRouteCategory = async () => {
+      const categorySlug = typeof params.category === 'string' ? params.category : '';
+      if (!categorySlug) {
+        setFilters(DEFAULT_FILTERS);
+        void loadData(DEFAULT_FILTERS);
+        return;
+      }
+
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name, slug')
+        .eq('slug', categorySlug)
+        .maybeSingle();
+      if (!active) return;
+      if (error || !data) {
+        console.warn('Failed to load marketplace category:', error);
+        setFilters(DEFAULT_FILTERS);
+        void loadData(DEFAULT_FILTERS);
+        return;
+      }
+
+      const nextFilters: MarketplaceFilterValues = {
+        ...DEFAULT_FILTERS,
+        categoryIds: [data.id],
+        categories: [data],
+      };
+      setFilters(nextFilters);
+      void loadData(nextFilters);
+    };
+
+    void applyRouteCategory();
+    return () => { active = false; };
+  }, [loadData, params.category]);
 
   const onRefresh = () => {
     setIsRefreshing(true);
@@ -258,9 +293,7 @@ export default function MarketplaceScreen() {
           style={({ pressed }) => [styles.hamburgerButton, pressed && styles.pressed]}
           accessibilityRole="button"
           accessibilityLabel="Open navigation menu">
-          <Svg width={26} height={26} viewBox="0 0 24 24">
-            <Path d="M4 6h16M4 12h16M4 18h16" stroke="#FFFFFF" strokeWidth={2} strokeLinecap="round" />
-          </Svg>
+          <Menu size={26} color="#FFFFFF" strokeWidth={2.2} />
         </Pressable>
       </View>
 
@@ -268,10 +301,7 @@ export default function MarketplaceScreen() {
       <View style={styles.searchSection}>
         <View style={styles.searchRow}>
           <View style={styles.searchInputContainer}>
-            <Svg width={18} height={18} viewBox="0 0 24 24" style={styles.searchBarIcon}>
-              <Circle cx={11} cy={11} r={7} stroke="#D1D5DB" strokeWidth={2} fill="none" />
-              <Line x1={16.5} y1={16.5} x2={21} y2={21} stroke="#D1D5DB" strokeWidth={2} strokeLinecap="round" />
-            </Svg>
+            <Search size={18} color="#D1D5DB" style={styles.searchBarIcon} />
             <TextInput
               style={styles.searchInput}
               value={searchText}
@@ -362,7 +392,7 @@ export default function MarketplaceScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#1A1A1A',
+    backgroundColor: '#131313',
   },
   header: {
     paddingHorizontal: 20,
@@ -409,7 +439,7 @@ const styles = StyleSheet.create({
   },
   searchInputContainer: {
     flex: 1,
-    height: 42,
+    height: 48,
     backgroundColor: '#202020',
     borderRadius: 8,
     flexDirection: 'row',

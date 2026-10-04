@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { RichTextInput } from '@/components/rich-text-input';
 
 export interface BidDraft {
   amount: number;
@@ -133,7 +134,7 @@ export function BidComposerModal({
             <Text style={styles.fieldLabel}>MESSAGE</Text>
             <Text style={styles.counter}>{message.length} / 500</Text>
           </View>
-          <TextInput
+          <RichTextInput
             value={message}
             onChangeText={setMessage}
             maxLength={500}

@@ -141,7 +141,7 @@ export default function RegisterScreen() {
           showsVerticalScrollIndicator={false}>
           <View style={styles.brandSection}>
             <Image
-              source={require('@/assets/images/logo.png')}
+              source={require('@/assets/images/logo-flat.png')}
               style={styles.logo}
               resizeMode="contain"
             />

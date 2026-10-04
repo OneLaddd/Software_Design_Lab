@@ -5,6 +5,7 @@ import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { supabase } from '@/lib/supabase';
+import { MarkdownText } from '@/components/markdown-text';
 
 type Entry = { id: string; user_id: string; title: string; subtitle: string | null; description: string | null; category_id: string | null; image_url: string | null; skills: string[] | null; project_url: string | null; created_at: string };
 type Owner = { id: string; username: string | null; avatar_url: string | null };
@@ -48,7 +49,7 @@ export default function PortfolioEntryDetailScreen() {
         <Pressable style={styles.ownerRow} onPress={() => router.push({ pathname: '/profile/[id]', params: { id: entry.user_id } } as any)}><ProfileAvatar avatarUrl={owner?.avatar_url} size={40} /><View style={{ flex: 1 }}><Text style={styles.ownerName}>@{owner?.username ?? 'member'}</Text><Text style={styles.ownerSub}>Portfolio project</Text></View></Pressable>
         {category ? <Text style={styles.category}>{category.toLocaleUpperCase()}</Text> : null}
         <Text style={styles.title}>{entry.title}</Text>
-        {entry.description || entry.subtitle ? <Text style={styles.description}>{entry.description ?? entry.subtitle}</Text> : null}
+        {entry.description || entry.subtitle ? <MarkdownText style={styles.description}>{entry.description ?? entry.subtitle ?? ''}</MarkdownText> : null}
         {entry.skills?.length ? <View style={styles.section}><Text style={styles.sectionTitle}>Skills used</Text><View style={styles.skills}>{entry.skills.map((skill) => <View key={skill} style={styles.skill}><Text style={styles.skillText}>{skill}</Text></View>)}</View></View> : null}
         {entry.project_url ? <View style={styles.section}><Text style={styles.sectionTitle}>Project link</Text><Pressable onPress={() => void Linking.openURL(entry.project_url!)} style={styles.linkButton}><Text numberOfLines={2} style={styles.linkText}>{entry.project_url}</Text><Text style={styles.linkArrow}>↗</Text></Pressable></View> : null}
         <Text style={styles.created}>Added {new Date(entry.created_at).toLocaleDateString()}</Text>

@@ -19,6 +19,8 @@ import { File as ExpoFile } from 'expo-file-system';
 import * as LegacyFileSystem from 'expo-file-system/legacy';
 import { supabase } from '@/lib/supabase';
 import { ConfirmationModal } from '@/components/confirmation-modal';
+import { RichTextInput } from '@/components/rich-text-input';
+import { MarkdownText } from '@/components/markdown-text';
 
 type Order = {
   id: string;
@@ -1076,7 +1078,7 @@ export default function CommissionDetailScreen() {
                     <View style={styles.reviewSubmitted}>
                       <Text style={styles.reviewTitle}>Your review was submitted</Text>
                       <Text style={styles.reviewStars}>{'★'.repeat(myReview.rating)}{'☆'.repeat(5 - myReview.rating)}</Text>
-                      {myReview.comment ? <Text style={styles.mutedText}>{myReview.comment}</Text> : null}
+                      {myReview.comment ? <MarkdownText style={styles.mutedText}>{myReview.comment}</MarkdownText> : null}
                     </View>
                   ) : (
                     <>
@@ -1088,7 +1090,7 @@ export default function CommissionDetailScreen() {
                           </Pressable>
                         ))}
                       </View>
-                      <TextInput
+                      <RichTextInput
                         value={reviewComment}
                         onChangeText={(value) => setReviewComment(value.slice(0, 1000))}
                         placeholder="Write an optional review"
@@ -1104,7 +1106,7 @@ export default function CommissionDetailScreen() {
                     <View style={styles.reviewSubmitted}>
                       <Text style={styles.reviewTitle}>Their review of you</Text>
                       <Text style={styles.reviewStars}>{'★'.repeat(receivedReview.rating)}{'☆'.repeat(5 - receivedReview.rating)}</Text>
-                      {receivedReview.comment ? <Text style={styles.mutedText}>{receivedReview.comment}</Text> : <Text style={styles.mutedText}>No written comment.</Text>}
+                      {receivedReview.comment ? <MarkdownText style={styles.mutedText}>{receivedReview.comment}</MarkdownText> : <Text style={styles.mutedText}>No written comment.</Text>}
                     </View>
                   ) : null}
                 </>
@@ -1183,7 +1185,7 @@ export default function CommissionDetailScreen() {
                   <Text style={styles.inputLabel}>DETAILED EXPLANATION</Text>
                   <Text style={styles.mutedText}>{disputeExplanation.length} / 1000</Text>
                 </View>
-                <TextInput
+                <RichTextInput
                   value={disputeExplanation}
                   onChangeText={(value) => setDisputeExplanation(value.slice(0, 1000))}
                   onFocus={() =>

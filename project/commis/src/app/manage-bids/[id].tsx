@@ -12,6 +12,7 @@ import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import Svg, { Circle, Path } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ProfileAvatar } from '@/components/profile-avatar';
+import { MarkdownText } from '@/components/markdown-text';
 import { Toast } from '@/components/toast';
 import { supabase } from '@/lib/supabase';
 
@@ -303,15 +304,15 @@ export default function ManageBidsScreen() {
                       <Text style={styles.currency}>PHP</Text>
                     </View>
                   </View>
-                  <Text style={styles.message}>
+                  <MarkdownText style={styles.message}>
                     {bid.message?.trim() ? `“${bid.message.trim()}”` : 'No proposal message provided.'}
-                  </Text>
+                  </MarkdownText>
                   <View style={styles.cardActions}>
                     <View style={styles.profileActions}>
-                      <Pressable onPress={() => {}} style={styles.profileButton} accessibilityRole="button">
+                      <Pressable onPress={() => profile?.id && router.push({ pathname: '/profile/[id]', params: { id: profile.id } } as any)} style={styles.profileButton} accessibilityRole="button">
                         <Text style={styles.profileButtonText}>Profile</Text>
                       </Pressable>
-                      <Pressable onPress={() => {}} style={styles.messageButton} accessibilityRole="button" accessibilityLabel="Message hunter">
+                      <Pressable onPress={() => profile?.id && router.push({ pathname: '/messages/new/[id]', params: { id: profile.id } } as any)} style={styles.messageButton} accessibilityRole="button" accessibilityLabel="Message hunter" disabled={!profile?.id}>
                         <Svg width={18} height={18} viewBox="0 0 24 24">
                           <Path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z" stroke="#E5E2E1" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
                         </Svg>

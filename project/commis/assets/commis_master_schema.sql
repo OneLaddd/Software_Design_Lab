@@ -76,6 +76,7 @@ create trigger on_auth_user_created
 alter table profiles enable row level security;
 create policy "profiles are public" on profiles for select using (true);
 create policy "users update own profile" on profiles for update using (auth.uid() = id);
+grant select (id, username, avatar_url, bio, active_role, created_at) on public.profiles to authenticated;
 
 
 -- =====================================================================
@@ -129,6 +130,7 @@ create table communities (
   name text not null,
   description text,
   icon_url text,
+  banner_url text,
   created_at timestamptz default now()
 );
 
@@ -141,6 +143,11 @@ create table community_members (
 
 alter table communities enable row level security;
 alter table community_members enable row level security;
+
+grant select on public.communities to authenticated;
+grant select (user_id, community_id, joined_at) on public.community_members to authenticated;
+grant insert (user_id, community_id) on public.community_members to authenticated;
+grant delete on public.community_members to authenticated;
 
 create policy "communities are public" on communities for select using (true);
 create policy "memberships are public" on community_members for select using (true);
@@ -198,10 +205,12 @@ alter table request_categories enable row level security;
 alter table bids enable row level security;
 
 create policy "requests are public" on service_requests for select using (true);
+grant select (id, client_id, title, description, budget_min, budget_max, currency, status, created_at) on public.service_requests to authenticated;
 create policy "clients create own requests" on service_requests for insert with check (auth.uid() = client_id);
 create policy "clients update own requests" on service_requests for update using (auth.uid() = client_id);
 
 create policy "request categories are public" on request_categories for select using (true);
+grant select (request_id, category_id) on public.request_categories to authenticated;
 create policy "clients tag own requests" on request_categories for insert
   with check (exists(select 1 from service_requests where id = request_id and client_id = auth.uid()));
 create policy "clients untag own requests" on request_categories for delete
@@ -228,6 +237,7 @@ create table posts (
   title text,
   body text,
   media_url text,
+  view_count bigint not null default 0,
   created_at timestamptz default now()
 );
 
@@ -247,24 +257,89 @@ create table comments (
   created_at timestamptz default now()
 );
 
+create table post_media (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid references posts(id) on delete cascade,
+  media_url text not null,
+  position int not null default 0,
+  created_at timestamptz default now()
+);
+
+create or replace function public.increment_post_view(p_post_id uuid)
+returns void
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  update public.posts set view_count = view_count + 1 where id = p_post_id;
+end;
+$$;
+grant execute on function public.increment_post_view(uuid) to authenticated, anon;
+
 alter table posts enable row level security;
 alter table votes enable row level security;
 alter table comments enable row level security;
+alter table post_media enable row level security;
 
 create policy "posts are public" on posts for select using (true);
 grant select on public.posts to authenticated;
 create policy "users create own posts" on posts for insert with check (auth.uid() = author_id);
 create policy "users update own posts" on posts for update using (auth.uid() = author_id);
 create policy "users delete own posts" on posts for delete using (auth.uid() = author_id);
+grant select, insert, update, delete on public.posts to authenticated;
 
 create policy "votes are public" on votes for select using (true);
 create policy "users manage own votes" on votes for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
+grant select, insert, update, delete on public.votes to authenticated;
 
 create policy "comments are public" on comments for select using (true);
 create policy "users create own comments" on comments for insert with check (auth.uid() = author_id);
 create policy "users update own comments" on comments for update using (auth.uid() = author_id);
 create policy "users delete own comments" on comments for delete using (auth.uid() = author_id);
+grant select, insert, update, delete on public.comments to authenticated;
+
+create policy "post media is public" on post_media for select using (true);
+create policy "authors manage own post media" on post_media for all
+  using (exists(select 1 from posts where id = post_id and author_id = auth.uid()))
+  with check (exists(select 1 from posts where id = post_id and author_id = auth.uid()));
+grant select, insert, update, delete on public.post_media to authenticated;
+
+create or replace function public.save_post_with_media(
+  p_post_id uuid,
+  p_community_id uuid,
+  p_title text,
+  p_body text,
+  p_media_urls text[]
+) returns uuid
+language plpgsql
+set search_path = public
+as $$
+declare saved_post_id uuid;
+begin
+  if char_length(btrim(coalesce(p_title, ''))) < 5 or char_length(btrim(p_title)) > 300 then
+    raise exception 'Post title must be between 5 and 300 characters';
+  end if;
+  if coalesce(cardinality(p_media_urls), 0) > 4 then
+    raise exception 'A post can contain at most four images';
+  end if;
+  if p_post_id is null then
+    insert into public.posts(author_id, community_id, title, body, media_url)
+      values (auth.uid(), p_community_id, btrim(p_title), nullif(btrim(p_body), ''), p_media_urls[1]) returning id into saved_post_id;
+  else
+    update public.posts set community_id=p_community_id,title=btrim(p_title),body=nullif(btrim(p_body),''),media_url=p_media_urls[1]
+      where id=p_post_id and author_id=auth.uid() returning id into saved_post_id;
+    if saved_post_id is null then raise exception 'Post not found or current user is not its author'; end if;
+    delete from public.post_media where post_id=saved_post_id;
+  end if;
+  insert into public.post_media(post_id,media_url,position)
+    select saved_post_id,media_url,ordinality-1 from unnest(coalesce(p_media_urls,array[]::text[])) with ordinality as items(media_url,ordinality);
+  return saved_post_id;
+end;
+$$;
+revoke all on function public.save_post_with_media(uuid, uuid, text, text, text[]) from public;
+grant execute on function public.save_post_with_media(uuid, uuid, text, text, text[]) to authenticated;
 
 
 -- =====================================================================
@@ -1100,7 +1175,18 @@ create table messages (
   sender_id uuid references profiles(id) not null,
   body text not null,
   created_at timestamptz default now(),
-  read_at timestamptz
+  read_at timestamptz,
+  attachment_path text,
+  attachment_name text,
+  attachment_mime_type text,
+  attachment_size bigint,
+  constraint messages_body_or_attachment_check
+    check (nullif(btrim(body), '') is not null or attachment_path is not null),
+  constraint messages_attachment_metadata_check
+    check (
+      (attachment_path is null and attachment_name is null and attachment_mime_type is null and attachment_size is null)
+      or (attachment_path is not null and attachment_name is not null and attachment_mime_type is not null and attachment_size between 1 and 10485760)
+    )
 );
 
 alter table notifications enable row level security;
@@ -1126,7 +1212,67 @@ $$;
 revoke all on function public.is_conversation_participant(uuid) from public;
 grant execute on function public.is_conversation_participant(uuid) to authenticated;
 
+create or replace function public.get_or_create_direct_conversation(p_other_user_id uuid)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  v_user_id uuid := auth.uid();
+  v_conversation_id uuid;
+begin
+  if v_user_id is null then raise exception 'Sign in to start a conversation'; end if;
+  if p_other_user_id is null or p_other_user_id = v_user_id then
+    raise exception 'Choose another Commis member to message';
+  end if;
+  perform p.id from public.profiles p
+  where p.id in (v_user_id, p_other_user_id) order by p.id for update;
+  if (select count(*) from public.profiles p where p.id in (v_user_id, p_other_user_id)) <> 2 then
+    raise exception 'This Commis member could not be found';
+  end if;
+  select c.id into v_conversation_id
+  from public.conversations c
+  where exists (select 1 from public.conversation_participants cp where cp.conversation_id = c.id and cp.user_id = v_user_id)
+    and exists (select 1 from public.conversation_participants cp where cp.conversation_id = c.id and cp.user_id = p_other_user_id)
+    and (select count(*) from public.conversation_participants cp where cp.conversation_id = c.id) = 2
+  order by c.created_at limit 1;
+  if v_conversation_id is null then
+    insert into public.conversations default values returning id into v_conversation_id;
+    insert into public.conversation_participants (conversation_id, user_id)
+    values (v_conversation_id, v_user_id), (v_conversation_id, p_other_user_id);
+  end if;
+  return v_conversation_id;
+end;
+$$;
+revoke all on function public.get_or_create_direct_conversation(uuid) from public;
+grant execute on function public.get_or_create_direct_conversation(uuid) to authenticated;
+
+create or replace function public.validate_message_attachment()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if new.attachment_path is not null and (
+    split_part(new.attachment_path, '/', 1) <> new.conversation_id::text
+    or split_part(new.attachment_path, '/', 2) <> new.sender_id::text
+    or not exists (select 1 from storage.objects o where o.bucket_id = 'message-attachments' and o.name = new.attachment_path)
+  ) then
+    raise exception 'Message attachment path is invalid';
+  end if;
+  return new;
+end;
+$$;
+revoke all on function public.validate_message_attachment() from public;
+create trigger validate_message_attachment_before_insert
+  before insert on public.messages for each row execute function public.validate_message_attachment();
+
 grant select on public.notifications to authenticated;
+grant select on public.conversations, public.conversation_participants to authenticated;
+grant select, insert on public.messages to authenticated;
+grant update (read_at) on public.messages to authenticated;
 
 create policy "users view own notifications" on notifications for select using (auth.uid() = user_id);
 create policy "users mark own notifications read" on notifications for update using (auth.uid() = user_id);
@@ -1135,12 +1281,14 @@ create policy "participants view own conversations" on conversations for select
   using (exists(select 1 from conversation_participants cp where cp.conversation_id = id and cp.user_id = auth.uid()));
 create policy "users view own participation rows" on conversation_participants for select
   using (public.is_conversation_participant(conversation_id));
-create policy "users join conversations" on conversation_participants for insert with check (auth.uid() = user_id);
 
 create policy "participants view messages" on messages for select
   using (exists(select 1 from conversation_participants cp where cp.conversation_id = messages.conversation_id and cp.user_id = auth.uid()));
 create policy "participants send messages" on messages for insert
   with check (auth.uid() = sender_id and exists(select 1 from conversation_participants cp where cp.conversation_id = messages.conversation_id and cp.user_id = auth.uid()));
+create policy "recipients mark messages read" on messages for update
+  using (sender_id <> auth.uid() and exists(select 1 from conversation_participants cp where cp.conversation_id = messages.conversation_id and cp.user_id = auth.uid()))
+  with check (sender_id <> auth.uid() and exists(select 1 from conversation_participants cp where cp.conversation_id = messages.conversation_id and cp.user_id = auth.uid()));
 
 
 -- =====================================================================
@@ -1180,6 +1328,7 @@ grant select, insert, delete on public.saved_requests to authenticated;
 --   portfolio-media    (PUBLIC)
 --   order-deliverables (PRIVATE — do not toggle "Public bucket")
 --   dispute-attachments (PRIVATE — do not toggle "Public bucket")
+--   message-attachments (PRIVATE — do not toggle "Public bucket")
 -- Then run the policies below.
 
 create policy "avatar images are publicly accessible"
@@ -1196,12 +1345,45 @@ create policy "post media is publicly accessible"
 create policy "users upload own post media"
   on storage.objects for insert
   with check (bucket_id = 'post-media' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "users delete own post media"
+  on storage.objects for delete
+  using (bucket_id = 'post-media' and (storage.foldername(name))[1] = auth.uid()::text);
 
 create policy "portfolio media is publicly accessible"
   on storage.objects for select using (bucket_id = 'portfolio-media');
 create policy "users upload own portfolio media"
   on storage.objects for insert
   with check (bucket_id = 'portfolio-media' and (storage.foldername(name))[1] = auth.uid()::text);
+
+create policy "conversation participants view message attachments"
+  on storage.objects for select
+  using (
+    bucket_id = 'message-attachments'
+    and exists (
+      select 1 from public.conversation_participants cp
+      where cp.conversation_id::text = (storage.foldername(name))[1] and cp.user_id = auth.uid()
+    )
+  );
+create policy "conversation participants upload own message attachments"
+  on storage.objects for insert
+  with check (
+    bucket_id = 'message-attachments'
+    and (storage.foldername(name))[2] = auth.uid()::text
+    and exists (
+      select 1 from public.conversation_participants cp
+      where cp.conversation_id::text = (storage.foldername(name))[1] and cp.user_id = auth.uid()
+    )
+  );
+create policy "conversation participants clean up own message attachments"
+  on storage.objects for delete
+  using (
+    bucket_id = 'message-attachments'
+    and (storage.foldername(name))[2] = auth.uid()::text
+    and exists (
+      select 1 from public.conversation_participants cp
+      where cp.conversation_id::text = (storage.foldername(name))[1] and cp.user_id = auth.uid()
+    )
+  );
 
 create policy "order participants can upload deliverables"
   on storage.objects for insert

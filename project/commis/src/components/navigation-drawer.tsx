@@ -258,7 +258,8 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
               <Pressable
                 style={({ pressed }) => [styles.navItem, pressed && styles.navItemPressed]}
                 onPress={() => {
-                  // TODO: Navigate to Liked Posts screen
+                  onClose();
+                  router.push('/liked-posts' as any);
                 }}>
                 <View style={styles.navItemLeft}>
                   <View style={styles.iconBox}>
@@ -289,7 +290,8 @@ export function NavigationDrawer({ visible, onClose, profile }: NavigationDrawer
               <Pressable
                 style={({ pressed }) => [styles.navItem, pressed && styles.navItemPressed]}
                 onPress={() => {
-                  // TODO: Navigate to Communities screen
+                  onClose();
+                  router.push('/joined-communities' as any);
                 }}>
                 <View style={styles.navItemLeft}>
                   <View style={styles.iconBox}>

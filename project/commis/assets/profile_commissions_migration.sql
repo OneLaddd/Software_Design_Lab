@@ -71,9 +71,6 @@ security definer
 set search_path = ''
 as $$
 begin
-  if auth.uid() is null then
-    raise exception 'You must be signed in to view profile commissions';
-  end if;
   if not exists (select 1 from public.profiles p where p.id = p_profile_id) then
     return;
   end if;
@@ -91,7 +88,7 @@ end;
 $$;
 
 revoke all on function public.get_public_profile_commissions(uuid) from public;
-grant execute on function public.get_public_profile_commissions(uuid) to authenticated;
+grant execute on function public.get_public_profile_commissions(uuid) to authenticated, anon;
 
 create unique index if not exists notifications_one_bid_invitation
   on public.notifications (user_id, related_id)

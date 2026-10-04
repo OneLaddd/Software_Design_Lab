@@ -15,6 +15,8 @@ import { BidComposerModal, type BidDraft } from '@/components/bid-composer-modal
 import { CloseRequestSheet } from '@/components/close-request-sheet';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { supabase } from '@/lib/supabase';
+import { requireAccount } from '@/lib/require-auth';
+import { MarkdownText } from '@/components/markdown-text';
 import { ConfirmationModal } from '@/components/confirmation-modal';
 
 interface ServiceRequest {
@@ -291,7 +293,7 @@ export default function ServiceRequestDetailScreen() {
 
   const toggleSaved = async () => {
     if (!currentUserId || !request || isSaving) {
-      if (!currentUserId) Alert.alert('Sign in required', 'Sign in to save requests.');
+      if (!currentUserId) await requireAccount(router, 'save service requests');
       return;
     }
     if (actionError === 'Could not load saved-request status.') return;
@@ -353,6 +355,10 @@ export default function ServiceRequestDetailScreen() {
   };
 
   const submitBid = async (draft: BidDraft) => {
+    if (!currentUserId) {
+      await requireAccount(router, 'place bids on service requests');
+      return;
+    }
     const amountInRange = Boolean(
       request &&
         Number.isFinite(draft.amount) &&
@@ -554,9 +560,9 @@ export default function ServiceRequestDetailScreen() {
 
         <View style={styles.panel}>
           <Text style={styles.sectionOverline}>REQUEST DESCRIPTION</Text>
-          <Text style={styles.descriptionText}>
+          <MarkdownText style={styles.descriptionText}>
             {request.description?.trim() || 'No description provided.'}
-          </Text>
+          </MarkdownText>
         </View>
 
         <View>
@@ -647,7 +653,7 @@ export default function ServiceRequestDetailScreen() {
               </Text>
             </Pressable>
           </View>
-        ) : isEligibleHunter && request.status === 'open' ? (
+        ) : (!currentUserId || isEligibleHunter) && request.status === 'open' ? (
           <View style={styles.actionStack}>
             <View style={styles.hunterActionRow}>
               <Pressable
@@ -668,21 +674,27 @@ export default function ServiceRequestDetailScreen() {
               </Pressable>
               <Pressable
                 onPress={() => {
+                  if (!currentUserId) {
+                    void requireAccount(router, 'place bids on service requests');
+                    return;
+                  }
                   setBidSubmitError('');
                   setBidBeingEdited(null);
                   setIsBidModalVisible(true);
                 }}
-                disabled={!canPlaceBid}
-                style={[styles.placeBidButton, !canPlaceBid && styles.disabledSubmit]}
+                disabled={Boolean(currentUserId) && !canPlaceBid}
+                style={[styles.placeBidButton, Boolean(currentUserId) && !canPlaceBid && styles.disabledSubmit]}
                 accessibilityRole="button">
                 <Text style={styles.placeBidText}>
-                  {bidError
-                    ? 'Bids unavailable'
-                    : bids === null
-                      ? 'Checking bids...'
-                      : hasExistingBid
-                        ? 'Bid already submitted'
-                        : 'Place Bid'}
+                  {!currentUserId
+                    ? 'Sign in to place a bid'
+                    : bidError
+                      ? 'Bids unavailable'
+                      : bids === null
+                        ? 'Checking bids...'
+                        : hasExistingBid
+                          ? 'Bid already submitted'
+                          : 'Place Bid'}
                 </Text>
               </Pressable>
             </View>
@@ -764,11 +776,7 @@ export default function ServiceRequestDetailScreen() {
                     </View>
                   </View>
                   {bid.message?.trim() ? (
-                    <Text style={styles.bidMessage}>
-                      {bid.hunter_id !== currentUserId && bid.message.trim().length > 36
-                        ? `${bid.message.trim().slice(0, 36).trimEnd()}...`
-                        : bid.message.trim()}
-                    </Text>
+                    <MarkdownText style={styles.bidMessage} numberOfLines={3}>{bid.message.trim()}</MarkdownText>
                   ) : (
                     <Text style={styles.bidNoMessage}>No proposal message provided.</Text>
                   )}

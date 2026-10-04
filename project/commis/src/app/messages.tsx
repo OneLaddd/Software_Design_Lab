@@ -8,6 +8,7 @@ import { BottomNavBar } from '@/components/bottom-nav-bar';
 import { NavigationDrawer } from '@/components/navigation-drawer';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { supabase } from '@/lib/supabase';
+import { MarkdownText } from '@/components/markdown-text';
 
 type MessageTab = 'notifications' | 'chats';
 
@@ -205,7 +206,7 @@ export default function MessagesScreen() {
         .neq('user_id', user.id),
       supabase
         .from('messages')
-        .select('id, conversation_id, sender_id, body, created_at')
+        .select('id, conversation_id, sender_id, body, attachment_name, created_at')
         .in('conversation_id', conversationIds)
         .order('created_at', { ascending: false }),
     ]);
@@ -223,10 +224,10 @@ export default function MessagesScreen() {
       const profile = Array.isArray(joinedProfile) ? joinedProfile[0] : joinedProfile;
       if (profile) profileByConversation.set(participant.conversation_id, profile as ProfileSummary);
     }
-    const latestByConversation = new Map<string, { body: string; created_at: string | null }>();
+    const latestByConversation = new Map<string, { body: string; attachment_name: string | null; created_at: string | null }>();
     for (const message of messageResult.data ?? []) {
       if (!latestByConversation.has(message.conversation_id)) {
-        latestByConversation.set(message.conversation_id, { body: message.body, created_at: message.created_at });
+        latestByConversation.set(message.conversation_id, { body: message.body, attachment_name: message.attachment_name, created_at: message.created_at });
       }
     }
 
@@ -236,7 +237,7 @@ export default function MessagesScreen() {
         id: conversation.id,
         created_at: conversation.created_at,
         otherUser: profileByConversation.get(conversation.id) ?? null,
-        latestMessage: latest?.body ?? null,
+        latestMessage: latest?.body?.trim() || (latest?.attachment_name ? `Attachment: ${latest.attachment_name}` : null),
         latestMessageAt: latest?.created_at ?? conversation.created_at,
       };
     }).sort((first, second) => {
@@ -350,7 +351,7 @@ export default function MessagesScreen() {
       ) : conversations.length ? (
         <ScrollView contentContainerStyle={[styles.list, { paddingBottom: Math.max(insets.bottom, 10) + 86 }]} showsVerticalScrollIndicator={false}>
           {conversations.map((conversation, index) => (
-            <Pressable key={conversation.id} onPress={() => {}} style={[styles.chatRow, index > 0 && styles.rowBorder]} accessibilityRole="button">
+            <Pressable key={conversation.id} onPress={() => router.push({ pathname: '/messages/[id]', params: { id: conversation.id } } as any)} style={[styles.chatRow, index > 0 && styles.rowBorder]} accessibilityRole="button">
               <ProfileAvatar avatarUrl={conversation.otherUser?.avatar_url} size={44} style={styles.chatAvatar} accessibilityLabel="Conversation participant avatar" />
               <View style={styles.chatText}>
                 <View style={styles.notificationHeadingRow}>
@@ -359,7 +360,7 @@ export default function MessagesScreen() {
                   </Text>
                   <Text style={styles.timeText}>{relativeTime(conversation.latestMessageAt)}</Text>
                 </View>
-                <Text style={styles.notificationBody} numberOfLines={1}>{notificationPreview(conversation.latestMessage)}</Text>
+                <MarkdownText style={styles.notificationBody} numberOfLines={1}>{notificationPreview(conversation.latestMessage)}</MarkdownText>
               </View>
             </Pressable>
           ))}
@@ -439,7 +440,7 @@ export default function MessagesScreen() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#1A1A1A' },
+  root: { flex: 1, backgroundColor: '#131313' },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingBottom: 10 },
   brand: { flexDirection: 'row', alignItems: 'baseline' },
   brandYellow: { color: '#FFE600', fontFamily: 'LeagueSpartanExtraBold', fontSize: 38, lineHeight: 38 },

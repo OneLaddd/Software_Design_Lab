@@ -4,6 +4,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
 import { ConfirmationModal } from '@/components/confirmation-modal';
+import { RichTextInput } from '@/components/rich-text-input';
+import { MarkdownText } from '@/components/markdown-text';
 import { useFocusEffect } from 'expo-router';
 
 type Dispute = {
@@ -230,7 +232,7 @@ export default function DisputeDetailScreen() {
           <Text style={styles.kicker}>REASON FOR DISPUTE</Text>
           <View style={styles.inset}><Text style={styles.claimText}>{dispute.reason}</Text></View>
           <Text style={styles.kicker}>DETAILED EXPLANATION</Text>
-          <View style={styles.inset}><Text style={styles.claimText}>{dispute.explanation || 'No explanation provided.'}</Text></View>
+          <View style={styles.inset}><MarkdownText style={styles.claimText}>{dispute.explanation || 'No explanation provided.'}</MarkdownText></View>
           <Text style={styles.kicker}>SUBMITTED</Text>
           <Text style={styles.muted}>{date(dispute.created_at)}</Text>
         </View>
@@ -264,7 +266,7 @@ export default function DisputeDetailScreen() {
                 {clientPercent.trim() && Number.isFinite(Number(clientPercent)) && Number(clientPercent) >= 0 && Number(clientPercent) <= 100 && (
                   <Text style={styles.muted}>Commis Team fee {peso(teamFee)} · Client {peso(Math.round(distributable * Number(clientPercent) / 100 * 100) / 100)} · Hunter {peso(distributable - Math.round(distributable * Number(clientPercent) / 100 * 100) / 100)}</Text>
                 )}
-                <TextInput value={resolutionNote} onChangeText={setResolutionNote} placeholder="Resolution note (optional)" placeholderTextColor="#777" multiline style={[styles.percentInput, styles.noteInput]} />
+                <RichTextInput value={resolutionNote} onChangeText={setResolutionNote} maxLength={1000} placeholder="Resolution note (optional)" placeholderTextColor="#777" multiline style={[styles.percentInput, styles.noteInput]} />
                 {button('Confirm Split & Release Escrow', resolveDispute, busy)}
               </>
             )}
@@ -273,7 +275,7 @@ export default function DisputeDetailScreen() {
                 <Text style={styles.splitValue}>Commis Team fee (10%) · {peso(teamFee)}</Text>
                 <Text style={styles.splitValue}>Client {dispute.client_percent}% · {clientAmount == null ? '—' : peso(clientAmount)}</Text>
                 <Text style={styles.splitValue}>Hunter {hunterPercentShown}% · {hunterAmount == null ? '—' : peso(hunterAmount)}</Text>
-                {dispute.resolution_note ? <Text style={styles.muted}>{dispute.resolution_note}</Text> : null}
+                {dispute.resolution_note ? <MarkdownText style={styles.muted}>{dispute.resolution_note}</MarkdownText> : null}
               </View>
             )}
             {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -284,7 +286,7 @@ export default function DisputeDetailScreen() {
             <Text style={styles.heading}>Resolution</Text>
             <Text style={styles.muted}>The Commis Team received a 10% service fee ({peso(teamFee)}).</Text>
             <Text style={styles.muted}>Client receives {dispute.client_percent}% ({clientAmount == null ? '—' : peso(clientAmount)}); hunter receives {hunterPercentShown}% ({hunterAmount == null ? '—' : peso(hunterAmount)}).</Text>
-            {dispute.resolution_note ? <Text style={styles.muted}>{dispute.resolution_note}</Text> : null}
+            {dispute.resolution_note ? <MarkdownText style={styles.muted}>{dispute.resolution_note}</MarkdownText> : null}
           </View>
         )}
         {error && !isAdmin ? <Text style={styles.error}>{error}</Text> : null}

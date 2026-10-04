@@ -12,6 +12,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import Svg, { Circle, Path } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
+import { RichTextInput } from '@/components/rich-text-input';
+import { MarkdownText } from '@/components/markdown-text';
 
 interface CategoryRow {
   id: string;
@@ -415,7 +417,7 @@ export default function PostBountyScreen() {
               {description.length.toLocaleString()} / {MAX_DESCRIPTION_LENGTH.toLocaleString()}
             </Text>
           </View>
-          <TextInput
+          <RichTextInput
             value={description}
             onChangeText={setDescription}
             onBlur={() => setDescriptionTouched(true)}
@@ -588,9 +590,9 @@ export default function PostBountyScreen() {
               </Text>
               <Text style={styles.estimatedTotal}>Estimated Total</Text>
             </View>
-            <Text style={styles.previewDescription} numberOfLines={2}>
+            <MarkdownText style={styles.previewDescription} numberOfLines={2}>
               {description.trim() || 'No description provided yet.'}
-            </Text>
+            </MarkdownText>
             <View style={styles.previewChips}>
               {selectedCategories.map((category) => (
                 <Text key={category.id} style={styles.previewChip}>

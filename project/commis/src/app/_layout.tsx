@@ -1,6 +1,6 @@
-import { Slot } from 'expo-router';
+import { Slot, usePathname, useRouter } from 'expo-router';
 import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { supabase } from '../lib/supabase';
 
@@ -16,14 +16,41 @@ const fontAssets = {
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts(fontAssets);
+  const pathname = usePathname();
+  const router = useRouter();
+  const [authReady, setAuthReady] = useState(false);
+  const [hasAccount, setHasAccount] = useState(false);
 
   useEffect(() => {
-    async function testConnection() {
-      const { data, error } = await supabase.from('profiles').select('*');
-      console.log('Supabase test:', data, error);
-    }
-    testConnection();
+    let mounted = true;
+    void supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
+      setHasAccount(Boolean(data.session?.user));
+      setAuthReady(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setHasAccount(Boolean(session?.user));
+      setAuthReady(true);
+    });
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
+
+  useEffect(() => {
+    if (!authReady || hasAccount || pathname === '/no-account' || pathname === '/login' || pathname === '/register' || pathname === '/google-profile' || pathname === '/auth/callback') return;
+    const privateRoots = [
+      '/funds', '/messages', '/commissions', '/marked-bounties', '/post-bounty',
+      '/manage-bids', '/disputes', '/liked-posts', '/joined-communities',
+      '/profile/edit', '/profile/invite', '/profile/portfolio/add',
+      '/posts/create', '/posts/edit',
+    ];
+    const privatePath = pathname === '/profile' || privateRoots.some((root) => pathname === root || pathname.startsWith(`${root}/`));
+    if (privatePath) {
+      router.replace({ pathname: '/no-account', params: { required: '1', action: 'access this feature' } } as any);
+    }
+  }, [authReady, hasAccount, pathname, router]);
 
   if (!fontsLoaded) return null;
 
