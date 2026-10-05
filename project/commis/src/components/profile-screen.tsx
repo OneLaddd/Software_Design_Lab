@@ -48,7 +48,19 @@ export function ProfileScreen({ own = false }: { own?: boolean }) {
     if (!targetId) { setProfile(null); setLoading(false); if (own) setError('Sign in to view your profile.'); return; }
     const { data: userProfile, error: profileError } = await supabase.from('profiles').select('id, username, avatar_url, bio, active_role, created_at, hunter_rating, hunter_rating_count, client_rating, client_rating_count').eq('id', targetId).maybeSingle();
     if (profileError || !userProfile) { setError(profileError?.message ?? 'Profile not found.'); setLoading(false); return; }
-    setProfile(userProfile as Profile);
+    let visibleProfile = userProfile as Profile;
+    const authMetadata = user?.user_metadata ?? {};
+    const providers = user?.app_metadata?.providers as string[] | undefined;
+    const isGoogleAccount = user?.app_metadata?.provider === 'google' || providers?.includes('google');
+    const googleAvatar = authMetadata.avatar_url ?? authMetadata.picture;
+    if (own && isGoogleAccount && !visibleProfile.avatar_url && typeof googleAvatar === 'string' && googleAvatar) {
+      const { error: avatarSaveError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: googleAvatar })
+        .eq('id', user!.id);
+      if (!avatarSaveError) visibleProfile = { ...visibleProfile, avatar_url: googleAvatar };
+    }
+    setProfile(visibleProfile);
     const [portfolioResult, postsResult, commissionResult, reviewResult] = await Promise.all([
       supabase.from('portfolio_entries').select('id, title, subtitle, description, skills, project_url, category_id, image_url, created_at').eq('user_id', targetId).order('created_at', { ascending: false }),
       supabase.from('posts').select('id, title, body, media_url, created_at').eq('author_id', targetId).order('created_at', { ascending: false }),

@@ -36,7 +36,7 @@ export default function GoogleAuthCallbackScreen() {
       const hasRole = profile?.active_role === 'client' || profile?.active_role === 'hunter';
 
       if (hasUsername && hasRole) {
-        router.replace('/marketplace' as any);
+        router.replace((profile?.active_role === 'hunter' ? '/home' : '/marketplace') as any);
       } else {
         router.replace('/google-profile');
       }

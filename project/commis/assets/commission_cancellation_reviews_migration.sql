@@ -1,6 +1,7 @@
 -- Apply after dispute_attachments_migration.sql and commission_platform_fee_migration.sql.
 -- Cancellation is permitted only before escrow is locked. Reviews are mutual,
--- one per participant, after cancellation, normal completion, or dispute resolution.
+-- Both participants may review completed commissions. After cancellation,
+-- only the Hunter may review the Client.
 
 alter table public.orders
   add column if not exists cancelled_at timestamptz,
@@ -258,8 +259,11 @@ begin
 
   select client_id, hunter_id, status into v_client_id, v_hunter_id, v_status
   from public.orders where id = p_order_id;
-  if not found or v_status not in ('completed', 'cancelled') then
-    raise exception 'Reviews are available after completion, dispute resolution, or pre-escrow cancellation';
+  if not found or not (
+    v_status = 'completed'
+    or (v_status = 'cancelled' and auth.uid() = v_hunter_id)
+  ) then
+    raise exception 'Clients can review only completed commissions; Hunters may also review a cancelled commission';
   end if;
 
   if auth.uid() = v_client_id then
@@ -281,20 +285,26 @@ end $$;
 revoke all on function public.submit_order_review(uuid, smallint, text) from public;
 grant execute on function public.submit_order_review(uuid, smallint, text) to authenticated;
 
--- Trigger once when a commission first reaches a final outcome, regardless of
--- whether it completed normally, was resolved from a dispute, or was cancelled.
+-- Completed commissions invite both participants; cancelled commissions invite
+-- only the Hunter, who may review the Client.
 create or replace function public.notify_order_reviews_after_outcome()
 returns trigger
 language plpgsql
 security definer set search_path = ''
 as $$
 begin
-  insert into public.notifications (user_id, type, title, body, related_id)
-  values
-    (new.client_id, 'review_requested', 'Rate your Hunter',
-      'Share a star rating and optional written review of your experience with this Hunter.', new.id),
-    (new.hunter_id, 'review_requested', 'Rate your Client',
-      'Share a star rating and optional written review of your experience with this Client.', new.id);
+  if new.status = 'completed' then
+    insert into public.notifications (user_id, type, title, body, related_id)
+    values
+      (new.client_id, 'review_requested', 'Rate your Hunter',
+        'Share a star rating and optional written review of your experience with this Hunter.', new.id),
+      (new.hunter_id, 'review_requested', 'Rate your Client',
+        'Share a star rating and optional written review of your experience with this Client.', new.id);
+  elsif new.status = 'cancelled' then
+    insert into public.notifications (user_id, type, title, body, related_id)
+    values (new.hunter_id, 'review_requested', 'Rate your Client',
+      'The commission was cancelled before escrow was locked. You may share a rating and optional review of the Client.', new.id);
+  end if;
   return new;
 end $$;
 

@@ -23,6 +23,7 @@ interface NotificationRow {
   counterpartyRole?: 'Client' | 'Hunter';
   requestTitle?: string | null;
   orderAmount?: number | null;
+  commissionId?: string | null;
 }
 
 interface OrderRow {
@@ -126,10 +127,27 @@ export default function MessagesScreen() {
       setNotificationError('Notifications could not be loaded. Check your database permissions and try again.');
     }
     const notificationRows = (notificationResult.data ?? []) as NotificationRow[];
-    const orderNotificationRows = notificationRows.filter((item) =>
-      item.type === 'bid_accepted_client' || item.type === 'bid_accepted_hunter' || item.type === 'bid_accepted'
+    const commissionNotificationRows = notificationRows.filter((item) =>
+      item.type.startsWith('bid_accepted_') ||
+      item.type === 'bid_accepted' ||
+      item.type.startsWith('commission_') ||
+      item.type === 'review_requested'
     );
-    const orderIds = [...new Set(orderNotificationRows.map((item) => item.related_id).filter((id): id is string => Boolean(id)))];
+    const disputeNotificationRows = notificationRows.filter((item) => item.type.startsWith('dispute_'));
+    const disputeIds = [...new Set(disputeNotificationRows.map((item) => item.related_id).filter((id): id is string => Boolean(id)))];
+    const disputeOrderIds = new Map<string, string>();
+    if (disputeIds.length) {
+      const { data: disputes, error: disputesError } = await supabase
+        .from('disputes')
+        .select('id, order_id')
+        .in('id', disputeIds);
+      if (disputesError) console.warn('Failed to load notification disputes:', disputesError);
+      for (const dispute of disputes ?? []) disputeOrderIds.set(dispute.id, dispute.order_id);
+    }
+    const orderIds = [...new Set([
+      ...commissionNotificationRows.map((item) => item.related_id).filter((id): id is string => Boolean(id)),
+      ...disputeOrderIds.values(),
+    ])];
 
     let enrichedNotifications = notificationRows;
     if (orderIds.length) {
@@ -165,14 +183,17 @@ export default function MessagesScreen() {
       const titlesById = new Map(((requestResult.data ?? []) as { id: string; title: string }[]).map((request) => [request.id, request.title]));
 
       enrichedNotifications = notificationRows.map((notification) => {
-        if (!orderNotificationRows.some((row) => row.id === notification.id)) return notification;
-        const order = notification.related_id ? ordersById.get(notification.related_id) : undefined;
-        if (!order) return notification;
+        const commissionId = notification.type.startsWith('dispute_')
+          ? (notification.related_id ? disputeOrderIds.get(notification.related_id) : undefined)
+          : commissionNotificationRows.some((row) => row.id === notification.id) ? notification.related_id : undefined;
+        const order = commissionId ? ordersById.get(commissionId) : undefined;
+        if (!order) return commissionId ? { ...notification, commissionId } : notification;
 
         const viewerIsClient = user.id === order.client_id;
         const counterpartyId = viewerIsClient ? order.hunter_id : order.client_id;
         return {
           ...notification,
+          commissionId: order.id,
           counterparty: profilesById.get(counterpartyId) ?? null,
           counterpartyRole: viewerIsClient ? 'Hunter' : 'Client',
           requestTitle: order.request_id ? titlesById.get(order.request_id) ?? null : null,
@@ -253,10 +274,13 @@ export default function MessagesScreen() {
   );
 
   const openNotification = (notification: NotificationRow) => {
-    if (notification.type === 'bid_accepted_client' || notification.type === 'bid_accepted_hunter' || notification.type === 'bid_accepted') {
-      return;
-    }
     setSelectedNotification(notification);
+  };
+
+  const openCommission = (notification: NotificationRow) => {
+    if (!notification.commissionId) return;
+    setSelectedNotification(null);
+    router.push({ pathname: '/commissions/[id]', params: { id: notification.commissionId } } as any);
   };
 
   const displayedCounterpartyRating = (notification: NotificationRow) => {
@@ -344,6 +368,11 @@ export default function MessagesScreen() {
                     )}
                   </Pressable>
                 ) : null}
+                {notification.commissionId ? (
+                  <Pressable onPress={() => openCommission(notification)} style={styles.commissionLink} accessibilityRole="button">
+                    <Text style={styles.commissionLinkText}>View Commission</Text>
+                  </Pressable>
+                ) : null}
               </View>
             );
           }) : <Text style={styles.emptyTabText}>No notifications yet.</Text>}
@@ -417,6 +446,11 @@ export default function MessagesScreen() {
                   <Text style={styles.disputeActionText}>Write a Review</Text>
                 </Pressable>
               ) : null}
+              {selectedNotification.commissionId ? (
+                <Pressable onPress={() => openCommission(selectedNotification)} style={styles.disputeAction} accessibilityRole="button">
+                  <Text style={styles.disputeActionText}>View Commission</Text>
+                </Pressable>
+              ) : null}
               {selectedNotification.type.startsWith('dispute_') && selectedNotification.related_id ? (
                 <Pressable
                   onPress={() => {
@@ -476,6 +510,8 @@ const styles = StyleSheet.create({
   counterpartyMeta: { color: '#A6A6AB', fontFamily: 'Roboto', fontSize: 10 },
   profileLink: { paddingHorizontal: 9, paddingVertical: 7, borderRadius: 8, backgroundColor: '#2A2A2A' },
   profileLinkText: { color: '#FFE600', fontFamily: 'RobotoExtraBold', fontSize: 10 },
+  commissionLink: { alignSelf: 'flex-start', marginLeft: 56, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8, backgroundColor: '#25251B' },
+  commissionLinkText: { color: '#FFE600', fontFamily: 'RobotoExtraBold', fontSize: 11 },
   chatRow: { minHeight: 70, flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12 },
   chatAvatar: { borderWidth: 1, borderColor: '#3A3A3A' },
   chatText: { flex: 1, minWidth: 0 },

@@ -449,10 +449,13 @@ create policy "order participants leave reviews" on reviews for insert
     auth.uid() = reviewer_id
     and exists(
       select 1 from orders o where o.id = order_id
-        and o.status in ('completed', 'cancelled')
         and (
-          (o.client_id = auth.uid() and reviewee_id = o.hunter_id and reviewed_role = 'hunter')
-          or (o.hunter_id = auth.uid() and reviewee_id = o.client_id and reviewed_role = 'client')
+          (o.status = 'completed' and (
+            (o.client_id = auth.uid() and reviewee_id = o.hunter_id and reviewed_role = 'hunter')
+            or (o.hunter_id = auth.uid() and reviewee_id = o.client_id and reviewed_role = 'client')
+          ))
+          or (o.status = 'cancelled' and o.hunter_id = auth.uid()
+            and reviewee_id = o.client_id and reviewed_role = 'client')
         )
     )
   );

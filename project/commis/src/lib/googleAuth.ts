@@ -1,8 +1,11 @@
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
+import { Platform } from 'react-native';
 import { supabase } from './supabase';
 
 WebBrowser.maybeCompleteAuthSession();
+
+const NATIVE_AUTH_REDIRECT = 'commis://auth/callback';
 
 interface GoogleSignInResult {
   error: Error | null;
@@ -10,7 +13,11 @@ interface GoogleSignInResult {
 }
 
 export async function signInWithGoogle() {
-  const redirectTo = Linking.createURL('auth/callback');
+  // Use the registered app scheme on native so the callback survives changing
+  // Metro IPs. The web build still returns to its current web origin.
+  const redirectTo = Platform.OS === 'web'
+    ? Linking.createURL('auth/callback')
+    : NATIVE_AUTH_REDIRECT;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
@@ -48,5 +55,37 @@ export async function signInWithGoogle() {
     return { error: sessionError, cancelled: false } satisfies GoogleSignInResult;
   }
 
+  const signedInUser = sessionData.user;
+  const googleAvatar = signedInUser?.user_metadata?.avatar_url ?? signedInUser?.user_metadata?.picture;
+  if (signedInUser && typeof googleAvatar === 'string' && googleAvatar.length > 0) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('avatar_url')
+      .eq('id', signedInUser.id)
+      .maybeSingle();
+    // Populate missing Google photos but preserve a profile photo the user chose.
+    if (!profile?.avatar_url) {
+      await supabase.from('profiles').update({ avatar_url: googleAvatar }).eq('id', signedInUser.id);
+    }
+  }
+
   return { error: null, cancelled: false } satisfies GoogleSignInResult;
+}
+
+export async function getSignInDestination(): Promise<'/home' | '/marketplace' | '/google-profile'> {
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) throw userError ?? new Error('Google sign-in session was not found.');
+
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('username, active_role')
+    .eq('id', user.id)
+    .maybeSingle();
+  if (profileError) throw profileError;
+
+  const hasUsername = typeof profile?.username === 'string' && profile.username.length > 0;
+  if (!hasUsername || (profile?.active_role !== 'client' && profile?.active_role !== 'hunter')) {
+    return '/google-profile';
+  }
+  return profile.active_role === 'hunter' ? '/home' : '/marketplace';
 }

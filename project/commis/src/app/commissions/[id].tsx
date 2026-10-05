@@ -180,6 +180,7 @@ export default function CommissionDetailScreen() {
   const orderId = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const [userId, setUserId] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewRating, setReviewRating] = useState(0);
@@ -214,6 +215,7 @@ export default function CommissionDetailScreen() {
 
     setIsLoading(true);
     setErrorMessage('');
+    setIsAdmin(false);
 
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) {
@@ -223,6 +225,14 @@ export default function CommissionDetailScreen() {
     }
 
     setUserId(auth.user.id);
+
+    const { data: profileAccess } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', auth.user.id)
+      .maybeSingle();
+    const adminAccess = profileAccess?.is_admin === true;
+    setIsAdmin(adminAccess);
 
     const { data: orderData, error: orderError } = await supabase
       .from('orders')
@@ -238,7 +248,11 @@ export default function CommissionDetailScreen() {
       return;
     }
 
-    if (orderData.client_id !== auth.user.id && orderData.hunter_id !== auth.user.id) {
+    if (
+      orderData.client_id !== auth.user.id &&
+      orderData.hunter_id !== auth.user.id &&
+      !adminAccess
+    ) {
       setErrorMessage('You do not have access to this commission.');
       setIsLoading(false);
       return;
@@ -314,8 +328,10 @@ export default function CommissionDetailScreen() {
   }
 
   const isClient = order.client_id === userId;
-  const counterpart = isClient ? hunter : client;
-  const userRole = isClient ? 'Client' : 'Hunter';
+  const isHunter = order.hunter_id === userId;
+  const isParticipant = isClient || isHunter;
+  const counterpart = isClient ? hunter : isHunter ? client : null;
+  const userRole = isAdmin && !isParticipant ? 'Admin' : isClient ? 'Client' : 'Hunter';
   const currentStatus = order.status;
   const progressIndex =
     currentStatus === 'disputed' ? -1 : ORDER_STATES.indexOf(currentStatus);
@@ -786,7 +802,7 @@ export default function CommissionDetailScreen() {
         </View>
         <Text style={styles.deliverableLink}>Open</Text>
       </Pressable>
-      {currentStatus === 'in_progress' && !isClient && (
+      {currentStatus === 'in_progress' && isHunter && (
         <Pressable onPress={() => removeDeliverable(deliverable)} disabled={isBusy}>
           <Text style={styles.removeFile}>Remove</Text>
         </Pressable>
@@ -809,7 +825,7 @@ export default function CommissionDetailScreen() {
           keyboardShouldPersistTaps="handled"
           onContentSizeChange={() => {
             const shouldOpenReview = Array.isArray(params.review) ? params.review[0] === '1' : params.review === '1';
-            if (shouldOpenReview && ['completed', 'cancelled'].includes(order.status)) {
+            if (shouldOpenReview && isParticipant && (order.status === 'completed' || (order.status === 'cancelled' && isHunter))) {
               scrollViewRef.current?.scrollToEnd({ animated: true });
             }
           }}>
@@ -820,7 +836,9 @@ export default function CommissionDetailScreen() {
           <View style={styles.summaryHeader}>
             <View style={styles.summaryIdentity}>
               <Text style={styles.counterpartyName}>
-                @{counterpart?.username || 'user'} · {isClient ? 'Hunter' : 'Client'}
+                {isParticipant
+                  ? `@${counterpart?.username || 'user'} · ${isClient ? 'Hunter' : 'Client'}`
+                  : 'Commission participants'}
               </Text>
               <Text style={styles.mutedText}>
                 Created {new Date(order.created_at).toLocaleDateString()}
@@ -939,30 +957,34 @@ export default function CommissionDetailScreen() {
 
         <View style={styles.panel}>
           <Text style={styles.sectionTitle}>
-            {currentStatus === 'in_progress' && !isClient
+            {currentStatus === 'in_progress' && isHunter
               ? 'Deliver Work'
               : currentStatus === 'delivered'
                 ? 'Delivery'
                 : 'Actions'}
           </Text>
 
+          {isAdmin && !isParticipant && (
+            <Text style={styles.mutedText}>You are viewing this commission as an admin. Participant actions are unavailable here.</Text>
+          )}
+
           {currentStatus === 'created' && isClient &&
             renderButton('Lock Escrow', openEscrowSheet)}
           {currentStatus === 'created' && isClient && renderButton('Cancel Commission', () => setConfirmation({
             title: 'Cancel this commission?',
-            message: 'This only works before escrow is locked. The request will reopen for new bids, the Hunter will be notified, and both of you will be invited to review each other. The Hunter can rate the experience, which may affect your Client rating.',
+            message: 'This only works before escrow is locked. The request will reopen for new bids and the Hunter will be notified. After cancellation, the Hunter may review the Client, but the Client cannot review the Hunter.',
             confirmLabel: 'Cancel Commission',
             onConfirm: () => {
               setConfirmation(null);
               void cancelCommission();
             },
           }), true)}
-          {currentStatus === 'escrow_locked' && !isClient &&
+          {currentStatus === 'escrow_locked' && isHunter &&
             renderButton('Start Work', () =>
               callOrderAction('start_work', { p_order_id: order.id }),
             )}
 
-          {currentStatus === 'in_progress' && !isClient && (
+          {currentStatus === 'in_progress' && isHunter && (
             <>
               <Text style={styles.mutedText}>
                 Upload project files or hand over assets to the client for inspection.
@@ -1042,7 +1064,7 @@ export default function CommissionDetailScreen() {
                   },
                 }))}
 
-              {!isClient && (
+              {isHunter && (
                 <Text style={styles.mutedText}>
                   The client has 72 hours to review. Escrow releases automatically if no dispute is
                   filed.
@@ -1066,7 +1088,7 @@ export default function CommissionDetailScreen() {
           {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
         </View>
 
-        {['completed', 'cancelled'].includes(currentStatus) && (
+        {isParticipant && ['completed', 'cancelled'].includes(currentStatus) && (
           <View style={styles.panel}>
             <Text style={styles.sectionTitle}>Reviews</Text>
             {(() => {
@@ -1080,6 +1102,8 @@ export default function CommissionDetailScreen() {
                       <Text style={styles.reviewStars}>{'★'.repeat(myReview.rating)}{'☆'.repeat(5 - myReview.rating)}</Text>
                       {myReview.comment ? <MarkdownText style={styles.mutedText}>{myReview.comment}</MarkdownText> : null}
                     </View>
+              ) : currentStatus === 'cancelled' && isClient ? (
+                    <Text style={styles.mutedText}>Clients can’t review Hunters for cancelled commissions.</Text>
                   ) : (
                     <>
                       <Text style={styles.mutedText}>Rate @{counterpart?.username || (isClient ? 'the Hunter' : 'the Client')} for this commission. Your rating updates their {isClient ? 'Hunter' : 'Client'} profile score.</Text>

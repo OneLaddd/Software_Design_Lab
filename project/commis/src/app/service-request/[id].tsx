@@ -937,7 +937,7 @@ const styles = StyleSheet.create({
   bidAmount: { color: '#FFFFFF', fontFamily: 'LeagueSpartanExtraBold', fontSize: 21 },
   bidCurrency: { color: '#A6A6AB', fontFamily: 'RobotoExtraBold', fontSize: 10 },
   editBidButton: { width: 30, height: 30, alignItems: 'center', justifyContent: 'center', marginTop: 3, borderRadius: 8, backgroundColor: '#353534' },
-  bidMessage: { padding: 12, borderRadius: 11, borderWidth: 1, borderColor: 'rgba(255,255,255,0.04)', backgroundColor: '#232222', color: '#D0CECF', fontFamily: 'Roboto', fontSize: 13, lineHeight: 20 },
+  bidMessage: { height: 84, overflow: 'hidden', padding: 12, borderRadius: 11, borderWidth: 1, borderColor: 'rgba(255,255,255,0.04)', backgroundColor: '#232222', color: '#D0CECF', fontFamily: 'Roboto', fontSize: 13, lineHeight: 20 },
   bidNoMessage: { color: '#A6A6AB', fontFamily: 'Roboto', fontSize: 12, fontStyle: 'italic' },
   modalBackdrop: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.68)' },
   bidModal: { paddingHorizontal: 22, paddingTop: 12, gap: 10, borderTopLeftRadius: 22, borderTopRightRadius: 22, backgroundColor: '#1C1B1B' },

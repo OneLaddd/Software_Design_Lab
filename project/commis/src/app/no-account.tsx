@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { signInWithGoogle } from '../lib/googleAuth';
+import { getSignInDestination, signInWithGoogle } from '../lib/googleAuth';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -43,7 +43,7 @@ export default function NoAccountScreen() {
         currentUser &&
         (currentUser.app_metadata?.provider === 'google' || providers?.includes('google'))
       ) {
-        router.replace('/google-profile');
+        router.replace(await getSignInDestination() as any);
         return;
       }
 
@@ -51,6 +51,8 @@ export default function NoAccountScreen() {
       if (cancelled) return;
       if (error) {
         setGoogleError(error.message || 'Google sign-in failed. Try again');
+      } else {
+        router.replace(await getSignInDestination() as any);
       }
     } catch (error) {
       setGoogleError(error instanceof Error ? error.message : 'Google sign-in failed. Try again');

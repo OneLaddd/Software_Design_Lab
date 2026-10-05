@@ -45,6 +45,12 @@ export function RichTextInput({ value, onChangeText, toolbarStyle, buttonColor =
   };
 
   return <View style={styles.container}>
+    <View style={[styles.toolbar, toolbarStyle]}>
+      <Pressable onPress={() => format('bold')} style={styles.button} accessibilityRole="button" accessibilityLabel="Bold"><Text style={[styles.bold, { color: buttonColor }]}>B</Text></Pressable>
+      <Pressable onPress={() => format('italic')} style={styles.button} accessibilityRole="button" accessibilityLabel="Italic"><Text style={[styles.italic, { color: buttonColor }]}>I</Text></Pressable>
+      <Pressable onPress={() => format('link')} style={styles.button} accessibilityRole="button" accessibilityLabel="Insert link"><LinkIcon size={16} color={buttonColor} /></Pressable>
+      <Pressable onPress={() => format('list')} style={styles.button} accessibilityRole="button" accessibilityLabel="Insert list"><List size={17} color={buttonColor} /></Pressable>
+    </View>
     <TextInput
       {...inputProps}
       ref={inputRef}
@@ -53,12 +59,6 @@ export function RichTextInput({ value, onChangeText, toolbarStyle, buttonColor =
       selection={selection}
       onSelectionChange={(event) => setSelection(event.nativeEvent.selection)}
     />
-    <View style={[styles.toolbar, toolbarStyle]}>
-      <Pressable onPress={() => format('bold')} style={styles.button} accessibilityRole="button" accessibilityLabel="Bold"><Text style={[styles.bold, { color: buttonColor }]}>B</Text></Pressable>
-      <Pressable onPress={() => format('italic')} style={styles.button} accessibilityRole="button" accessibilityLabel="Italic"><Text style={[styles.italic, { color: buttonColor }]}>I</Text></Pressable>
-      <Pressable onPress={() => format('link')} style={styles.button} accessibilityRole="button" accessibilityLabel="Insert link"><LinkIcon size={16} color={buttonColor} /></Pressable>
-      <Pressable onPress={() => format('list')} style={styles.button} accessibilityRole="button" accessibilityLabel="Insert list"><List size={17} color={buttonColor} /></Pressable>
-    </View>
   </View>;
 }
 

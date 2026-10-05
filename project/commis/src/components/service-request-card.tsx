@@ -74,59 +74,61 @@ export function ServiceRequestCard({
   onAction,
 }: ServiceRequestCardProps) {
   return (
-    <Pressable
-      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={request.title}>
-      <View style={styles.titleRow}>
-        <Text style={styles.cardTitle} numberOfLines={2}>{request.title}</Text>
-        {onAction ? (
-          <Pressable
-            onPress={(event) => { event.stopPropagation(); onAction(); }}
-            disabled={actionDisabled}
-            style={[styles.actionButton, actionDisabled && styles.actionButtonDisabled]}
-            accessibilityRole="button">
-            <Text style={[styles.actionButtonText, actionDisabled && styles.actionButtonTextDisabled]}>{actionDisabled ? disabledActionLabel ?? 'Invited' : actionLabel ?? 'Invite'}</Text>
-          </Pressable>
-        ) : onToggleSaved ? (
-          <Pressable
-            onPress={(event) => {
-              event.stopPropagation();
-              onToggleSaved();
-            }}
-            style={styles.saveButton}
-            accessibilityRole="button"
-            accessibilityLabel={isSaved ? 'Remove from marked bounties' : 'Mark bounty'}>
-            <SymbolView
-              name={{ ios: isSaved ? 'bookmark.fill' : 'bookmark', android: isSaved ? 'bookmark' : 'bookmark_border', web: isSaved ? 'bookmark' : 'bookmark_border' }}
-              size={21}
-              tintColor={isSaved ? '#FFE600' : '#A6A6AB'}
-            />
-          </Pressable>
-        ) : null}
-      </View>
-      <Text style={styles.cardBudget}>{formatBudget(request.budget_min, request.budget_max)}</Text>
-      <View style={styles.bidStatsRow}>
-        <Text style={styles.bidStatsText}>{bidCount} {bidCount === 1 ? 'Bid' : 'Bids'}</Text>
-        <Text style={styles.bidStatsText}>•</Text>
-        <Text style={styles.bidStatsText}>₱{averageBid.toLocaleString()} PHP Average Bid</Text>
-      </View>
-      <MarkdownText style={styles.cardDescription} numberOfLines={2}>{request.description}</MarkdownText>
-      <View style={styles.cardFooter}>
-        <Text style={styles.categoryTags} numberOfLines={1}>{formatCategoryTags(request.request_categories)}</Text>
-        <Text style={styles.relativeTime}>{formatRelativeTime(request.created_at)}</Text>
-      </View>
-    </Pressable>
+    <View style={styles.card}>
+      <Pressable
+        style={({ pressed }) => [styles.cardContent, pressed && styles.cardPressed]}
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={request.title}>
+        <View style={[styles.titleRow, (onAction || onToggleSaved) && styles.titleRowWithAction]}>
+          <Text style={styles.cardTitle} numberOfLines={2}>{request.title}</Text>
+        </View>
+        <Text style={styles.cardBudget}>{formatBudget(request.budget_min, request.budget_max)}</Text>
+        <View style={styles.bidStatsRow}>
+          <Text style={styles.bidStatsText}>{bidCount} {bidCount === 1 ? 'Bid' : 'Bids'}</Text>
+          <Text style={styles.bidStatsText}>•</Text>
+          <Text style={styles.bidStatsText}>₱{averageBid.toLocaleString()} PHP Average Bid</Text>
+        </View>
+        <MarkdownText style={styles.cardDescription} numberOfLines={2}>{request.description}</MarkdownText>
+        <View style={styles.cardFooter}>
+          <Text style={styles.categoryTags} numberOfLines={1}>{formatCategoryTags(request.request_categories)}</Text>
+          <Text style={styles.relativeTime}>{formatRelativeTime(request.created_at)}</Text>
+        </View>
+      </Pressable>
+      {onAction ? (
+        <Pressable
+          onPress={onAction}
+          disabled={actionDisabled}
+          style={[styles.actionButton, styles.topAction, actionDisabled && styles.actionButtonDisabled]}
+          accessibilityRole="button">
+          <Text style={[styles.actionButtonText, actionDisabled && styles.actionButtonTextDisabled]}>{actionDisabled ? disabledActionLabel ?? 'Invited' : actionLabel ?? 'Invite'}</Text>
+        </Pressable>
+      ) : onToggleSaved ? (
+        <Pressable
+          onPress={onToggleSaved}
+          style={[styles.saveButton, styles.topAction]}
+          accessibilityRole="button"
+          accessibilityLabel={isSaved ? 'Remove from marked bounties' : 'Mark bounty'}>
+          <SymbolView
+            name={{ ios: isSaved ? 'bookmark.fill' : 'bookmark', android: isSaved ? 'bookmark' : 'bookmark_border', web: isSaved ? 'bookmark' : 'bookmark_border' }}
+            size={21}
+            tintColor={isSaved ? '#FFE600' : '#A6A6AB'}
+          />
+        </Pressable>
+      ) : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: '#262626', gap: 5 },
+  card: { position: 'relative', paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: '#262626' },
+  cardContent: { gap: 5 },
   cardPressed: { backgroundColor: 'rgba(255, 255, 255, 0.03)' },
   titleRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 8 },
+  titleRowWithAction: { paddingRight: 42 },
   cardTitle: { flex: 1, color: '#FFFFFF', fontSize: 15, fontWeight: '600', lineHeight: 20, letterSpacing: -0.2 },
   saveButton: { width: 30, height: 30, alignItems: 'center', justifyContent: 'center', marginTop: -5, marginRight: -5, borderRadius: 15 },
+  topAction: { position: 'absolute', top: 11, right: 0 },
   actionButton: { minWidth: 68, minHeight: 32, paddingHorizontal: 12, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: '#FFE600' },
   actionButtonDisabled: { backgroundColor: '#302F1C' },
   actionButtonText: { color: '#201C00', fontSize: 11, fontWeight: '700' },

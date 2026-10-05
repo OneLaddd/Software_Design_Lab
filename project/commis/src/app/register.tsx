@@ -12,7 +12,7 @@ import {
 import Svg, { Path } from 'react-native-svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../lib/supabase';
-import { signInWithGoogle } from '../lib/googleAuth';
+import { getSignInDestination, signInWithGoogle } from '../lib/googleAuth';
 
 const YELLOW = '#FFF000';
 const BACKGROUND = '#302F2D';
@@ -119,7 +119,11 @@ export default function RegisterScreen() {
       return;
     }
 
-    // The auth callback route completes profile-based navigation after the session is set.
+    try {
+      router.replace(await getSignInDestination() as any);
+    } catch (routeError) {
+      setSubmitError(routeError instanceof Error ? routeError.message : 'Could not finish Google sign-in.');
+    }
   };
 
   return (

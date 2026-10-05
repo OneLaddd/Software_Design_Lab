@@ -2,6 +2,8 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -10,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../lib/supabase';
 
 const YELLOW = '#FDE400';
@@ -33,6 +35,7 @@ function suggestUsername(name: string) {
 
 export default function GoogleProfileScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [role, setRole] = useState<Role>('hunter');
   const [username, setUsername] = useState('');
   const [userId, setUserId] = useState('');
@@ -112,7 +115,7 @@ export default function GoogleProfileScreen() {
 
     const { error } = await supabase
       .from('profiles')
-      .update({ username: username.trim(), active_role: role })
+      .update({ username: username.trim(), active_role: role, avatar_url: avatarUrl || null })
       .eq('id', user.id);
 
     setIsSubmitting(false);
@@ -127,18 +130,21 @@ export default function GoogleProfileScreen() {
       return;
     }
 
-    router.replace({
-      pathname: '/login',
-      params: { google: '1', email: user.email ?? '' },
-    });
+    // Google OAuth already established a Supabase session; continue directly
+    // into the app instead of asking the new user to sign in a second time.
+    router.replace(role === 'hunter' ? '/home' as any : '/marketplace' as any);
   };
 
   return (
-    <View style={styles.root}>
+    <KeyboardAvoidingView
+      style={styles.root}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}>
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}>
           <View style={styles.profileHeader}>
             <View style={styles.avatarGlow} />
@@ -269,7 +275,7 @@ export default function GoogleProfileScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -319,7 +325,7 @@ function GoogleMark() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: BACKGROUND },
   safeArea: { flex: 1 },
-  scrollContent: { flexGrow: 1, paddingHorizontal: 24, paddingTop: 28, paddingBottom: 12 },
+  scrollContent: { flexGrow: 1, paddingHorizontal: 24, paddingTop: 28, paddingBottom: 32 },
   profileHeader: { alignItems: 'center', marginBottom: 28 },
   avatarGlow: { position: 'absolute', top: -15, width: 150, height: 150, borderRadius: 75, backgroundColor: 'rgba(253, 228, 0, 0.12)' },
   avatarFrame: { width: 116, height: 116, borderRadius: 58, padding: 4, backgroundColor: '#1D1D1F', borderWidth: 2, borderColor: '#DEC800', shadowColor: '#FDE400', shadowOpacity: 0.22, shadowRadius: 16, shadowOffset: { width: 0, height: 0 }, elevation: 5 },

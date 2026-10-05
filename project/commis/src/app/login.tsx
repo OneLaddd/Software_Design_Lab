@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Toast } from '@/components/toast';
 import { supabase } from '../lib/supabase';
-import { signInWithGoogle } from '../lib/googleAuth';
+import { getSignInDestination, signInWithGoogle } from '../lib/googleAuth';
 
 const YELLOW = '#FFF000';
 const BACKGROUND = '#302F2D';
@@ -64,9 +64,12 @@ export default function LoginScreen() {
     setPassword('');
     setToastMessage('✔ Login Successful');
     setToastVisible(true);
-    setTimeout(() => {
-      router.replace('/marketplace' as any);
-    }, 400);
+    try {
+      const destination = await getSignInDestination();
+      setTimeout(() => router.replace(destination as any), 400);
+    } catch (routeError) {
+      setPasswordError(routeError instanceof Error ? routeError.message : 'Could not load your profile.');
+    }
   };
 
   const handleGoogleLogin = async () => {
@@ -81,7 +84,11 @@ export default function LoginScreen() {
       return;
     }
 
-    // The auth callback route completes profile-based navigation after the session is set.
+    try {
+      router.replace(await getSignInDestination() as any);
+    } catch (routeError) {
+      setPasswordError(routeError instanceof Error ? routeError.message : 'Could not finish Google sign-in.');
+    }
   };
 
   return (
