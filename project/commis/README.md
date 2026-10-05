@@ -1,56 +1,44 @@
-# Welcome to your Expo app 👋
+# Commis
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Community-Driven Commission Marketplace**
 
-## Get started
+Commis is a mobile-first commission marketplace where users can discover creators, publish requests, place bids, and manage commissions.
 
-1. Install dependencies
+## Features
+- Client and Hunter roles
+- Authentication and profiles
+- Posts, communities, votes, and comments
+- Creator portfolios
+- Service requests, bids, and Hunter invitations
+- Commission tracking and delivery
+- Mock funds, escrow, disputes, and reviews
+- Notifications and messaging
+- Search and saved/liked content
 
-   ```bash
-   npm install
-   ```
+## Technology
+- Expo + React Native
+- Supabase Auth
+- Supabase PostgreSQL
+- Supabase Storage
+- Supabase Realtime
 
-2. Start the app
+## Demo
+**Android APK:**  
+https://expo.dev/accounts/davidajon/projects/commis/builds/e67baffd-a76c-4de5-b4ce-2074e4961d5d
 
-   ```bash
-   npx expo start
-   ```
+**Web:**  
+https://commis--ihi797gieb.expo.app
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+## Running Locally
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Configure the Supabase environment variables and apply the provided SQL files to your Supabase project.
 
-### Other setup steps
+## Main Workflow
+Client creates a request → Hunter bids or is invited → Client accepts → Commission begins → Funds/escrow are managed → Hunter delivers → Commission is completed or disputed.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Note
+This is an academic prototype. Payments are simulated, and the web version uses the same mobile-first interface rather than a separate desktop design.
