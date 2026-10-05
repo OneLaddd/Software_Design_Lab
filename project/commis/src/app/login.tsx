@@ -75,7 +75,8 @@ export default function LoginScreen() {
   const handleGoogleLogin = async () => {
     setPasswordError('');
     setIsGoogleSubmitting(true);
-    const { error, cancelled } = await signInWithGoogle();
+    const { error, cancelled, redirecting } = await signInWithGoogle();
+    if (redirecting) return;
     setIsGoogleSubmitting(false);
 
     if (cancelled) return;

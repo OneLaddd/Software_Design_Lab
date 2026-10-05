@@ -47,7 +47,8 @@ export default function NoAccountScreen() {
         return;
       }
 
-      const { error, cancelled } = await signInWithGoogle();
+      const { error, cancelled, redirecting } = await signInWithGoogle();
+      if (redirecting) return;
       if (cancelled) return;
       if (error) {
         setGoogleError(error.message || 'Google sign-in failed. Try again');

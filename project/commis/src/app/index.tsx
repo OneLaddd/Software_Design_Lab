@@ -3,6 +3,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import {
   AppState,
   Image,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -135,7 +136,7 @@ export default function StartPageScreen() {
             Name your bounty.
           </Text>
 
-          <View style={styles.roleSection}>
+          <View style={[styles.roleSection, Platform.OS === 'web' && styles.webRoleSection]}>
             <Text style={styles.prompt}>I am a...</Text>
             <View style={styles.roles}>
               <RoleCard
@@ -264,6 +265,12 @@ const styles = StyleSheet.create({
   },
   roleSection: {
     marginTop: 178,
+  },
+  // The web shell uses the browser's dynamic viewport height. Tighten this
+  // spacer there so the hero logo and tagline don't overflow above the header
+  // on mobile browsers with a short visible viewport.
+  webRoleSection: {
+    marginTop: 90,
   },
   prompt: {
     color: '#FFFFFF',

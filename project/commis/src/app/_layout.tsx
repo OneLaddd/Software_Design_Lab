@@ -68,7 +68,8 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   webViewport: {
     flex: 1,
-    minHeight: '100vh' as any,
+    height: '100dvh' as any,
+    minHeight: '100dvh' as any,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#353535',
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     maxWidth: 360,
-    height: '100vh' as any,
+    height: '100dvh' as any,
     maxHeight: 860,
     overflow: 'hidden',
     backgroundColor: '#131313',

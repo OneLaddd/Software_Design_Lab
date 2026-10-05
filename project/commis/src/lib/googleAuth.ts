@@ -10,22 +10,34 @@ const NATIVE_AUTH_REDIRECT = 'commis://auth/callback';
 interface GoogleSignInResult {
   error: Error | null;
   cancelled: boolean;
+  redirecting?: boolean;
 }
 
 export async function signInWithGoogle() {
+  const isWeb = Platform.OS === 'web';
   // Use the registered app scheme on native so the callback survives changing
   // Metro IPs. The web build still returns to its current web origin.
-  const redirectTo = Platform.OS === 'web'
+  const redirectTo = isWeb
     ? Linking.createURL('auth/callback')
     : NATIVE_AUTH_REDIRECT;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo, skipBrowserRedirect: true },
+    options: {
+      redirectTo,
+      skipBrowserRedirect: true,
+    },
   });
 
   if (error || !data?.url) {
     return { error: error ?? new Error('No auth URL returned'), cancelled: false } satisfies GoogleSignInResult;
+  }
+
+  if (isWeb) {
+    // Use a same-tab redirect. Supabase consumes the returned session at
+    // /auth/callback, which then routes the signed-in user.
+    window.location.assign(data.url);
+    return { error: null, cancelled: false, redirecting: true } satisfies GoogleSignInResult;
   }
 
   const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo, { createTask: false });

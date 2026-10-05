@@ -15,7 +15,9 @@ export const supabase = createClient(
       ...(storage ? { storage } : {}),
       autoRefreshToken: Platform.OS !== 'web' || isBrowser,
       persistSession: true,
-      detectSessionInUrl: false,
+      // On web, Supabase must consume the OAuth callback URL after the browser
+      // returns from Google. Native flows receive tokens through WebBrowser.
+      detectSessionInUrl: Platform.OS === 'web',
     },
   }
 );

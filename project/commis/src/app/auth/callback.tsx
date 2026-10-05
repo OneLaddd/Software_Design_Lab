@@ -13,7 +13,7 @@ export default function GoogleAuthCallbackScreen() {
     let active = true;
 
     const subscription = supabase.auth.onAuthStateChange((event, session) => {
-      if (event !== 'SIGNED_IN' || !session || handledSignIn.current) return;
+      if ((event !== 'SIGNED_IN' && event !== 'INITIAL_SESSION') || !session || handledSignIn.current) return;
       handledSignIn.current = true;
       setTimeout(() => void routeUser(session), 0);
     });
